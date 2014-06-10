@@ -1174,7 +1174,7 @@ public Object transact() throws BasicException {
             setString(1, UUID.randomUUID().toString());
             setString(2, ticket.getId());
             setString(3, pName);
-            setDouble(4, getTotal);
+            setDouble(4, getTotal != null ? getTotal : 0);
             setString(5, ticket.getTransactionID());
             setBytes(6, (byte[]) Formats.BYTEA.parseValue(getRetMsg));
             setDouble(7, getTendered);
@@ -1191,7 +1191,7 @@ public Object transact() throws BasicException {
             getDebtUpdate().exec(new DataParams() {
                 @Override
                 public void writeValues() throws BasicException {
-                    setDouble(1, ticket.getCustomer().getCurdebt());
+                    setDouble(1,(ticket.getCustomer().getCurdebt() != null ? ticket.getCustomer().getCurdebt() : 0));
                     setTimestamp(2, ticket.getCustomer().getCurdate());
                     setString(3, ticket.getCustomer().getId());
             }});
@@ -1257,13 +1257,13 @@ public Object transact() throws BasicException {
                     if ("debt".equals(p.getName()) || "debtpaid".equals(p.getName())) {
 
                         // udate customer fields...
-                        ticket.getCustomer().updateCurDebt(-p.getTotal(), ticket.getDate());
+                        ticket.getCustomer().updateCurDebt((ticket.getCustomer().getCurdebt() != null ? -p.getTotal() : 0), ticket.getDate());
 
                          // save customer fields...
                         getDebtUpdate().exec(new DataParams() {
                         @Override
                         public void writeValues() throws BasicException {
-                            setDouble(1, ticket.getCustomer().getCurdebt());
+                            setDouble(1, (ticket.getCustomer().getCurdebt() != null ? ticket.getCustomer().getCurdebt() : 0));
                             setTimestamp(2, ticket.getCustomer().getCurdate());
                             setString(3, ticket.getCustomer().getId());
                         }});
