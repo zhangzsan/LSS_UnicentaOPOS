@@ -20,7 +20,6 @@ package com.openbravo.pos.payment;
 import com.openbravo.data.loader.LocalRes;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppProperties;
-import com.openbravo.pos.panels.JPleaseWaitPopup;
 import com.openbravo.pos.util.AltEncrypter;
 import java.io.*;
 import java.net.*;
@@ -76,8 +75,8 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             sb.append("&x_market_type=2");
             
 //            sb.append("&x_device_type=1");  // JG 1 Oct 13 - changed from 1 unknown to PC based 5
- //           sb.append("&x_device_type=5"); // PC
-            sb.append("&x_device_type=10");
+            sb.append("&x_device_type=5"); // PC
+           // sb.append("&x_device_type=10");
             
             sb.append("&x_login=");        
             sb.append(URLEncoder.encode(m_sCommerceID, "UTF-8"));
@@ -168,7 +167,7 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                     //Transaction approved
                     payinfo.paymentOK((String) props.get("AuthCode"), (String) props.get("TransID"), returned);
                 } else {
-                    StringBuilder errorLine = new StringBuilder();
+                    /*StringBuilder errorLine = new StringBuilder();
                     //Transaction declined
                     if (anp.getNumErrors()>0) {
                         
@@ -178,14 +177,14 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                             errorLine.append(props.get("ErrorText"+Integer.toString(i)));
                             errorLine.append("\n");
                         }
-                    }
+                    }*/
                    // JOptionPane.showMessageDialog(null, responses[3]);
-                    payinfo.paymentError(props.get("Description") + ": " + props.get("Code"), errorLine.toString());
+                    payinfo.paymentError(props.get("Description") + ": " + props.get("Code"), props.get("Description") + ":" + props.get("Code") + "\n AVS Response: " + getAVSResponseMessage(props.get("AVSResponseCode").toString()));
                 }
             }
             else {
                 //JOptionPane.showMessageDialog(null, responses[3]);
-                payinfo.paymentError(props.get("Description") + ": " + props.get("Code"), props.get("Description") + ": " + props.get("Code"));
+                payinfo.paymentError(props.get("Description") + ": " + props.get("Code"), props.get("Description") + ":" + props.get("Code") + "\n AVS Response: " + getAVSResponseMessage(props.get("AVSResponseCode").toString()));
             }
            
 // JG 16 May 12 use multicatch
@@ -194,6 +193,29 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
         } catch(IOException e){
             payinfo.paymentError(AppLocal.getIntString("message.paymenterror"), e.getMessage());
         }
+    }
+    
+    public static String getAVSResponseMessage(String msg)
+    {
+        char c = msg.charAt(0);
+        
+        switch(c)
+        {
+            case 'A': return "A Address (Street) matches, ZIP does not";
+            case 'B': return "Address information not provided for AVS check";
+            case 'E': return "AVS error";
+            case 'G': return "Non-U.S. Card Issuing Bank";
+            case 'N': return "No Match on Address (Street) or ZIP";
+            case 'P': return "AVS not applicable for this transaction";
+            case 'R': return "System unavailable or timed out";
+            case 'S': return "Service not supported by issuer";
+            case 'U': return "Address information is unavailable";
+            case 'W': return "9 digit ZIP matches, Address (Street) does not";
+            case 'X': return "Address (Street) and 9 digit ZIP match";
+            case 'Y': return "Address (Street) and 5 digit ZIP match";
+            case 'Z': return "5 digit ZIP matches, Address (Street) does not";
+        }
+        return null;
     }
     
     private class AuthorizeNetParser extends DefaultHandler {

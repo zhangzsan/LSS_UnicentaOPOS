@@ -70,7 +70,7 @@ public class JProductFinder extends javax.swing.JDialog {
         jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(35, 35));
 
         //ProductFilter jproductfilter = new ProductFilter(app);
-        ProductFilterSales jproductfilter = new ProductFilterSales(dlSales, m_jKeys);
+        ProductFilterSales jproductfilter = new ProductFilterSales(dlSales, m_jKeys, this);
         jproductfilter.activate();
         m_jProductSelect.add(jproductfilter, BorderLayout.CENTER);
         switch (productsType) {
@@ -295,16 +295,19 @@ public class JProductFinder extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jListProductsValueChanged
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+    public void executeSearch()
+    {
+       
         try {
             jListProducts.setModel(new MyListData(lpr.loadData()));
             if (jListProducts.getModel().getSize() > 0) {
                 jListProducts.setSelectedIndex(0);
             }
         } catch (BasicException e) {
-        }
-        
+        } 
+    }
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        executeSearch();       
     }//GEN-LAST:event_jButton3ActionPerformed
     
     
