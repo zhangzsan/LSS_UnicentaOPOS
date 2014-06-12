@@ -426,7 +426,7 @@ public class PaymentsModel {
     }
     
     public String printBankDeposit(){
-        return Formats.CURRENCY.formatValue(-m_totalBankDeposit);
+        return Formats.CURRENCY.formatValue(m_totalBankDeposit);
     }
 
     /**
