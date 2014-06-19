@@ -1265,8 +1265,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             // Totals() Igual;
             }*/ else if (cTrans == ' ' || cTrans == '=') {
                 if (m_oTicket.getLinesCount() > 0) {
-                    
-                    if (closeTicket(m_oTicket, m_oTicketExt)) {
+                    if(m_oTicket.getCustomer() == null)
+                    {
+                        JOptionPane.showMessageDialog(this, "A customer MUST be selected before closing the sale!");
+                    }
+                    else if (closeTicket(m_oTicket, m_oTicketExt)) {
                         // Ends edition of current receipt
                         m_ticketsbag.deleteTicket();  
                         

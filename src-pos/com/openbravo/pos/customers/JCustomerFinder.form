@@ -154,7 +154,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLblPhone" pref="25" max="32767" attributes="0"/>
+                              <Component id="jLblPhone" max="32767" attributes="0"/>
                               <Component id="m_jtxtPhone" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>

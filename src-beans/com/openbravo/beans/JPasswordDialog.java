@@ -19,6 +19,7 @@
 
 package com.openbravo.beans;
 
+import com.openbravo.editor.JEditorKeys;
 import java.awt.*;
 import javax.swing.*;
 
@@ -59,6 +60,8 @@ public class JPasswordDialog extends javax.swing.JDialog {
         getRootPane().setDefaultButton(jcmdOK);   
         
         m_jpassword.addEditorKeys(m_jKeys);
+        m_jKeys.setMode(JEditorKeys.MODE_INTEGER_POSITIVE);
+        
         m_jpassword.reset();
         m_jpassword.activate();
         
@@ -196,7 +199,9 @@ public class JPasswordDialog extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
-        m_jpassword.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jpassword.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        m_jpassword.setMinimumSize(new java.awt.Dimension(100, 35));
+        m_jpassword.setPreferredSize(new java.awt.Dimension(132, 35));
         jPanel4.add(m_jpassword, java.awt.BorderLayout.CENTER);
 
         jPanel3.add(jPanel4);
@@ -214,8 +219,8 @@ public class JPasswordDialog extends javax.swing.JDialog {
 
         getContentPane().add(m_jPanelTitle, java.awt.BorderLayout.NORTH);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-258)/2, (screenSize.height-428)/2, 258, 428);
+        setSize(new java.awt.Dimension(258, 459));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jNumberKeys21KeyPerformed(com.openbravo.beans.JNumberEvent evt) {//GEN-FIRST:event_jNumberKeys21KeyPerformed
@@ -245,6 +250,7 @@ public class JPasswordDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_closeWindow
 
     private void m_jKeysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jKeysActionPerformed
+
     }//GEN-LAST:event_m_jKeysActionPerformed
        
     // Variables declaration - do not modify//GEN-BEGIN:variables

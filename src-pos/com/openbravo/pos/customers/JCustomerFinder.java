@@ -90,6 +90,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         m_jtxtTaxID.addEditorKeys(m_jKeys);
         m_jtxtSearchKey.addEditorKeys(m_jKeys);
         //m_jtxtName.addEditorKeys(m_jKeys);
+        m_jtxtName.requestFocus();
         m_jtxtPostal.addEditorKeys(m_jKeys);
         //m_jtxtPhone.addEditorKeys(m_jKeys);
         m_jtxtName2.addEditorKeys(m_jKeys);
