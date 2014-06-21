@@ -422,7 +422,7 @@ public class PaymentsModel {
      * @return
      */
     public String printVariance(){
-        return Formats.CURRENCY.formatValue(-variance);
+        return Formats.CURRENCY.formatValue(variance);
     }
     
     public String printBankDeposit(){

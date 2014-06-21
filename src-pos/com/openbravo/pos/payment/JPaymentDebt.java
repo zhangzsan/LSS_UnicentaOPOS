@@ -282,6 +282,8 @@ public class JPaymentDebt extends javax.swing.JPanel implements JPaymentInterfac
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
 
+        m_jKeys.setMinimumSize(new java.awt.Dimension(220, 300));
+        m_jKeys.setPreferredSize(new java.awt.Dimension(220, 300));
         m_jKeys.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_jKeysActionPerformed(evt);

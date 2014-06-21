@@ -8,6 +8,7 @@ package com.openbravo.pos.panels;
 
 import com.openbravo.beans.JCalendarDialog;
 import com.openbravo.data.gui.MessageInf;
+import com.openbravo.format.Formats;
 import com.openbravo.pos.panels.PaymentsModel.DrawerLine;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -32,7 +33,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     private static Connection con;
     private String username;
     private String oldText;
-    private double totalSOD, totalEOD, cashSales, m_bankDeposit;
+    private double totalSOD, totalEOD, cashSales, m_bankDeposit, m_closingTotals;
     private boolean EODset = false;
     private boolean SODset = false;
     private int EODid,SODid;
@@ -1462,10 +1463,11 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
         {
             generateList();
             this.calcTotals();
-            this.pm.setVarianceAmt((totalSOD+cashSales)-totalEOD);
-            if(((totalSOD+cashSales)-totalEOD) != 0)
+            this.pm.setVarianceAmt(totalEOD-(totalSOD+cashSales));
+            m_closingTotals = (totalEOD-(totalSOD+cashSales));
+            if(m_closingTotals != 0.00 && eodPanel.isShowing())
             {
-               if(JOptionPane.showConfirmDialog(this, "Are you sure you wish to continue with a variance of " + ((totalSOD+cashSales)-totalEOD) + "?"
+               if(JOptionPane.showConfirmDialog(this, "Are you sure you wish to continue with a variance of " + new DecimalFormat("$0.00").format(m_closingTotals) + "?"
                 , "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION)
                {
                    return;
@@ -1604,8 +1606,9 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             }
             totalCash1.setText(df.format(totalEOD-m_bankDeposit));
         }
-        this.varienceAmt.setText("Variance: "+df.format(totalEOD-(totalSOD+cashSales)));
-        this.pm.setVarianceAmt((totalSOD+cashSales)-totalEOD);
+        m_closingTotals = totalEOD-(totalSOD+cashSales);
+        this.varienceAmt.setText("Variance: "+df.format(m_closingTotals));
+        this.pm.setVarianceAmt(m_closingTotals);
         this.pm.setDepositAmt(m_bankDeposit);
     }
     
