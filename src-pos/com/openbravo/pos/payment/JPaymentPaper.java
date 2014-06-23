@@ -173,6 +173,8 @@ public class JPaymentPaper extends javax.swing.JPanel implements JPaymentInterfa
         jPanel11.setLayout(new java.awt.BorderLayout());
 
         jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.Y_AXIS));
+
+        m_jKeys.setPreferredSize(new java.awt.Dimension(200, 260));
         jPanel12.add(m_jKeys);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));

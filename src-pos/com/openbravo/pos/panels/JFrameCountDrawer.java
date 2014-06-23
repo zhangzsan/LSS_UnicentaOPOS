@@ -32,7 +32,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     private static Connection con;
     private String username;
     private String oldText;
-    private double totalSOD, totalEOD, cashSales, m_bankDeposit;
+    private double totalSOD, totalEOD, cashSales, m_bankDeposit, m_closingTotals;
     private boolean EODset = false;
     private boolean SODset = false;
     private int EODid,SODid;
@@ -160,6 +160,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
         acceptButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         dateButton = new javax.swing.JButton();
+        lastSOD = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -815,7 +816,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rolls", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(0, 0, 0)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rolls", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
         jLabel20.setText("0.01 (50c)");
 
@@ -1237,9 +1238,6 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
                     .addComponent(totalCash1)))
         );
 
-        jPanel6.getAccessibleContext().setAccessibleName("Coins");
-        jPanel7.getAccessibleContext().setAccessibleName("Rolls");
-
         tabbedPanel.addTab("End of Day", eodPanel);
 
         acceptButton.setText("Accept");
@@ -1263,6 +1261,13 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             }
         });
 
+        lastSOD.setText("Copy Last Day to Start of Day");
+        lastSOD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastSODActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1278,6 +1283,8 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
                         .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(dateButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(lastSOD)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(tabbedPanel))
                 .addContainerGap())
@@ -1286,7 +1293,9 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(dateButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateButton)
+                    .addComponent(lastSOD))
                 .addGap(21, 21, 21)
                 .addComponent(tabbedPanel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1462,10 +1471,11 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
         {
             generateList();
             this.calcTotals();
-            this.pm.setVarianceAmt((totalSOD+cashSales)-totalEOD);
-            if(((totalSOD+cashSales)-totalEOD) != 0)
+            this.pm.setVarianceAmt(totalEOD-(totalSOD+cashSales));
+            m_closingTotals = (totalEOD-(totalSOD+cashSales));
+            if(m_closingTotals != 0.00 && eodPanel.isShowing())
             {
-               if(JOptionPane.showConfirmDialog(this, "Are you sure you wish to continue with a variance of " + ((totalSOD+cashSales)-totalEOD) + "?"
+               if(JOptionPane.showConfirmDialog(this, "Are you sure you wish to continue with a variance of " + new DecimalFormat("$0.00").format(m_closingTotals) + "?"
                 , "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.NO_OPTION)
                {
                    return;
@@ -1604,8 +1614,10 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             }
             totalCash1.setText(df.format(totalEOD-m_bankDeposit));
         }
-        this.varienceAmt.setText("Variance: "+df.format(totalEOD-(totalSOD+cashSales)));
-        this.pm.setVarianceAmt((totalSOD+cashSales)-totalEOD);
+        if(!this.SODset)
+            m_closingTotals = totalEOD-(totalSOD+cashSales);
+        this.varienceAmt.setText("Variance: "+df.format(m_closingTotals));
+        this.pm.setVarianceAmt(m_closingTotals);
         this.pm.setDepositAmt(m_bankDeposit);
     }
     
@@ -1735,6 +1747,49 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             this.totalCash1.setText(new DecimalFormat("0.00").format(this.calcTotals()));
     }//GEN-LAST:event_tabbedPanelFocusGained
 
+    private void lastSODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastSODActionPerformed
+        SQL = "SELECT * FROM DRAWERFLOAT WHERE ID = (SELECT MAX(ID) FROM DRAWERFLOAT WHERE STARTOFDAY = 0)";
+        try
+        {
+            stmt = (Statement) con.createStatement();      
+            rs = stmt.executeQuery(SQL);            
+            if(!rs.next())
+            {
+                rs = null;
+                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, "There was an error retrieving entry from server.",null);
+                msg.show(this);
+            }
+            else
+            {
+                        this.tabbedPanel.setSelectedIndex(0);
+                        this.SODid = rs.getInt("ID");
+                        this.sod_roll1.setText(Integer.toString(rs.getInt("ROLL1")));
+                        this.sod_roll5.setText(Integer.toString(rs.getInt("ROLL5")));
+                        this.sod_roll10.setText(Integer.toString(rs.getInt("ROLL10")));
+                        this.sod_roll25.setText(Integer.toString(rs.getInt("ROLL25")));
+                        this.sod_coin1.setText(Integer.toString(rs.getInt("C1")));
+                        this.sod_coin5.setText(Integer.toString(rs.getInt("C5")));
+                        this.sod_coin10.setText(Integer.toString(rs.getInt("C10")));
+                        this.sod_coin25.setText(Integer.toString(rs.getInt("C25")));
+                        this.sod_bill1.setText(Integer.toString(rs.getInt("BILL1")));
+                        this.sod_bill5.setText(Integer.toString(rs.getInt("BILL5")));
+                        this.sod_bill10.setText(Integer.toString(rs.getInt("BILL10")));
+                        this.sod_bill20.setText(Integer.toString(rs.getInt("BILL20")));
+                        this.sod_bill50.setText(Integer.toString(rs.getInt("BILL50")));
+                        this.sod_bill100.setText(Integer.toString(rs.getInt("BILL100")));
+                        totalSOD = this.calcTotals();
+                        this.bankDeposit_Field.setText(Double.toString(rs.getDouble("BANKDEPOSIT")));
+                        this.totalCash.setText(new DecimalFormat("#.00").format(totalSOD));
+                        this.setAllTotals();
+                        SODset = true;
+            }
+        } catch(SQLException e)
+            {
+               MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, "There was an error getting the last entry in the table", e);
+                msg.show(this);
+            }
+    }//GEN-LAST:event_lastSODActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1862,6 +1917,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JButton lastSOD;
     private javax.swing.JPanel sodPanel;
     private javax.swing.JTextField sod_bill1;
     private javax.swing.JTextField sod_bill10;

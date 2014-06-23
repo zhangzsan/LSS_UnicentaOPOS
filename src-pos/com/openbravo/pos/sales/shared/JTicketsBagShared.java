@@ -163,7 +163,8 @@ public class JTicketsBagShared extends JTicketsBag {
             if (l.isEmpty()) {
                 newTicket();
             } else {
-                setActiveTicket(l.get(0).getId());
+                //setActiveTicket(l.get(0).getId());
+                newTicket();
             }
         } catch (BasicException e) {
             new MessageInf(e).show(this);

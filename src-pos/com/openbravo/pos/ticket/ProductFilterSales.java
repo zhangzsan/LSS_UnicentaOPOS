@@ -27,9 +27,9 @@ import com.openbravo.data.loader.QBFCompareEnum;
 import com.openbravo.data.loader.SentenceList;
 import com.openbravo.data.user.EditorCreator;
 import com.openbravo.editor.JEditorKeys;
-import com.openbravo.editor.JEditorString;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSales;
+import com.openbravo.pos.panels.JProductFinder;
 
 /**
  *
@@ -39,11 +39,12 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
     
     private SentenceList m_sentcat;
     private ComboBoxValModel m_CategoryModel;
+    private JProductFinder m_jpf;
     
     /** Creates new form ProductFilterSales
      * @param dlSales
      * @param jKeys */
-    public ProductFilterSales(DataLogicSales dlSales, JEditorKeys jKeys) {
+    public ProductFilterSales(DataLogicSales dlSales, JEditorKeys jKeys, JProductFinder jpf) {
         initComponents();
         
         // El modelo de categorias
@@ -57,10 +58,10 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
 //        m_jCboPriceSell.setModel(new ListQBFModelNumber());
         m_jCboPriceSell.setModel(ListQBFModelNumber.getMandatoryNumber());
         m_jPriceSell.addEditorKeys(jKeys);
+        this.m_jpf = jpf;
+        //m_jtxtName.addEditorKeys(jKeys);
         
-        m_jtxtName.addEditorKeys(jKeys);
-        
-        m_jtxtBarCode.addEditorKeys(jKeys);
+        //m_jtxtBarCode.addEditorKeys(jKeys);
     }
     
     /**
@@ -68,12 +69,12 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
      */
     public void activate() {
         
-        m_jtxtBarCode.reset();
-        m_jtxtBarCode.setEditModeEnum(JEditorString.MODE_123);
-        m_jtxtName.reset();
+        //m_jtxtBarCode.reset();
+        //m_jtxtBarCode.setEditModeEnum(JEditorString.MODE_123);
+        //m_jtxtName.reset();
         m_jPriceBuy.reset();
         m_jPriceSell.reset();
-        m_jtxtName.activate();
+        //m_jtxtName.activate();
         
         try {
             List catlist = m_sentcat.list();
@@ -141,7 +142,6 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        m_jtxtName = new com.openbravo.editor.JEditorString();
         jLabel2 = new javax.swing.JLabel();
         m_jCategory = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
@@ -150,36 +150,38 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
         jLabel3 = new javax.swing.JLabel();
         m_jCboPriceSell = new javax.swing.JComboBox();
         m_jPriceSell = new com.openbravo.editor.JEditorCurrency();
-        m_jtxtBarCode = new com.openbravo.editor.JEditorString();
         jLabel1 = new javax.swing.JLabel();
+        m_jtxtBarCode = new javax.swing.JTextField();
+        m_jtxtName = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(370, 170));
         setLayout(null);
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 12));
         jLabel5.setText(AppLocal.getIntString("label.prodname")); // NOI18N
         add(jLabel5);
         jLabel5.setBounds(20, 40, 110, 25);
 
-        m_jtxtName.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        add(m_jtxtName);
-        m_jtxtName.setBounds(130, 40, 290, 25);
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 12));
         jLabel2.setText(AppLocal.getIntString("label.prodcategory")); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(20, 70, 110, 25);
 
-        m_jCategory.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jCategory.setFont(new java.awt.Font("Arial", 0, 14));
+        m_jCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jCategoryActionPerformed(evt);
+            }
+        });
         add(m_jCategory);
         m_jCategory.setBounds(130, 70, 260, 25);
 
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 12));
         jLabel4.setText(AppLocal.getIntString("label.prodpricebuy")); // NOI18N
         add(jLabel4);
         jLabel4.setBounds(20, 100, 110, 25);
 
-        m_jCboPriceBuy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jCboPriceBuy.setFont(new java.awt.Font("Arial", 0, 14));
         m_jCboPriceBuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_jCboPriceBuyActionPerformed(evt);
@@ -188,36 +190,56 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
         add(m_jCboPriceBuy);
         m_jCboPriceBuy.setBounds(130, 100, 150, 25);
 
-        m_jPriceBuy.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jPriceBuy.setFont(new java.awt.Font("Arial", 0, 12));
         add(m_jPriceBuy);
         m_jPriceBuy.setBounds(290, 100, 130, 25);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 12));
         jLabel3.setText(AppLocal.getIntString("label.prodpricesell")); // NOI18N
         add(jLabel3);
         jLabel3.setBounds(20, 130, 110, 25);
 
-        m_jCboPriceSell.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jCboPriceSell.setFont(new java.awt.Font("Arial", 0, 14));
         add(m_jCboPriceSell);
         m_jCboPriceSell.setBounds(130, 130, 150, 25);
 
-        m_jPriceSell.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jPriceSell.setFont(new java.awt.Font("Arial", 0, 12));
         add(m_jPriceSell);
         m_jPriceSell.setBounds(290, 130, 130, 25);
 
-        m_jtxtBarCode.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        add(m_jtxtBarCode);
-        m_jtxtBarCode.setBounds(130, 10, 290, 25);
-
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12));
         jLabel1.setText(AppLocal.getIntString("label.prodbarcode")); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(20, 10, 110, 25);
+
+        m_jtxtBarCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jtxtNameActionPerformed(evt);
+            }
+        });
+        add(m_jtxtBarCode);
+        m_jtxtBarCode.setBounds(130, 10, 260, 25);
+
+        m_jtxtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jtxtNameActionPerformed(evt);
+            }
+        });
+        add(m_jtxtName);
+        m_jtxtName.setBounds(130, 40, 260, 25);
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jCboPriceBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCboPriceBuyActionPerformed
 
     }//GEN-LAST:event_m_jCboPriceBuyActionPerformed
+
+private void m_jtxtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jtxtNameActionPerformed
+    this.m_jpf.executeSearch();
+}//GEN-LAST:event_m_jtxtNameActionPerformed
+
+private void m_jCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCategoryActionPerformed
+    this.m_jpf.executeSearch();
+}//GEN-LAST:event_m_jCategoryActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,8 +253,8 @@ public class ProductFilterSales extends javax.swing.JPanel implements EditorCrea
     private javax.swing.JComboBox m_jCboPriceSell;
     private com.openbravo.editor.JEditorCurrency m_jPriceBuy;
     private com.openbravo.editor.JEditorCurrency m_jPriceSell;
-    private com.openbravo.editor.JEditorString m_jtxtBarCode;
-    private com.openbravo.editor.JEditorString m_jtxtName;
+    private javax.swing.JTextField m_jtxtBarCode;
+    private javax.swing.JTextField m_jtxtName;
     // End of variables declaration//GEN-END:variables
     
 }

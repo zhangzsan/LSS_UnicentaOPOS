@@ -45,6 +45,11 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
       <SubComponents>
         <Component class="com.openbravo.editor.JEditorKeys" name="m_jKeys">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[210, 300]"/>
+            </Property>
+          </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="JCustomerFinder_m_jKeys"/>
           </AuxValues>
@@ -154,7 +159,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLblPhone" pref="25" max="32767" attributes="0"/>
+                              <Component id="jLblPhone" max="32767" attributes="0"/>
                               <Component id="m_jtxtPhone" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>

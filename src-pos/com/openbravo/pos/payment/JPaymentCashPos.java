@@ -300,6 +300,8 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.Y_AXIS));
+
+        m_jKeys.setPreferredSize(new java.awt.Dimension(200, 270));
         jPanel1.add(m_jKeys);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));

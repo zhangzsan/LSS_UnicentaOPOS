@@ -65,8 +65,8 @@ public class JFind extends JDialog {
         m_jMatch.addItem(LocalRes.getIntString("list.re"));
         m_jMatch.setSelectedIndex(lastFindInfo.getMatch());
         // El case
-        m_jMatchCase.setSelected(lastFindInfo.isMatchCase());
-        
+        //m_jMatchCase.setSelected(lastFindInfo.isMatchCase());
+        m_jMatchCase.setSelected(false);
         m_vec = lastFindInfo.getVectorer();
 
         m_FindInfo = null;

@@ -1,0 +1,61 @@
+//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2014 uniCenta & previous Openbravo POS works
+//    http://www.unicenta.com
+//
+//    This file is part of uniCenta oPOS
+//
+//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
+
+
+// 
+
+
+report = new com.openbravo.pos.reports.PanelReportBean();
+
+report.setTitleKey("Menu.NoTaxCategorySales");
+report.setReport("/com/openbravo/reports/notaxcategorysales");
+report.setResourceBundle("com/openbravo/reports/notaxcategorysales_messages");
+
+// JG - 8 Jan 14 Convert lowercasednname to UPPERCASE for compatability
+
+report.setSentence("SELECT CATEGORIES.ID, CATEGORIES.NAME, " +
+"Sum(TICKETLINES.UNITS) AS QTY, " +
+"Sum(TICKETLINES.PRICE * TICKETLINES.UNITS) AS CATPRICE, " +
+"Sum((PRODUCTS.PRICESELL * TICKETLINES.UNITS)-((PRODUCTS.ISVPRICE ) * (TICKETLINES.PRICE * TICKETLINES.UNITS))) AS DISC, " +
+"Sum((TICKETLINES.PRICE * TAXES.RATE)* TICKETLINES.UNITS) AS CATTAX, " +
+"Sum((TICKETLINES.PRICE * TICKETLINES.UNITS) + ((TICKETLINES.PRICE * TAXES.RATE)* TICKETLINES.UNITS)) AS CATTOTAL " +
+"FROM (TICKETS INNER JOIN RECEIPTS ON TICKETS.ID = RECEIPTS.ID) INNER JOIN ((CATEGORIES INNER JOIN PRODUCTS ON CATEGORIES.ID = PRODUCTS.CATEGORY) INNER JOIN (TAXES INNER JOIN TICKETLINES ON TAXES.ID = TICKETLINES.TAXID) ON PRODUCTS.ID = TICKETLINES.PRODUCT) ON TICKETS.ID = TICKETLINES.TICKET " +
+"WHERE ?(QBF_FILTER) AND TICKETLINES.TAXID = 'f5d7799d-6a7d-4797-8db1-007d67f3ce78' AND TICKETLINES.TAXID = '367c3d91-8fa7-4944-acc8-93f65df7bc70'" +
+"GROUP BY CATEGORIES.ID, CATEGORIES.NAME");
+
+report.addParameter("RECEIPTS.DATENEW");
+report.addParameter("RECEIPTS.DATENEW");
+
+paramdates = new com.openbravo.pos.reports.JParamsDatesInterval();
+
+paramdates.setStartDate(com.openbravo.beans.DateUtils.getToday());
+// JG - 8 Jan 14 paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
+paramdates.setEndDate(com.openbravo.beans.DateUtils.getTodayMinutes());
+
+report.addQBFFilter(paramdates);
+
+report.addField("ID", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
+report.addField("QTY", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CATPRICE", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("DISC", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CATTAX", com.openbravo.data.loader.Datas.DOUBLE);
+report.addField("CATTOTAL", com.openbravo.data.loader.Datas.DOUBLE);
+
+report;

@@ -767,7 +767,7 @@ public class JRootApp extends JPanel implements AppView {
     
     private void processKey(char c) {
         
-        if ((c == '\n') || (c =='?')) {
+        if ((c == '\n')) {
             
             AppUser user = null;
             try {

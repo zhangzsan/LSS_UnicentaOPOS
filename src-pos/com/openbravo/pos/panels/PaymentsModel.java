@@ -422,11 +422,11 @@ public class PaymentsModel {
      * @return
      */
     public String printVariance(){
-        return Formats.CURRENCY.formatValue(-variance);
+        return Formats.CURRENCY.formatValue(variance);
     }
     
     public String printBankDeposit(){
-        return Formats.CURRENCY.formatValue(-m_totalBankDeposit);
+        return Formats.CURRENCY.formatValue(m_totalBankDeposit);
     }
 
     /**
