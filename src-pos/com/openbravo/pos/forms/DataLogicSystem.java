@@ -22,7 +22,6 @@ package com.openbravo.pos.forms;
 import com.openbravo.basic.BasicException;
 import com.openbravo.data.loader.*;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.panels.JPleaseWaitPopup;
 import com.openbravo.pos.util.ThumbNailBuilder;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

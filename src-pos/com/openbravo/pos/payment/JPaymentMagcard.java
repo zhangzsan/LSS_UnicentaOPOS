@@ -22,7 +22,6 @@ package com.openbravo.pos.payment;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
-import com.openbravo.pos.panels.JPleaseWaitPopup;
 import java.awt.BorderLayout;
 import java.awt.Component;
 
@@ -93,13 +92,10 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
         jlblMessage.setText(null);
 
         PaymentInfoMagcard payinfo = m_cardpanel.getPaymentInfoMagcard();
-        JPleaseWaitPopup jpu = new JPleaseWaitPopup("Processing card... Please wait...");
         m_paymentgateway.execute(payinfo);
         if (payinfo.isPaymentOK()) {
-            jpu.close();
             return payinfo;
         } else {
-            jpu.close();
             jlblMessage.setText(payinfo.getMessage());
             return null;
         }

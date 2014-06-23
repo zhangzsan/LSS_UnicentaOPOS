@@ -27,11 +27,9 @@ import com.openbravo.data.user.SaveProvider;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.panels.JPanelTable2;
-import com.openbravo.pos.panels.JPleaseWaitPopup;
 import com.openbravo.pos.ticket.ProductFilter;
 import java.awt.Component;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 /**
  *

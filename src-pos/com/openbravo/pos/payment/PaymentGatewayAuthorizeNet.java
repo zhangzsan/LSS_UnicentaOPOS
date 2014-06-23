@@ -20,7 +20,6 @@ package com.openbravo.pos.payment;
 import com.openbravo.data.loader.LocalRes;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppProperties;
-import com.openbravo.pos.panels.JPleaseWaitPopup;
 import com.openbravo.pos.util.AltEncrypter;
 import java.io.*;
 import java.net.*;
