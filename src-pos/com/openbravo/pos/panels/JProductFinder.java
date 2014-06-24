@@ -234,9 +234,9 @@ public class JProductFinder extends javax.swing.JDialog {
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdCancel.setMaximumSize(new java.awt.Dimension(103, 44));
+        jcmdCancel.setMaximumSize(new java.awt.Dimension(120, 45));
         jcmdCancel.setMinimumSize(new java.awt.Dimension(103, 44));
-        jcmdCancel.setPreferredSize(new java.awt.Dimension(103, 44));
+        jcmdCancel.setPreferredSize(new java.awt.Dimension(120, 45));
         jcmdCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcmdCancelActionPerformed(evt);
@@ -249,9 +249,9 @@ public class JProductFinder extends javax.swing.JDialog {
         jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
         jcmdOK.setEnabled(false);
         jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.setMaximumSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setMaximumSize(new java.awt.Dimension(120, 45));
         jcmdOK.setMinimumSize(new java.awt.Dimension(103, 44));
-        jcmdOK.setPreferredSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setPreferredSize(new java.awt.Dimension(120, 45));
         jcmdOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcmdOKActionPerformed(evt);
@@ -263,8 +263,8 @@ public class JProductFinder extends javax.swing.JDialog {
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-665)/2, (screenSize.height-565)/2, 665, 565);
+        setSize(new java.awt.Dimension(665, 565));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jListProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProductsMouseClicked

@@ -33,6 +33,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import com.openbravo.pos.util.DirectoryEvent;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 
 // JG 16 May 2013 deprecated for pushingpixels
 // import org.jvnet.substance.SubstanceLookAndFeel;
@@ -63,6 +64,7 @@ public class JPanelConfigGeneral extends javax.swing.JPanel implements PanelConf
         jtxtStartupLogo.getDocument().addDocumentListener(dirty);
         jbtnLogoName.addActionListener(new DirectoryEvent(jtxtStartupLogo));
         
+        UIManager.installLookAndFeel("SeaGlass", "com.seaglasslookandfeel.SeaGlassLookAndFeel");
         // Installed skins
         LookAndFeelInfo[] lafs = UIManager.getInstalledLookAndFeels();
         for (LookAndFeelInfo laf : lafs) {

@@ -495,6 +495,9 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         jcmdCancel.setFocusPainted(false);
         jcmdCancel.setFocusable(false);
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
+        jcmdCancel.setMaximumSize(new java.awt.Dimension(120, 45));
+        jcmdCancel.setMinimumSize(null);
+        jcmdCancel.setPreferredSize(new java.awt.Dimension(120, 45));
         jcmdCancel.setRequestFocusEnabled(false);
         jcmdCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,9 +512,9 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         jcmdOK.setFocusPainted(false);
         jcmdOK.setFocusable(false);
         jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.setMaximumSize(new java.awt.Dimension(103, 44));
-        jcmdOK.setMinimumSize(new java.awt.Dimension(103, 44));
-        jcmdOK.setPreferredSize(new java.awt.Dimension(103, 44));
+        jcmdOK.setMaximumSize(new java.awt.Dimension(120, 45));
+        jcmdOK.setMinimumSize(null);
+        jcmdOK.setPreferredSize(new java.awt.Dimension(120, 45));
         jcmdOK.setRequestFocusEnabled(false);
         jcmdOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

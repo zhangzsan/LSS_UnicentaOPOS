@@ -238,6 +238,8 @@ public class JProductLineEdit extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("label.editline")); // NOI18N
+        setMinimumSize(new java.awt.Dimension(537, 300));
+        setPreferredSize(new java.awt.Dimension(600, 300));
 
         jPanel5.setLayout(new java.awt.BorderLayout());
 
@@ -363,14 +365,18 @@ public class JProductLineEdit extends javax.swing.JDialog {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
+
+        m_jKeys.setMaximumSize(new java.awt.Dimension(200, 300));
+        m_jKeys.setMinimumSize(new java.awt.Dimension(200, 300));
+        m_jKeys.setPreferredSize(new java.awt.Dimension(200, 300));
         jPanel4.add(m_jKeys);
 
         jPanel3.add(jPanel4, java.awt.BorderLayout.NORTH);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.EAST);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-580)/2, (screenSize.height-362)/2, 580, 362);
+        setSize(new java.awt.Dimension(580, 362));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonCancelActionPerformed
