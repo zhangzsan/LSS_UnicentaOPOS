@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -165,9 +166,12 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             if (anp.getResult().equals(LocalRes.getIntString("button.ok"))) {
                 if (APPROVED.equals(props.get("ResponseCode"))) {
                     //Transaction approved
-                    payinfo.paymentOK((String) props.get("AuthCode"), (String) props.get("TransID"), returned);
-                } else {
-                    /*StringBuilder errorLine = new StringBuilder();
+                    payinfo.paymentOK(props.get("AuthCode").toString(), props.get("TransID").toString(), returned);
+                } else {                            
+                    StringBuilder errorLine = new StringBuilder();
+                    errorLine.append(props.get("AuthCode").toString());
+                    errorLine.append(": ");
+                    errorLine.append(props.get("TransID").toString());
                     //Transaction declined
                     if (anp.getNumErrors()>0) {
                         
@@ -177,14 +181,14 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                             errorLine.append(props.get("ErrorText"+Integer.toString(i)));
                             errorLine.append("\n");
                         }
-                    }*/
-                   // JOptionPane.showMessageDialog(null, responses[3]);
-                    payinfo.paymentError(props.get("Description") + ": " + props.get("Code"), props.get("Description") + ":" + props.get("Code") + "\n AVS Response: " + getAVSResponseMessage(props.get("AVSResponseCode").toString()));
+                    }
+                    JOptionPane.showMessageDialog(null, responses[4]);
+                    payinfo.paymentError(errorLine.toString(), returned);
                 }
             }
             else {
-                //JOptionPane.showMessageDialog(null, responses[3]);
-                payinfo.paymentError(props.get("Description") + ": " + props.get("Code"), props.get("Description") + ":" + props.get("Code") + "\n AVS Response: " + getAVSResponseMessage(props.get("AVSResponseCode").toString()));
+                JOptionPane.showMessageDialog(null, responses[4]);
+                payinfo.paymentError(returned, returned);
             }
            
 // JG 16 May 12 use multicatch

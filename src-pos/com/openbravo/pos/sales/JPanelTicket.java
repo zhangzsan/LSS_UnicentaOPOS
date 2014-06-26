@@ -528,8 +528,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         } else {
             if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND) {
                 //Make disable Search and Edit Buttons
-                m_jEditLine.setVisible(false);
-                m_jList.setVisible(false);
+                //m_jEditLine.setVisible(false);
+                //m_jList.setVisible(false);
             }
             
             // Refresh ticket taxes
