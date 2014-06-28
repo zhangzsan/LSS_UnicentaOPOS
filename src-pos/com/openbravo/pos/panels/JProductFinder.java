@@ -180,8 +180,11 @@ public class JProductFinder extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("form.productslist")); // NOI18N
+        setPreferredSize(new java.awt.Dimension(550, 300));
 
         jPanel4.setLayout(new java.awt.BorderLayout());
+
+        m_jKeys.setPreferredSize(new java.awt.Dimension(220, 300));
         jPanel4.add(m_jKeys, java.awt.BorderLayout.NORTH);
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.LINE_END);
@@ -234,9 +237,9 @@ public class JProductFinder extends javax.swing.JDialog {
         jcmdCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cancel.png"))); // NOI18N
         jcmdCancel.setText(AppLocal.getIntString("Button.Cancel")); // NOI18N
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdCancel.setMaximumSize(new java.awt.Dimension(120, 45));
+        jcmdCancel.setMaximumSize(new java.awt.Dimension(135, 55));
         jcmdCancel.setMinimumSize(new java.awt.Dimension(103, 44));
-        jcmdCancel.setPreferredSize(new java.awt.Dimension(120, 45));
+        jcmdCancel.setPreferredSize(new java.awt.Dimension(135, 45));
         jcmdCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcmdCancelActionPerformed(evt);
@@ -249,9 +252,9 @@ public class JProductFinder extends javax.swing.JDialog {
         jcmdOK.setText(AppLocal.getIntString("Button.OK")); // NOI18N
         jcmdOK.setEnabled(false);
         jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.setMaximumSize(new java.awt.Dimension(120, 45));
+        jcmdOK.setMaximumSize(new java.awt.Dimension(135, 55));
         jcmdOK.setMinimumSize(new java.awt.Dimension(103, 44));
-        jcmdOK.setPreferredSize(new java.awt.Dimension(120, 45));
+        jcmdOK.setPreferredSize(new java.awt.Dimension(135, 45));
         jcmdOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcmdOKActionPerformed(evt);

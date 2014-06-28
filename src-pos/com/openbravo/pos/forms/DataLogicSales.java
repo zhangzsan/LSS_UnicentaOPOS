@@ -1158,7 +1158,7 @@ public Object transact() throws BasicException {
         , SerializerWriteParams.INSTANCE);
                 
                 for (final PaymentInfo p : ticket.getPayments()) {
-                    payments.addPayment(p.getName(),p.getTotal(), p.getPaid(),ticket.getReturnMessage());  
+                    payments.addPayment(p.getName(),p.getTotal(), p.getPaid(),ticket.getReturnMessage(), p.getCardName());  
                 }
 
     //for (final PaymentInfo p : ticket.getPayments()) {
@@ -1169,7 +1169,8 @@ public Object transact() throws BasicException {
             getTotal = payments.getPaidAmount(pName);
             getTendered = payments.getTendered(pName);
             getRetMsg = payments.getRtnMessage(pName);
-            payments.removeFirst(pName);                        
+            getCardName = payments.getCardName(pName);
+            payments.removeFirst(pName);   
             
             setString(1, UUID.randomUUID().toString());
             setString(2, ticket.getId());

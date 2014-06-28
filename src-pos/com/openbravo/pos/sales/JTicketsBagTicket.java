@@ -244,14 +244,14 @@ public class JTicketsBagTicket extends JTicketsBag {
         
         // imprimo m_ticket
         
-        try {
+        //try {
             m_jEdit.setEnabled(
                     m_ticket != null
                     && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
-                    && m_dlSales.isCashActive(m_ticket.getActiveCash()));
-        } catch (BasicException e) {
-            m_jEdit.setEnabled(false);
-        }
+                    /*&& m_dlSales.isCashActive(m_ticket.getActiveCash())*/);
+        //} catch (BasicException e) {
+        //    m_jEdit.setEnabled(false);
+        //}
         m_jRefund.setEnabled(m_ticket != null && m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL);
         m_jPrint.setEnabled(m_ticket != null);
         

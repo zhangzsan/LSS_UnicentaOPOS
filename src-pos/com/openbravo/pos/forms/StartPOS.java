@@ -75,7 +75,6 @@ public class StartPOS {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                
                 if (!registerApp()) {
                     System.exit(1);
                 }
@@ -123,7 +122,6 @@ public class StartPOS {
                     rootframe.initFrame(config);
                 }
             }
-        });  
-        
+        });                                  
     }    
 }

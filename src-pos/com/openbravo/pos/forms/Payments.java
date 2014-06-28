@@ -15,6 +15,7 @@ public class Payments {
     private HashMap paymentPaid;
     private HashMap paymentTendered;
     private HashMap rtnMessage;
+    private HashMap cardName;
     private String name;
 
     /**
@@ -24,7 +25,7 @@ public class Payments {
     paymentPaid =  new HashMap();
     paymentTendered =  new HashMap();
     rtnMessage = new HashMap();
-     
+    cardName = new HashMap(); 
     }
 
     /**
@@ -34,15 +35,17 @@ public class Payments {
      * @param pTendered
      * @param rtnMsg
      */
-    public void addPayment (String pName, Double pAmountPaid, Double pTendered, String rtnMsg){
+    public void addPayment (String pName, Double pAmountPaid, Double pTendered, String rtnMsg, String cardName){
         if (paymentPaid.containsKey(pName)){
             paymentPaid.put(pName,Double.parseDouble(paymentPaid.get(pName).toString()) + pAmountPaid);
             paymentTendered.put(pName,Double.parseDouble(paymentTendered.get(pName).toString()) + pTendered); 
             rtnMessage.put(pName, rtnMsg);
+            this.cardName.put(pName, cardName);
         }else {    
             paymentPaid.put(pName, pAmountPaid);
             paymentTendered.put(pName,pTendered);
             rtnMessage.put(pName, rtnMsg);
+            this.cardName.put(pName, cardName);
         }        
 }
 
@@ -80,6 +83,9 @@ public class Payments {
     public String getRtnMessage(String pName){
     return (rtnMessage.get(pName).toString());
 }
+    public String getCardName(String pName){
+            return cardName.get(pName) == null ? "" : cardName.get(pName).toString();
+    }
 
     /**
      *

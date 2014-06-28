@@ -20,6 +20,7 @@
 package com.openbravo.pos.payment;
 
 import com.openbravo.pos.forms.AppLocal;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 /**
@@ -95,6 +96,7 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         m_jHolderName.setText("");
         m_jCardNumber.setText("");
         m_jExpirationDate.setText("");
+        m_jCardImage.setIcon(null);
         track1 = null;
         track2 = null;
         track3 = null;
@@ -106,6 +108,30 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         
         revalidate();
     }
+    
+        /**
+     *
+     * @param sCardNumber
+     * @return
+     */
+    public ImageIcon getCardImage(String sCardNumber){
+       ImageIcon ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_unknown.png"));
+        
+       if (sCardNumber.startsWith("4")) {
+           ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_visa.png"));
+       } else if (sCardNumber.startsWith("6")) {
+           ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_disc.png"));
+       } else if (sCardNumber.startsWith("5")) {
+           ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_mast.png"));
+       } else if (sCardNumber.startsWith("34") || sCardNumber.startsWith("37")) {
+           ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_amex.png"));
+       } else if (sCardNumber.startsWith("3528") || sCardNumber.startsWith("3589")) {
+           ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_jcb.png"));
+       } else if (sCardNumber.startsWith("3")) {
+           ii = new ImageIcon(getClass().getResource("/com/openbravo/images/card_dine.png"));
+       }
+       return ii;
+   }
     
     /**
      *
@@ -144,7 +170,8 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         if (m_cardreader.isComplete()) {
             m_jHolderName.setText(m_cardreader.getHolderName());
             m_jCardNumber.setText(m_cardreader.getCardNumber());
-            m_jExpirationDate.setText(m_cardreader.getExpirationDate()); 
+            m_jExpirationDate.setText(m_cardreader.getExpirationDate());
+            m_jCardImage.setIcon(getCardImage(m_cardreader.getCardNumber()));
             track1 = m_cardreader.getTrack1();
             track2 = m_cardreader.getTrack2();
             track3 = m_cardreader.getTrack3();
@@ -153,6 +180,7 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
             m_jHolderName.setText("");
             m_jCardNumber.setText("");
             m_jExpirationDate.setText(""); 
+            m_jCardImage.setIcon(null);
             track1 = null;
             track3 = null;
             track3 = null;
@@ -189,6 +217,7 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         m_jCardNumber = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         m_jHolderName = new javax.swing.JLabel();
+        m_jCardImage = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -253,6 +282,12 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         jPanel1.add(m_jHolderName);
         m_jHolderName.setBounds(120, 20, 180, 25);
 
+        m_jCardImage.setMaximumSize(new java.awt.Dimension(32, 32));
+        m_jCardImage.setMinimumSize(new java.awt.Dimension(32, 32));
+        m_jCardImage.setPreferredSize(new java.awt.Dimension(32, 32));
+        jPanel1.add(m_jCardImage);
+        m_jCardImage.setBounds(270, 90, 49, 17);
+
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -271,6 +306,7 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jReset;
+    private javax.swing.JLabel m_jCardImage;
     private javax.swing.JLabel m_jCardNumber;
     private javax.swing.JLabel m_jExpirationDate;
     private javax.swing.JLabel m_jHolderName;

@@ -88,12 +88,12 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
      */
     @Override
     public PaymentInfo executePayment() {
-        
-        jlblMessage.setText(null);
-
         PaymentInfoMagcard payinfo = m_cardpanel.getPaymentInfoMagcard();
+        jlblMessage.setText("Processing Transaction "+payinfo.getTransactionID()+"\nPlease Wait...");
         m_paymentgateway.execute(payinfo);
+        
         if (payinfo.isPaymentOK()) {
+            jlblMessage.setText("Transaction ID: "+payinfo.getTransactionID()+ "APPROVED!");
             return payinfo;
         } else {
             jlblMessage.setText(payinfo.getMessage());
@@ -128,6 +128,7 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
 
         jPanel1 = new javax.swing.JPanel();
         jlblMessage = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
         manualCard = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(300, 40));
@@ -136,7 +137,7 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
 
         jPanel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel1.setMinimumSize(new java.awt.Dimension(290, 35));
-        jPanel1.setPreferredSize(new java.awt.Dimension(290, 35));
+        jPanel1.setPreferredSize(new java.awt.Dimension(290, 100));
 
         jlblMessage.setBackground(new java.awt.Color(224, 223, 227));
         jlblMessage.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -148,11 +149,28 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
         jlblMessage.setRequestFocusEnabled(false);
 
         manualCard.setText("Manual Card Entry");
+        manualCard.setPreferredSize(new java.awt.Dimension(139, 20));
         manualCard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manualCardActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(manualCard, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(manualCard, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,16 +178,20 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jlblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+                .addComponent(jlblMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(manualCard))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(manualCard, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jlblMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -204,6 +226,7 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextArea jlblMessage;
     private javax.swing.JButton manualCard;
     // End of variables declaration//GEN-END:variables

@@ -529,7 +529,7 @@ public class StockManagement extends JPanel implements JPanelView {
                 m_jUpActionPerformed(evt);
             }
         });
-        jPanel8.add(m_jUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, -1, -1));
+        jPanel8.add(m_jUp, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, -1));
 
         m_jDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1downarrow.png"))); // NOI18N
         m_jDown.setToolTipText("Scroll Down a Line");
@@ -549,13 +549,14 @@ public class StockManagement extends JPanel implements JPanelView {
         m_jDelete.setFocusPainted(false);
         m_jDelete.setFocusable(false);
         m_jDelete.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        m_jDelete.setPreferredSize(new java.awt.Dimension(64, 52));
         m_jDelete.setRequestFocusEnabled(false);
         m_jDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_jDeleteActionPerformed(evt);
             }
         });
-        jPanel8.add(m_jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
+        jPanel8.add(m_jDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 60, 50));
 
         jEditAttributes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/attributes.png"))); // NOI18N
         jEditAttributes.setToolTipText("Attrubutes");
@@ -564,14 +565,14 @@ public class StockManagement extends JPanel implements JPanelView {
         jEditAttributes.setMargin(new java.awt.Insets(8, 14, 8, 14));
         jEditAttributes.setMaximumSize(new java.awt.Dimension(56, 44));
         jEditAttributes.setMinimumSize(new java.awt.Dimension(56, 44));
-        jEditAttributes.setPreferredSize(new java.awt.Dimension(56, 44));
+        jEditAttributes.setPreferredSize(new java.awt.Dimension(64, 52));
         jEditAttributes.setRequestFocusEnabled(false);
         jEditAttributes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jEditAttributesActionPerformed(evt);
             }
         });
-        jPanel8.add(jEditAttributes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
+        jPanel8.add(jEditAttributes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, -1, -1));
 
         btnDownloadProducts.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnDownloadProducts.setText("ScanPal");
@@ -582,7 +583,7 @@ public class StockManagement extends JPanel implements JPanelView {
                 btnDownloadProductsActionPerformed(evt);
             }
         });
-        jPanel8.add(btnDownloadProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, -1, -1));
+        jPanel8.add(btnDownloadProducts, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 230, -1, -1));
 
         jTextField1.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
         jTextField1.setForeground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));

@@ -27,7 +27,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -182,12 +181,13 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                             errorLine.append("\n");
                         }
                     }
-                    JOptionPane.showMessageDialog(null, responses[4]);
+                   // JOptionPane.showMessageDialog(null, responses[4]);
+                    
                     payinfo.paymentError(errorLine.toString(), returned);
                 }
             }
             else {
-                JOptionPane.showMessageDialog(null, responses[4]);
+                //JOptionPane.showMessageDialog(null, responses[4]);
                 payinfo.paymentError(returned, returned);
             }
            

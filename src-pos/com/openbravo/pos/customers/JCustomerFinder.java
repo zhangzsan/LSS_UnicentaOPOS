@@ -303,6 +303,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("form.customertitle")); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(650, 433));
 
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -388,7 +389,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLblEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLblName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, Short.MAX_VALUE))
+                            .addComponent(jLblPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(m_jtxtName2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -495,9 +496,9 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         jcmdCancel.setFocusPainted(false);
         jcmdCancel.setFocusable(false);
         jcmdCancel.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdCancel.setMaximumSize(new java.awt.Dimension(120, 45));
+        jcmdCancel.setMaximumSize(new java.awt.Dimension(135, 35));
         jcmdCancel.setMinimumSize(null);
-        jcmdCancel.setPreferredSize(new java.awt.Dimension(120, 45));
+        jcmdCancel.setPreferredSize(new java.awt.Dimension(135, 35));
         jcmdCancel.setRequestFocusEnabled(false);
         jcmdCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,9 +513,9 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         jcmdOK.setFocusPainted(false);
         jcmdOK.setFocusable(false);
         jcmdOK.setMargin(new java.awt.Insets(8, 16, 8, 16));
-        jcmdOK.setMaximumSize(new java.awt.Dimension(120, 45));
+        jcmdOK.setMaximumSize(new java.awt.Dimension(135, 35));
         jcmdOK.setMinimumSize(null);
-        jcmdOK.setPreferredSize(new java.awt.Dimension(120, 45));
+        jcmdOK.setPreferredSize(new java.awt.Dimension(135, 35));
         jcmdOK.setRequestFocusEnabled(false);
         jcmdOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

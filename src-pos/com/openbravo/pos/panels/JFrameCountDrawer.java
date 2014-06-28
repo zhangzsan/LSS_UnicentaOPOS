@@ -1614,8 +1614,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             }
             totalCash1.setText(df.format(totalEOD-m_bankDeposit));
         }
-        if(!this.SODset)
-            m_closingTotals = totalEOD-(totalSOD+cashSales);
+        m_closingTotals = totalEOD-(totalSOD+cashSales);
         this.varienceAmt.setText("Variance: "+df.format(m_closingTotals));
         this.pm.setVarianceAmt(m_closingTotals);
         this.pm.setDepositAmt(m_bankDeposit);

@@ -834,13 +834,26 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         if (!prod.isVprice()){
                incProduct(1.0, prod);          
         } else {
-                Toolkit.getDefaultToolkit().beep();                
-                JOptionPane.showMessageDialog(null, 
-                AppLocal.getIntString("message.novprice"));
+                Toolkit.getDefaultToolkit().beep();
+                String buy = JOptionPane.showInputDialog(null, "<html><h2>Please enter the PURCHASE PRICE of the item. (##.##)</h2>");
+                String total = JOptionPane.showInputDialog(null, AppLocal.getIntString("message.novprice"));
+                
+                try{
+                    double tot = Double.parseDouble(total);
+                    double b = Double.parseDouble(buy);
+                    prod.setPriceBuy(b);
+                    incProduct(1.0, prod, tot);
+                }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "You must enter a valid price for this product! Please try again.");
+                }
+                
                 }
             }
          }
  
+    private void incProduct(double dPor, ProductInfoExt prod, double tot) {
+        addTicketLine(prod, getPorValue(), tot);
+    }
     
     private void incProduct(double dPor, ProductInfoExt prod) {
         // precondicion: prod != null
