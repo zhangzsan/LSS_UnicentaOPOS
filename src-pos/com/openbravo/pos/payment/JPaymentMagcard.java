@@ -24,6 +24,7 @@ import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -90,13 +91,17 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
     public PaymentInfo executePayment() {
         PaymentInfoMagcard payinfo = m_cardpanel.getPaymentInfoMagcard();
         jlblMessage.setText("Processing Transaction "+payinfo.getTransactionID()+"\nPlease Wait...");
+        revalidate();
         m_paymentgateway.execute(payinfo);
         
         if (payinfo.isPaymentOK()) {
             jlblMessage.setText("Transaction ID: "+payinfo.getTransactionID()+ "APPROVED!");
+            revalidate();
             return payinfo;
         } else {
+            JOptionPane.showMessageDialog(getRootPane(),payinfo.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             jlblMessage.setText(payinfo.getMessage());
+            revalidate();
             return null;
         }
     }  

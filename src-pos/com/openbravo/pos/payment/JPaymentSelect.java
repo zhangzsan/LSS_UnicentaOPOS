@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -866,7 +867,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             m_aPaymentInfo.add(returnPayment);
             accepted = true;
             dispose();
-        }           
+        }
         
     }//GEN-LAST:event_m_jButtonOKActionPerformed
 

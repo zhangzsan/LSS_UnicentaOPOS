@@ -25,6 +25,7 @@ import java.io.*;
 import java.net.*;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
@@ -156,11 +157,11 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 returned = in.readLine();
             }
-            System.out.println(returned);
             String [] responses = returned.split("\\|");
+            System.out.println(Arrays.toString(responses));
             AuthorizeNetParser anp = new AuthorizeNetParser(returned);
-            anp.parseData(responses);
             Map props = anp.splitXML();
+            anp.parseData(responses);
             
             if (anp.getResult().equals(LocalRes.getIntString("button.ok"))) {
                 if (APPROVED.equals(props.get("ResponseCode"))) {
@@ -168,11 +169,11 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                     payinfo.paymentOK(props.get("AuthCode").toString(), props.get("TransID").toString(), returned);
                 } else {                            
                     StringBuilder errorLine = new StringBuilder();
-                    errorLine.append(props.get("AuthCode").toString());
-                    errorLine.append(": ");
-                    errorLine.append(props.get("TransID").toString());
+                    errorLine.append(props.get("Description").toString());
+                    errorLine.append("\n");
+                    errorLine.append(getAVSResponseMessage(props.get("AVSResultCode").toString()));
                     //Transaction declined
-                    if (anp.getNumErrors()>0) {
+                    /*if (anp.getNumErrors()>0) {
                         
                         for (int i=1; i<=anp.getNumErrors(); i++) {
                             errorLine.append(props.get("ErrorCode"+Integer.toString(i)));
@@ -180,15 +181,15 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                             errorLine.append(props.get("ErrorText"+Integer.toString(i)));
                             errorLine.append("\n");
                         }
-                    }
+                    }*/
                    // JOptionPane.showMessageDialog(null, responses[4]);
                     
-                    payinfo.paymentError(errorLine.toString(), returned);
+                    payinfo.paymentError(errorLine.toString(), "");
                 }
             }
             else {
                 //JOptionPane.showMessageDialog(null, responses[4]);
-                payinfo.paymentError(returned, returned);
+                payinfo.paymentError(returned, "");
             }
            
 // JG 16 May 12 use multicatch
@@ -218,16 +219,16 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             case 'X': return "Address (Street) and 9 digit ZIP match";
             case 'Y': return "Address (Street) and 5 digit ZIP match";
             case 'Z': return "5 digit ZIP matches, Address (Street) does not";
+            default: return "Unknown AVS Response Message";
         }
-        return null;
     }
     
     private class AuthorizeNetParser extends DefaultHandler {
     
     private SAXParser m_sp = null;
-    private Map props = new HashMap();
+    final private Map props = new HashMap();
     private String text;
-    private InputStream is;
+    final private InputStream is;
     private String result;
     private int numMessages = 0;
     private int numErrors = 0;
@@ -238,29 +239,31 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
     
     public void parseData(String[] in)
     {
+        System.out.println(in.length);
         for(int i = 0; i < in.length; i++)
         {
+            System.out.println(in[i]);
             switch(i)
             {
-            case 1:
+            case 0:
                 props.put("ResponseCode", in[i]);
                 break;
-            case 3:
+            case 2:
                 props.put("Code", in[i]);
                 break;
-            case 4:
+            case 3:
                 props.put("Description", in[i]);
                 break;
-            case 5:
+            case 4:
                 props.put("AuthCode", in[i]);
                 break;
-            case 6:
+            case 5:
                 props.put("AVSResultCode", in[i]);
                 break;
-            case 7:
+            case 6:
                 props.put("TransID", in[i]);
                 break;
-            case 39:
+            case 38:
                 props.put("CVVResultCode", in[i]);
                 break;
             }

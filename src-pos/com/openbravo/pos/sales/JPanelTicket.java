@@ -595,7 +595,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }
    }
 
-    private void addTicketLine(ProductInfoExt oProduct, double dMul, double dPrice) {           
+    private void addTicketLine(ProductInfoExt oProduct, double dMul, double dPrice, double dBuyPrice) {           
 // Added JDL 19.12.12 Variable Price Product    
 // take the number entered and convert to an amount rather than quantity. 
 // modified 02.05.13 read tax selected from the panel
@@ -607,10 +607,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             if (m_jaddtax.isSelected()) {
                 dPrice /= (1 + tax.getRate());
             }
-                addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));
+                addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, dBuyPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));
         } else {        
                 TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-                addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));                
+                addTicketLine(new TicketLineInfo(oProduct, dMul, dPrice, dBuyPrice, tax, (java.util.Properties) (oProduct.getProperties().clone())));                
             }
         }
     
@@ -803,9 +803,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                 if (m_jaddtax.isSelected()) {
                     // debemos quitarle los impuestos ya que el precio es con iva incluido...
                     TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-                    addTicketLine(oProduct, 1.0, dPriceSell / (1.0 + tax.getRate()));
+                    addTicketLine(oProduct, 1.0, dPriceSell / (1.0 + tax.getRate()), oProduct.getPriceBuy());
                 } else {
-                    addTicketLine(oProduct, 1.0, dPriceSell);
+                    addTicketLine(oProduct, 1.0, dPriceSell, oProduct.getPriceBuy());
                 }                
             }
         } catch (BasicException eData) {
@@ -852,15 +852,15 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
          }
  
     private void incProduct(double dPor, ProductInfoExt prod, double tot) {
-        addTicketLine(prod, getPorValue(), tot);
+        addTicketLine(prod, getPorValue(), tot, prod.getPriceBuy());
     }
     
     private void incProduct(double dPor, ProductInfoExt prod) {
         // precondicion: prod != null
         if (prod.isVprice()){
-            addTicketLine(prod, getPorValue(), getInputValue());    
+            addTicketLine(prod, getPorValue(), getInputValue(), prod.getPriceBuy());    
         }else {        
-            addTicketLine(prod, dPor, prod.getPriceSell());
+            addTicketLine(prod, dPor, prod.getPriceSell(), prod.getPriceBuy());
         }
       
     }
@@ -877,7 +877,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         //} else if (m_iNumberStatusInput == NUMBERZERO && m_iNumberStatusPor == NUMBERVALID) {                      
             incProduct(getInputValue(), prod);
         } else if (prod.isVprice()){           
-            addTicketLine(prod, getPorValue(), getInputValue()) ;                
+            addTicketLine(prod, getPorValue(), getInputValue(), 0) ;                
         } else {
             Toolkit.getDefaultToolkit().beep();
         }       
@@ -989,9 +989,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                             
                             if(m_jaddtax.isSelected()) {
                                 TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
-                                addTicketLine(oProduct, weight, dPriceSell / (1.0 + tax.getRate()));
+                                addTicketLine(oProduct, weight, dPriceSell / (1.0 + tax.getRate()), oProduct.getPriceBuy());
                             } else {
-                                addTicketLine(oProduct, weight, dPriceSell);
+                                addTicketLine(oProduct, weight, dPriceSell, oProduct.getPriceBuy());
                             }
                             
                         }
@@ -1121,7 +1121,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                         Double value = m_App.getDeviceScale().readWeight();
                         if (value != null) {
                             ProductInfoExt product = getInputProduct();
-                            addTicketLine(product, value, product.getPriceSell());
+                            addTicketLine(product, value, product.getPriceSell(), product.getPriceBuy());
                         }
                     } catch (ScaleException e) {
                         Toolkit.getDefaultToolkit().beep();
@@ -1251,7 +1251,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                     && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERZERO
                     && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
-                addTicketLine(product, 1.0, product.getPriceSell());
+                addTicketLine(product, 1.0, product.getPriceSell(), product.getPriceBuy());
 // JG May 2014 - Allow line free entry amendment
                 m_jEditLine.doClick();
             // Anadimos 1 producto con precio negativo
@@ -1266,7 +1266,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                     && m_iNumberStatusInput == NUMBERVALID && m_iNumberStatusPor == NUMBERVALID
                     && m_App.getAppUserView().getUser().hasPermission("sales.EditLines")) {
                 ProductInfoExt product = getInputProduct();
-                addTicketLine(product, getPorValue(), product.getPriceSell());
+                addTicketLine(product, getPorValue(), product.getPriceSell(), product.getPriceBuy());
 
             // Anadimos n productos con precio negativo ?
             } /*else if (cTrans == '-' 
@@ -2487,15 +2487,15 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
            try{
            ProductInfoExt vProduct = dlSales.getProductInfoByCode("BFeesDay1");
            vProduct.setName("Berth Fees 1st Day " + mooring.getVesselName());
-           addTicketLine(vProduct, mooring.getVesselSize(), vProduct.getPriceSell());
+           addTicketLine(vProduct, mooring.getVesselSize(), vProduct.getPriceSell(), vProduct.getPriceBuy());
            if (mooring.getVesselDays()>1){
            vProduct = dlSales.getProductInfoByCode("BFeesDay2");
            vProduct.setName("Additional Days " +(mooring.getVesselDays()-1));
-           addTicketLine(vProduct, mooring.getVesselSize() * (mooring.getVesselDays()-1), vProduct.getPriceSell());               
+           addTicketLine(vProduct, mooring.getVesselSize() * (mooring.getVesselDays()-1), vProduct.getPriceSell(), vProduct.getPriceBuy());               
            }
            if (mooring.getVesselPower()){
            vProduct = dlSales.getProductInfoByCode("PowerSupplied");
-           addTicketLine(vProduct, mooring.getVesselDays(), vProduct.getPriceSell());               
+           addTicketLine(vProduct, mooring.getVesselDays(), vProduct.getPriceSell(), vProduct.getPriceBuy());               
            }         
            }catch (BasicException e){}
        }
