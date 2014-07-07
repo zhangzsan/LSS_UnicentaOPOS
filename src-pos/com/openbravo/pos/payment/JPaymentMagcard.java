@@ -22,6 +22,7 @@ package com.openbravo.pos.payment;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
+import com.openbravo.pos.panels.JFrameTimedPopup;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.JOptionPane;
@@ -95,16 +96,29 @@ public class JPaymentMagcard extends javax.swing.JPanel implements JPaymentInter
         m_paymentgateway.execute(payinfo);
         
         if (payinfo.isPaymentOK()) {
+            new JFrameTimedPopup(null, 3500,"Approved!", "Transaction ID: "+payinfo.getTransactionID()+ "APPROVED!");
             jlblMessage.setText("Transaction ID: "+payinfo.getTransactionID()+ "APPROVED!");
             revalidate();
             return payinfo;
         } else {
-            JOptionPane.showMessageDialog(getRootPane(),payinfo.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(getRootPane(),payinfo.getMessage(), getErrorType(payinfo.getMessage().charAt(0)), JOptionPane.ERROR_MESSAGE);
             jlblMessage.setText(payinfo.getMessage());
             revalidate();
             return null;
         }
     }  
+    
+    private static String getErrorType(char c)
+    {
+        switch(c)
+        {
+            case '1': return "Approved";
+            case '2': return "Declined";
+            case '3': return "Error";
+            case '4': return "Transaction Held";
+            default: return "Unknown";
+        }
+    }
 
     /**
      *

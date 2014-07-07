@@ -648,7 +648,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         
         m_jRemaininglEuros.setText(Formats.CURRENCY.formatValue(new Double(m_dTotal - m_aPaymentInfo.getTotal())));
         m_jButtonRemove.setEnabled(!m_aPaymentInfo.isEmpty());
-        m_jTabPayment.setSelectedIndex(0); // selecciono el primero
+        m_jTabPayment.setSelectedIndex(3); // selecciono el primero, cards are more prevalent so lets  make it switch to that tab 
         ((JPaymentInterface) m_jTabPayment.getSelectedComponent()).activate(customerext, m_dTotal - m_aPaymentInfo.getTotal(), m_sTransactionID);
     }
     

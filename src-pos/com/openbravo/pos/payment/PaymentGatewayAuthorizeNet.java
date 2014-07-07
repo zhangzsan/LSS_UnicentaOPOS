@@ -164,27 +164,21 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             anp.parseData(responses);
             
             if (anp.getResult().equals(LocalRes.getIntString("button.ok"))) {
-                if (APPROVED.equals(props.get("ResponseCode"))) {
+                System.out.println("Response Code: " + props.get("ResponseCode").toString());
+                if (APPROVED.equals(props.get("ResponseCode").toString())) {
                     //Transaction approved
                     payinfo.paymentOK(props.get("AuthCode").toString(), props.get("TransID").toString(), returned);
-                } else {                            
+                } else {
+                    //DECLINED                        
                     StringBuilder errorLine = new StringBuilder();
+                    errorLine.append(props.get("ResponseCode").toString());
+                    errorLine.append(": ");
                     errorLine.append(props.get("Description").toString());
-                    errorLine.append("\n");
-                    errorLine.append(getAVSResponseMessage(props.get("AVSResultCode").toString()));
-                    //Transaction declined
-                    /*if (anp.getNumErrors()>0) {
-                        
-                        for (int i=1; i<=anp.getNumErrors(); i++) {
-                            errorLine.append(props.get("ErrorCode"+Integer.toString(i)));
-                            errorLine.append(": ");
-                            errorLine.append(props.get("ErrorText"+Integer.toString(i)));
-                            errorLine.append("\n");
-                        }
-                    }*/
-                   // JOptionPane.showMessageDialog(null, responses[4]);
+                    errorLine.append("(");
+                    errorLine.append(props.get("Code").toString());
+                    errorLine.append(")");
                     
-                    payinfo.paymentError(errorLine.toString(), "");
+                    payinfo.paymentError(errorLine.toString(), "\n\n"+Arrays.toString(responses));
                 }
             }
             else {
@@ -245,7 +239,7 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             System.out.println(in[i]);
             switch(i)
             {
-            case 0:
+            case 1:
                 props.put("ResponseCode", in[i]);
                 break;
             case 2:

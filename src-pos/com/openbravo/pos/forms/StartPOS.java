@@ -21,6 +21,7 @@ package com.openbravo.pos.forms;
 
 import com.openbravo.format.Formats;
 import com.openbravo.pos.instance.InstanceQuery;
+import com.openbravo.pos.panels.JFrameTimedPopup;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Locale;
@@ -101,7 +102,6 @@ public class StartPOS {
                 
                 // Set the look and feel.
                 try {             
-                    
                     Object laf = Class.forName(config.getProperty("swing.defaultlaf")).newInstance();                    
                     if (laf instanceof LookAndFeel){
                         UIManager.setLookAndFeel((LookAndFeel) laf);

@@ -134,7 +134,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
 
         Double value = m_jTendered.getDoubleValue();
         if (value == null || value == 0.0) {
-            m_dPaid = m_dTotal;
+            m_dPaid = 0;
         } else {            
             m_dPaid = value;
 
