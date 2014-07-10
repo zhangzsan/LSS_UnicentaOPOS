@@ -89,11 +89,18 @@ public class ProductsWarehousePanel extends JPanelTable2 {
                 if (values[0] == null)  {
                     // INSERT
                     values[0] = UUID.randomUUID().toString();
+                    new PreparedSentence(app.getSession()
+                        , "INSERT INTO STOCKCURRENT (LOCATION, PRODUCT, UNITS) VALUES (?, ?, ?)"
+                        , new SerializerWriteBasicExt(row.getDatas(), new int[] {4, 1, 7})).exec(params);
+                    
                     return new PreparedSentence(app.getSession()
                         , "INSERT INTO STOCKLEVEL (ID, LOCATION, PRODUCT, STOCKSECURITY, STOCKMAXIMUM) VALUES (?, ?, ?, ?, ?)"
                         , new SerializerWriteBasicExt(row.getDatas(), new int[] {0, 4, 1, 5, 6})).exec(params);
                 } else {
                     // UPDATE
+                    new PreparedSentence(app.getSession()
+                        , "UPDATE STOCKCURRENT SET UNITS = ? WHERE PRODUCT = ?"
+                        , new SerializerWriteBasicExt(row.getDatas(), new int[] {7, 0})).exec(params);
                     return new PreparedSentence(app.getSession()
                         , "UPDATE STOCKLEVEL SET STOCKSECURITY = ?, STOCKMAXIMUM = ? WHERE ID = ?"
                         , new SerializerWriteBasicExt(row.getDatas(), new int[] {5, 6, 0})).exec(params);

@@ -65,6 +65,7 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
         
         m_jMinimum.getDocument().addDocumentListener(dirty);
         m_jMaximum.getDocument().addDocumentListener(dirty);
+        m_jQuantity.getDocument().addDocumentListener(dirty);
     }
     
     /**
@@ -207,7 +208,6 @@ public class ProductsWarehouseEditor extends javax.swing.JPanel implements Edito
 
         m_jQuantity.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jQuantity.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        m_jQuantity.setEnabled(false);
         add(m_jQuantity);
         m_jQuantity.setBounds(160, 50, 80, 25);
 
