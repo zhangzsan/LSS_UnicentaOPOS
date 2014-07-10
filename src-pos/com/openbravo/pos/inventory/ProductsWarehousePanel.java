@@ -99,8 +99,8 @@ public class ProductsWarehousePanel extends JPanelTable2 {
                 } else {
                     // UPDATE
                     new PreparedSentence(app.getSession()
-                        , "UPDATE STOCKCURRENT SET UNITS = ? WHERE PRODUCT = ?"
-                        , new SerializerWriteBasicExt(row.getDatas(), new int[] {7, 0})).exec(params);
+                        , "UPDATE STOCKCURRENT SET UNITS = ? WHERE (PRODUCT = ? AND LOCATION = ?)"
+                        , new SerializerWriteBasicExt(row.getDatas(), new int[] {7, 0, 4})).exec(params);
                     return new PreparedSentence(app.getSession()
                         , "UPDATE STOCKLEVEL SET STOCKSECURITY = ?, STOCKMAXIMUM = ? WHERE ID = ?"
                         , new SerializerWriteBasicExt(row.getDatas(), new int[] {5, 6, 0})).exec(params);
