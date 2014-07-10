@@ -72,7 +72,6 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     }
 
     private JFrameCountDrawer(Connection con) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -1598,6 +1597,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     private void setAllTotals()
     {
         DecimalFormat df = new DecimalFormat(" $0.00");
+        this.calcTotals();
         if(this.sodPanel.isShowing())
         {
             totalSOD = this.calcTotals();
@@ -1744,6 +1744,8 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             this.totalCash.setText(new DecimalFormat("0.00").format(this.calcTotals()));
         else
             this.totalCash1.setText(new DecimalFormat("0.00").format(this.calcTotals()));
+        
+        this.calcTotals();
     }//GEN-LAST:event_tabbedPanelFocusGained
 
     private void lastSODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastSODActionPerformed
