@@ -764,9 +764,9 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
     }//GEN-LAST:event_m_jCloseCashTopActionPerformed
 
-    private void m_jCloseCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCloseCashActionPerformed
-        // TODO add your handling code here:
-        int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.wannaclosecash"), AppLocal.getIntString("message.title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    public void closeCash()
+    {
+                int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.wannaclosecash"), AppLocal.getIntString("message.title"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (res == JOptionPane.YES_OPTION) {
 
             Date dNow = new Date();
@@ -815,6 +815,11 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                 msg.show(this);
             }
         }
+    }
+    
+    private void m_jCloseCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCloseCashActionPerformed
+        // TODO add your handling code here:
+        closeCash();
     }//GEN-LAST:event_m_jCloseCashActionPerformed
 
     private void m_jPrintCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jPrintCashActionPerformed
@@ -825,7 +830,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
     }//GEN-LAST:event_m_jPrintCashActionPerformed
 
     private void cdButtonm_JCountDrawerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cdButtonm_JCountDrawerActionPerformed
-        cd = new JFrameCountDrawer(con, m_App.getAppUserView().getUser().getName(), this.m_PaymentsToClose);
+        cd = new JFrameCountDrawer(this, con, m_App.getAppUserView().getUser().getName(), this.m_PaymentsToClose);
         cd.setVisible(true);
     }//GEN-LAST:event_cdButtonm_JCountDrawerActionPerformed
     

@@ -37,20 +37,22 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     private boolean SODset = false;
     private int EODid,SODid;
     private PaymentsModel pm;
+    private JPanelCloseMoney jpcm;
     ResultSet rs;
     String SQL;
     Statement stmt;    
     /**
      * Creates new form JFrameCountDrawer
+     * @param jf
      * @param c
      * @param name
      * @param pm
      */
-    public JFrameCountDrawer(Connection c, String name, PaymentsModel pm) {
+    public JFrameCountDrawer(JPanelCloseMoney jf, Connection c, String name, PaymentsModel pm) {
         JFrameCountDrawer.con = c;
         this.username = name;
         this.pm = pm;
-
+        this.jpcm = jf;
         calcCashSales();
         initComponents();
         checkForSOD();
@@ -1568,7 +1570,15 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             this.dispose();
             }       
         catch (SQLException e){MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, "There was an error getting data from the datebase.", e);
-                msg.show(this);} 
+                msg.show(this);}
+          
+          if(this.eodPanel.isShowing())
+          {
+              if(JOptionPane.showConfirmDialog(this, "Do you wish finalize all sales for the day  and print sales summary at this time?"
+                , "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                  jpcm.closeCash();
+              }
+          }
         }
         else
         {
