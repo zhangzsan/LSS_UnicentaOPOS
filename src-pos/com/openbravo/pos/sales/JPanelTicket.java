@@ -1310,7 +1310,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }
     }
     
-    private boolean closeTicket(TicketInfo ticket, Object ticketext) {
+    public boolean closeTicket(TicketInfo ticket, Object ticketext) {
         if (listener  != null) {
             listener.stop();
         }
@@ -1324,7 +1324,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                 // reset the payment info
                 taxeslogic.calculateTaxes(ticket);
                 
-                if (ticket.getTotal() >= 0.0){
+                if (ticket.getTotal() >= 0.0 && ticket.getTicketType() != TicketInfo.RECEIPT_NOSALE){
                     ticket.resetPayments(); //Only reset if is sale
                 }
                 
@@ -1344,6 +1344,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
                     paymentdialog.setTransactionID(ticket.getTransactionID());
 
+                    //if(ticket.getTicketType() == TicketInfo.RECEIPT_NOSALE)
                     if (paymentdialog.showDialog(ticket.getTotal(), ticket.getCustomer())) {
 
                         // assign the payments selected and calculate taxes.         
@@ -1409,6 +1410,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
    
         
         return resultok;        
+    }
+    
+    public Object getoTicketExt()
+    {
+        return m_oTicketExt;
     }
        
     private void warrantyCheck(TicketInfo ticket){
@@ -1597,7 +1603,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             return result;
         }
     }
-   
     
     private Object executeEvent(TicketInfo ticket, Object ticketext, String eventkey, ScriptArg ... args) {
         

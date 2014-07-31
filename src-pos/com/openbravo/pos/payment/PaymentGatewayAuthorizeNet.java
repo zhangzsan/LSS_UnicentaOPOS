@@ -39,6 +39,7 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
     private static String ENDPOINTADDRESS;
     private static final String OPERATIONVALIDATE = "AUTH_CAPTURE";
     private static final String OPERATIONREFUND = "CREDIT";
+    private static final String OPERATIONVOID = "VOID";
     private static final String APPROVED = "1";
     
     private String m_sCommerceID;
@@ -80,7 +81,7 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
            // sb.append("&x_device_type=10");
             
             sb.append("&x_login=");        
-            sb.append(URLEncoder.encode(m_sCommerceID, "UTF-8"));
+            sb.append(URLEncoder.encode(m_sCommerceID, "UTF-8")); 
 
             sb.append("&x_tran_key=");
             sb.append(URLEncoder.encode(m_sCommercePassword, "UTF-8"));
@@ -90,7 +91,14 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             String amount = formatter.format(Math.abs(payinfo.getTotal()));
             sb.append(URLEncoder.encode(amount.replace(',', '.'), "UTF-8"));
             
-            if (payinfo.getTrack1(true) == null) {
+            if(payinfo.getCardNumber().equals("VOID"))
+            {
+                sb.append("&x_type=");
+                sb.append(OPERATIONVOID);
+                sb.append("&x_trans_id=");
+                sb.append(payinfo.getTransactionID());
+            }
+            else if (payinfo.getTrack1(true) == null) {
                 sb.append("&x_card_num=");
                 sb.append(URLEncoder.encode(payinfo.getCardNumber(), "UTF-8"));
 
@@ -123,20 +131,22 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             sb.append("&x_relay_response=FALSE");
             sb.append("&x_test_request=");
             sb.append(m_bTestMode);
-            
-            //PAYMENT
-            if (payinfo.getTotal() >= 0.0) {
-                sb.append("&x_type=");
-                sb.append(OPERATIONVALIDATE);
-                //sb.append("&x_card_code=340"); //CCV
-            }
-            //REFUND
-            else {
-                sb.append("&x_type=");
-                sb.append(OPERATIONREFUND);
-                sb.append("&x_trans_id=");
-                sb.append(payinfo.getTransactionID());
-                System.out.println(payinfo.getTransactionID());
+            if(!payinfo.getCardNumber().equals("VOID"))
+            {
+                //PAYMENT
+                if (payinfo.getTotal() >= 0.0) {
+                    sb.append("&x_type=");
+                    sb.append(OPERATIONVALIDATE);
+                    //sb.append("&x_card_code=340"); //CCV
+                }
+                //REFUND
+                else {
+                    sb.append("&x_type=");
+                    sb.append(OPERATIONREFUND);
+                    sb.append("&x_trans_id=");
+                    sb.append(payinfo.getTransactionID());
+                    System.out.println(payinfo.getTransactionID());
+                }
             }
 
             // open secure connection
@@ -254,7 +264,7 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
             case 5:
                 props.put("AVSResultCode", in[i]);
                 break;
-            case 6:
+            case 7:
                 props.put("TransID", in[i]);
                 break;
             case 38:

@@ -21,7 +21,7 @@ package com.openbravo.pos.forms;
 
 import com.openbravo.format.Formats;
 import com.openbravo.pos.instance.InstanceQuery;
-import com.openbravo.pos.panels.JFrameTimedPopup;
+//import com.openbravo.pos.panels.JFrameTimedPopup;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Locale;

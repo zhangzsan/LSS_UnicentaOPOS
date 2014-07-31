@@ -76,6 +76,7 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
     public void activate(String sTransaction, double dTotal) {
         
         m_sTransactionID = sTransaction;
+        System.out.println("Transaction ID:" +m_sTransactionID);
         m_dTotal = dTotal;
         
         resetState();

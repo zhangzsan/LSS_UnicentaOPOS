@@ -33,7 +33,6 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.SubstanceSkin;
 import org.pushingpixels.substance.api.skin.SkinInfo;
 import com.openbravo.pos.util.DirectoryEvent;
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 
 // JG 16 May 2013 deprecated for pushingpixels
 // import org.jvnet.substance.SubstanceLookAndFeel;

@@ -289,6 +289,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jButtons = new javax.swing.JPanel();
         m_jTicketId = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         m_jEdit = new javax.swing.JButton();
         m_jRefund = new javax.swing.JButton();
         m_jPrint = new javax.swing.JButton();
@@ -333,6 +334,17 @@ public class JTicketsBagTicket extends JTicketsBag {
             }
         });
         m_jButtons.add(jButton2);
+
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lone Star Scuba\\Documents\\Blakes Stuff\\unicenta3.70\\src-beans\\com\\openbravo\\images\\refundit.png")); // NOI18N
+        jButton3.setText("VOID");
+        jButton3.setEnabled(false);
+        jButton3.setPreferredSize(new java.awt.Dimension(120, 40));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        m_jButtons.add(jButton3);
 
         m_jEdit.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         m_jEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale_editline.png"))); // NOI18N
@@ -541,11 +553,23 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             readTicket(selectedTicket.getTicketId(), selectedTicket.getTicketType());
         }
 }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        m_ticketCopy = m_ticket;        
+        m_TicketsBagTicketBag.showEdit();
+        m_panelticketedit.showCatalog();
+// Indicate that this a ticket in edit mode      
+        m_ticketCopy.setOldTicket(true); 
+        m_panelticketedit.setActiveTicket(m_ticket.copyTicket(), null);
+        m_ticketCopy.setTicketType(TicketInfo.RECEIPT_NOSALE);
+       // m_ticketCopy.closeTicket(m_ticketCopy, m_ticketCopy.getoTicketExt());
+    }//GEN-LAST:event_jButton3ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
