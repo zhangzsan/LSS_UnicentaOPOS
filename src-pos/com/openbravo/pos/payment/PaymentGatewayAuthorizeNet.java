@@ -97,6 +97,7 @@ public class PaymentGatewayAuthorizeNet implements PaymentGateway {
                 sb.append(OPERATIONVOID);
                 sb.append("&x_trans_id=");
                 sb.append(payinfo.getTransactionID());
+                System.out.println("Voiding CC transaction.."+payinfo.getTransactionID());
             }
             else if (payinfo.getTrack1(true) == null) {
                 sb.append("&x_card_num=");

@@ -164,7 +164,6 @@ public class TicketInfo implements SerializableRead, Externalizable {
      */
     public TicketInfo copyTicket() {
         TicketInfo t = new TicketInfo();
-
         t.tickettype = tickettype;
         t.m_iTicketId = m_iTicketId;
         t.m_dDate = m_dDate;

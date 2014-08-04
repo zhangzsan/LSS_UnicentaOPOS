@@ -163,6 +163,11 @@ public class PaymentInfoMagcard extends PaymentInfo {
     public String getName() {
         return "magcard";
     }
+    
+    public void setCardNumber(String in)
+    {
+        m_sCardNumber = in;
+    }
 
     /**
      *

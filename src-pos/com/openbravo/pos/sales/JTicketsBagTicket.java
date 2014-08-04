@@ -29,6 +29,7 @@ import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.panels.JTicketsFinder;
+import com.openbravo.pos.payment.PaymentInfoMagcard;
 import com.openbravo.pos.printer.*;
 import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
@@ -254,6 +255,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         //}
         m_jRefund.setEnabled(m_ticket != null && m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL);
         m_jPrint.setEnabled(m_ticket != null);
+        jVoidBtn.setEnabled(m_ticket != null);
         
         // Este deviceticket solo tiene una impresora, la de pantalla
         m_TP.getDevicePrinter("1").reset();
@@ -289,7 +291,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jButtons = new javax.swing.JPanel();
         m_jTicketId = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jVoidBtn = new javax.swing.JButton();
         m_jEdit = new javax.swing.JButton();
         m_jRefund = new javax.swing.JButton();
         m_jPrint = new javax.swing.JButton();
@@ -335,16 +337,15 @@ public class JTicketsBagTicket extends JTicketsBag {
         });
         m_jButtons.add(jButton2);
 
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Lone Star Scuba\\Documents\\Blakes Stuff\\unicenta3.70\\src-beans\\com\\openbravo\\images\\refundit.png")); // NOI18N
-        jButton3.setText("VOID");
-        jButton3.setEnabled(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(120, 40));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jVoidBtn.setText("VOID");
+        jVoidBtn.setEnabled(false);
+        jVoidBtn.setPreferredSize(new java.awt.Dimension(120, 40));
+        jVoidBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jVoidBtnActionPerformed(evt);
             }
         });
-        m_jButtons.add(jButton3);
+        m_jButtons.add(jVoidBtn);
 
         m_jEdit.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         m_jEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/sale_editline.png"))); // NOI18N
@@ -554,27 +555,54 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
 }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jVoidBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVoidBtnActionPerformed
         m_ticketCopy = m_ticket;        
         m_TicketsBagTicketBag.showEdit();
         m_panelticketedit.showCatalog();
-// Indicate that this a ticket in edit mode      
-        m_ticketCopy.setOldTicket(true); 
-        m_panelticketedit.setActiveTicket(m_ticket.copyTicket(), null);
+        // Indicate that this a ticket in edit mode      
         m_ticketCopy.setTicketType(TicketInfo.RECEIPT_NOSALE);
+        Object[] tli;
+        tli = m_ticket.getLines().toArray();
+        m_ticket.getLines().clear();
+        m_panelticketedit.setActiveTicket(m_ticket.copyTicket(), null);
+        
+        for (Object tli1 : tli) {
+            TicketLineInfo ticketLine = (TicketLineInfo) tli1;
+            ticketLine.setMultiply(-ticketLine.getMultiply());
+            //ticketLine.setPrice(-ticketLine.getPrice());
+            //m_ticket.addLine(ticketLine);
+            m_panelticketedit.addTicketLine(ticketLine);
+        }
+        m_ticketCopy.setOldTicket(true);
+        
+       /* for(int i = 0; i<m_ticket.getPayments().size(); i++)
+        {
+            if(m_ticket.getPayments().get(i).getName().contains("magcard"))
+            {
+                if(!((PaymentInfoMagcard)m_ticket.getPayments().get(i)).getCardNumber().equals("VOID"))
+            {
+                PaymentInfoMagcard old = (PaymentInfoMagcard) m_ticket.getPayments().get(i);
+                PaymentInfoMagcard pi = new PaymentInfoMagcard(old.getHolderName()
+                                                             ,"VOID", null,null,0);
+                m_ticket.getPayments().remove(i);
+                m_ticket.getPayments().add(pi);
+            }
+            }
+        }*/
+        
        // m_ticketCopy.closeTicket(m_ticketCopy, m_ticketCopy.getoTicketExt());
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jVoidBtnActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JButton jVoidBtn;
     private javax.swing.JRadioButton jrbRefunds;
     private javax.swing.JRadioButton jrbSales;
     private javax.swing.JPanel m_jButtons;

@@ -219,6 +219,7 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         jLabel8 = new javax.swing.JLabel();
         m_jHolderName = new javax.swing.JLabel();
         m_jCardImage = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -289,6 +290,15 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         jPanel1.add(m_jCardImage);
         m_jCardImage.setBounds(270, 90, 49, 17);
 
+        jCheckBox1.setText("VOID");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jCheckBox1);
+        jCheckBox1.setBounds(310, 60, 61, 24);
+
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -297,9 +307,18 @@ public class PaymentPanelMagCard extends javax.swing.JPanel implements PaymentPa
         resetState();
         
     }//GEN-LAST:event_jResetActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        m_jCardNumber.setText("VOID");
+        m_jExpirationDate.setText("XXXX");
+        m_jHolderName.setText("VOID");
+        m_notifier.setStatus(true, true); 
+        revalidate();
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
