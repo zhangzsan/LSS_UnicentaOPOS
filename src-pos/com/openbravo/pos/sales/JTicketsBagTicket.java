@@ -569,6 +569,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         for (Object tli1 : tli) {
             TicketLineInfo ticketLine = (TicketLineInfo) tli1;
             ticketLine.setMultiply(-ticketLine.getMultiply());
+            ticketLine.setPrice(0);
             //ticketLine.setPrice(-ticketLine.getPrice());
             //m_ticket.addLine(ticketLine);
             m_panelticketedit.addTicketLine(ticketLine);

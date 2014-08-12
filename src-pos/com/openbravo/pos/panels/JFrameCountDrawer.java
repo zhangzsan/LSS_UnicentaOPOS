@@ -1447,6 +1447,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
                 this.eod_bill20.setText(Integer.toString(rs.getInt("BILL20")));
                 this.eod_bill50.setText(Integer.toString(rs.getInt("BILL50")));
                 this.eod_bill100.setText(Integer.toString(rs.getInt("BILL100")));
+                this.bankDeposit_Field.setText(Integer.toString(rs.getInt("BANKDEPOSIT")));
                 this.tabbedPanel.setSelectedIndex(1);
                 totalEOD = this.calcTotals();
                 this.totalCash.setText(new DecimalFormat("#.00").format(totalEOD));
