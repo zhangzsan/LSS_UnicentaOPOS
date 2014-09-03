@@ -78,21 +78,17 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jPriceTax.setDoubleValue(oLine.getPriceTax());
         m_jTaxrate.setText(oLine.getTaxInfo().getName());
         
-        m_jName.addPropertyChangeListener("Edition", new RecalculateName());
+       // m_jName.addPropertyChangeListener("Edition", new RecalculateName());
         m_jUnits.addPropertyChangeListener("Edition", new RecalculateUnits());
         m_jPrice.addPropertyChangeListener("Edition", new RecalculatePrice());
         m_jPriceTax.addPropertyChangeListener("Edition", new RecalculatePriceTax());
 
-        m_jName.addEditorKeys(m_jKeys);
         m_jUnits.addEditorKeys(m_jKeys);
         m_jPrice.addEditorKeys(m_jKeys);
         m_jPriceTax.addEditorKeys(m_jKeys);
         
-        if (m_jName.isEnabled()) {
-            m_jName.activate();
-        } else {
-            m_jUnits.activate();
-        }
+        m_jUnits.activate();
+        
         
         printTotals();
 
@@ -219,7 +215,6 @@ public class JProductLineEdit extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        m_jName = new com.openbravo.editor.JEditorString();
         m_jUnits = new com.openbravo.editor.JEditorDouble();
         m_jPrice = new com.openbravo.editor.JEditorCurrency();
         m_jPriceTax = new com.openbravo.editor.JEditorCurrency();
@@ -229,6 +224,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jTotal = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         m_jSubtotal = new javax.swing.JLabel();
+        m_jName = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         m_jButtonCancel = new javax.swing.JButton();
         m_jButtonOK = new javax.swing.JButton();
@@ -264,10 +260,6 @@ public class JProductLineEdit extends javax.swing.JDialog {
         jLabel4.setText(AppLocal.getIntString("label.item")); // NOI18N
         jPanel2.add(jLabel4);
         jLabel4.setBounds(10, 20, 90, 25);
-
-        m_jName.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jPanel2.add(m_jName);
-        m_jName.setBounds(100, 20, 270, 25);
 
         m_jUnits.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jPanel2.add(m_jUnits);
@@ -325,6 +317,8 @@ public class JProductLineEdit extends javax.swing.JDialog {
         m_jSubtotal.setRequestFocusEnabled(false);
         jPanel2.add(m_jSubtotal);
         m_jSubtotal.setBounds(100, 170, 210, 25);
+        jPanel2.add(m_jName);
+        m_jName.setBounds(100, 20, 210, 27);
 
         jPanel5.add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -386,7 +380,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
     }//GEN-LAST:event_m_jButtonCancelActionPerformed
 
     private void m_jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonOKActionPerformed
-
+        m_oLine.setProperty("product.name", m_jName.getText());
         returnLine = m_oLine;
         
         dispose();
@@ -409,7 +403,7 @@ public class JProductLineEdit extends javax.swing.JDialog {
     private javax.swing.JButton m_jButtonCancel;
     private javax.swing.JButton m_jButtonOK;
     private com.openbravo.editor.JEditorKeys m_jKeys;
-    private com.openbravo.editor.JEditorString m_jName;
+    private javax.swing.JTextField m_jName;
     private com.openbravo.editor.JEditorCurrency m_jPrice;
     private com.openbravo.editor.JEditorCurrency m_jPriceTax;
     private javax.swing.JLabel m_jSubtotal;
