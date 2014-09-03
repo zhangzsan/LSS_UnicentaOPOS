@@ -578,7 +578,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         
        /* for(int i = 0; i<m_ticket.getPayments().size(); i++)
         {
-            if(m_ticket.getPayments().get(i).getName().contains("magcard"))
+            if(m_ticket.getPayments().get(i).getName().contains("card"))
             {
                 if(!((PaymentInfoMagcard)m_ticket.getPayments().get(i)).getCardNumber().equals("VOID"))
             {

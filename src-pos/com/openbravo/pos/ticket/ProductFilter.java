@@ -31,9 +31,11 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;
+import com.openbravo.pos.reports.JPanelReport;
 import com.openbravo.pos.reports.ReportEditorCreator;
 import java.awt.Component;
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  *
@@ -57,7 +59,6 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
     public void init(AppView app) {
          
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
-       
         // El modelo de categorias
         m_sentcat = dlSales.getCategoriesList();
         m_CategoryModel = new ComboBoxValModel();          
@@ -122,7 +123,7 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
                 QBFCompareEnum.COMP_NONE, null,
                 QBFCompareEnum.COMP_NONE, null,
                 QBFCompareEnum.COMP_NONE, null,
-                QBFCompareEnum.COMP_RE, "%" + m_jBarcode.getText() + "%"
+                QBFCompareEnum.COMP_EQUALS, "" + m_jBarcode.getText() + ""
             };
         }
     } 

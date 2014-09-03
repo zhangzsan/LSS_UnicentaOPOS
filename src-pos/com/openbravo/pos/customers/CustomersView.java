@@ -118,7 +118,8 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         List a = m_sentcat.list();
         a.add(0, null); // The null item
         m_CategoryModel = new ComboBoxValModel(a);
-        m_jCategory.setModel(m_CategoryModel);         
+        m_jCategory.setModel(m_CategoryModel); 
+        m_jCategory.setSelectedIndex(m_jCategory.getItemCount()-1);
         customerTransactionList = dlSales.getCustomersTransactionList();
     }
     
@@ -260,6 +261,8 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         jButton3.setEnabled(true);
 
         jTable1.setEnabled(false);
+        
+        m_jCategory.setSelectedIndex(m_jCategory.getItemCount()-1);
     }
 
     /**
@@ -409,6 +412,31 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         jTable1.setEnabled(true);
     }
     
+        private String formatName(String name)
+    {
+        char[] nameArr = name.toCharArray();
+        
+        boolean newName = true;
+        for(int i = 0; i< nameArr.length; i++){
+            char c = nameArr[i];
+            
+            if(newName){
+                c = Character.toUpperCase(c);
+                newName = false;
+            }
+            else if(c == ' '){
+                newName = true;
+            } else {
+                c = Character.toLowerCase(c);
+            }
+            
+            nameArr[i] = c;
+        }
+        
+        return String.valueOf(nameArr);
+            
+    }
+    
     /**
      * Create object
      * @return
@@ -420,7 +448,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         customer[0] = m_oId == null ? UUID.randomUUID().toString() : m_oId;
         customer[1] = m_jTaxID.getText();
         customer[2] = m_jSearchkey.getText();
-        customer[3] = m_jName.getText();
+        customer[3] = formatName(m_jName.getText());
         customer[4] = m_jNotes.getText();
         customer[5] = m_jVisible.isSelected();
         customer[6] = Formats.STRING.parseValue(jcard.getText()); // Format to manage NULL values
@@ -445,6 +473,9 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         customer[22] = m_CategoryModel.getSelectedKey();
 // JG 3 Oct 2013 - Customer image
         customer[23] = m_jImage.getImage();    
+        
+        if(m_CategoryModel.getSelectedKey() == null || m_CategoryModel.getSelectedKey() == "")
+            throw new BasicException("Tax Category MUST be selected!");
         
         return customer;
     }

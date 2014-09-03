@@ -54,11 +54,11 @@ public class JSort extends JDialog {
         String[] sHeaders = m_cc.getHeaders();
         
         m_jSort1.removeAllItems();
-        m_jSort1.addItem("");
+        //m_jSort1.addItem("");
         for (int i = 0; i < sHeaders.length; i++) {
             m_jSort1.addItem(sHeaders[i]);
         }
-        m_jSort1.setSelectedItem(0);
+        m_jSort1.setSelectedItem(1);
         
         m_jSort2.removeAllItems();
         m_jSort2.addItem("");
@@ -201,7 +201,7 @@ public class JSort extends JDialog {
     
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
 
-        int iSort1 = m_jSort1.getSelectedIndex();
+        int iSort1 = m_jSort1.getSelectedIndex()+1;
         int iSort2 = m_jSort2.getSelectedIndex();
         int iSort3 = m_jSort3.getSelectedIndex();
         

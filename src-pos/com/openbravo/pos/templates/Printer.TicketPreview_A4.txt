@@ -75,25 +75,25 @@
 		<line><text align ="right" length="42">${paymentline.printTotal()}</text></line>
 	#end
 	
-	#if ($paymentline.name == "magcard")
+	#if ($paymentline.name == "card")
 		<line><text bold="true">Card</text></line>
 		<line><text align ="right" length="42">${paymentline.printTotal()}</text></line>
 	#end
 
-	#if ($paymentline.name == "magcardrefund")
+	#if ($paymentline.name == "cardrefund")
 		<line><text bold="true">Card Refund</text></line>
 		<line><text align ="right" length="42">${paymentline.printTotal()}</text></line>
 	#end
 
-	#if ($paymentline.name == "cheque")
+	#if ($paymentline.name == "check")
 		<line></line>
-		<line><text bold="true">Cheque</text></line>
+		<line><text bold="true">Check</text></line>
 		<line><text align ="right" length="42">${paymentline.printTotal()}</text></line>
 	#end
 
-	#if ($paymentline.name == "chequerefund")
+	#if ($paymentline.name == "checkrefund")
 		<line></line>
-		<line><text bold="true">Cheque Refund</text></line>
+		<line><text bold="true">Check Refund</text></line>
 		<line><text align ="right" length="42">${paymentline.printTotal()}</text></line>
 	#end
 

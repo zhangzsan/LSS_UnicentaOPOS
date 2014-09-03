@@ -161,7 +161,7 @@ public class PaymentInfoMagcard extends PaymentInfo {
      */
     @Override
     public String getName() {
-        return "magcard";
+        return "card";
     }
     
     public void setCardNumber(String in)

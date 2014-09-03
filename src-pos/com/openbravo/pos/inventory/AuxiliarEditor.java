@@ -28,6 +28,7 @@ import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.panels.JProductFinder;
+import com.openbravo.pos.reports.JPanelReport;
 import com.openbravo.pos.ticket.ProductInfoExt;
 import java.awt.Component;
 import java.awt.Toolkit;
@@ -54,7 +55,7 @@ public class AuxiliarEditor extends javax.swing.JPanel implements EditorRecord {
     public AuxiliarEditor(AppView app, DirtyManager dirty) {
 
         m_dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
-
+        
         initComponents();
      
         m_jProduct.getDocument().addDocumentListener(dirty);

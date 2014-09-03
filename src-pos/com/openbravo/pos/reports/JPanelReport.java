@@ -208,7 +208,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
         jToggleFilterActionPerformed(null);
     }
     
-    private void launchreport() {     
+    public void launchreport() {     
         
         m_App.waitCursorBegin();
         
@@ -221,7 +221,6 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
                 // Parametros y los datos
                 Object params = (editor == null) ? null : editor.createValue();                
                 JRDataSource data = new JRDataSourceBasic(getSentence(), getReportFields(), params);
-                
                 // Construyo el mapa de los parametros.
                 Map reportparams = new HashMap();
                 reportparams.put("ARG", params);

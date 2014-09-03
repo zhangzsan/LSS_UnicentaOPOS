@@ -27,6 +27,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 /**
@@ -59,7 +60,8 @@ public class JProductsSelector extends javax.swing.JPanel {
         JButton btn = new JButton();
         btn.applyComponentOrientation(getComponentOrientation());
 // Added JG 13 Nov 12 - Render Display text
-        btn.setText(display);
+        
+        btn.setText("<html>" + "<p>" + display + "</p>");
 //        btn.setText(name);
         btn.setIcon(new ImageIcon(img));
         btn.setFocusPainted(false);

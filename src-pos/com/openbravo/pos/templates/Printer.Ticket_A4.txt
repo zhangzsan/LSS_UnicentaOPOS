@@ -97,7 +97,7 @@
 		<line><text align ="right" length="108">${paymentline.printTotal()}</text></line>
 	#end
 	
-	#if ($paymentline.name == "magcard")
+	#if ($paymentline.name == "card")
 		<line><text bold="true">Card</text></line>
                 <line> <text>Card Type</text></line>
                 <line> 
@@ -106,7 +106,7 @@
 		<line><text align ="right" length="108">${paymentline.printTotal()}</text></line>
 	#end
 
-	#if ($paymentline.name == "magcardrefund")
+	#if ($paymentline.name == "cardrefund")
 		<line><text bold="true">Card Refund</text></line>
                 <line> <text>Card Type</text></line>
                 <line> 

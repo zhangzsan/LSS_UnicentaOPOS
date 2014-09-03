@@ -28,6 +28,7 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import java.awt.Component;
+import javax.swing.JPanel;
 
 /**
  *

@@ -29,6 +29,7 @@ import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.inventory.MovementReason;
 import java.awt.Component;
+import javax.swing.JPanel;
 
 /**
  *

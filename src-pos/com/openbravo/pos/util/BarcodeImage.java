@@ -16,6 +16,7 @@ import org.krysalis.barcode4j.HumanReadablePlacement;
 import org.krysalis.barcode4j.impl.AbstractBarcodeBean;
 import org.krysalis.barcode4j.impl.codabar.CodabarBean;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.code128.EAN128Bean;
 import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysalis.barcode4j.impl.int2of5.Interleaved2Of5Bean;
 import org.krysalis.barcode4j.impl.postnet.POSTNETBean;
@@ -53,6 +54,18 @@ public class BarcodeImage {
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
     }
+    
+        /**
+     *
+     * @param value
+     * @return
+     */
+    public static Image getBarcodeEAN128(String value) {
+        AbstractBarcodeBean barcode = new EAN128Bean();
+        barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
+        return getBarcode(value, barcode);
+    }
+    
 
     /**
      *
@@ -129,6 +142,18 @@ public class BarcodeImage {
         AbstractBarcodeBean barcode = new EAN8Bean();
         barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
         return getBarcode(value, barcode);
+    }
+
+        /**
+     *
+     * @param value
+     * @return
+     */
+    public static Image getBarcode39(String value) {
+        value = "*"+value+"*";
+        AbstractBarcodeBean barcode = new Code39Bean();
+        barcode.setMsgPosition(HumanReadablePlacement.HRP_BOTTOM);
+        return getBarcode(value, barcode); 
     }
     
     /**

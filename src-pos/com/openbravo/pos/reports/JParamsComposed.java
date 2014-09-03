@@ -26,6 +26,7 @@ import com.openbravo.pos.forms.AppView;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  *

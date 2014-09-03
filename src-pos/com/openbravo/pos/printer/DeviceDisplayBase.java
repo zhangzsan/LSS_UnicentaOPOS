@@ -63,7 +63,7 @@ public class DeviceDisplayBase {
     public DeviceDisplayBase(DeviceDisplayImpl impl) {
         this.impl = impl; 
         anim = new NullAnimator("", "");
-        m_tTimeTimer = new javax.swing.Timer(50, new PrintTimeAction());
+        m_tTimeTimer = new javax.swing.Timer(120, new PrintTimeAction());
     }
     
     /**

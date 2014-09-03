@@ -28,6 +28,7 @@ import com.openbravo.pos.forms.DataLogicSales;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  *

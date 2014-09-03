@@ -91,7 +91,7 @@
             </line>
         #end
 
-        #if ($paymentline.name == "magcard")
+        #if ($paymentline.name == "card")
             <line></line>
             <line>
                 <text bold="true">Mag card</text>
@@ -117,10 +117,10 @@
             </line>
         #end
 
-        #if ($paymentline.name == "cheque")
+        #if ($paymentline.name == "check")
             <line></line>
             <line>
-                <text bold="true">Cheque</text>
+                <text bold="true">Check</text>
             </line>
             <line>
                 <text align ="right" length="42">${paymentline.printTotal()}</text>

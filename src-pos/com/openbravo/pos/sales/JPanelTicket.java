@@ -55,6 +55,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1014,7 +1015,13 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             if (cTrans == '\u007f') { 
                 stateToZero();
 
-            } else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_INPUTZERO)) {
+            }
+            else if (cTrans == '\u0008'){
+                m_sBarcode.setLength(m_sBarcode.length()-1);
+               m_sBarcode = new StringBuffer(m_sBarcode.substring(0, m_sBarcode.length()-1));
+                System.out.println(m_sBarcode);
+            }
+            else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_INPUTZERO)) {
                 m_jPrice.setText("0");
             } else if ((cTrans == '1' || cTrans == '2' || cTrans == '3' || cTrans == '4' || cTrans == '5' || cTrans == '6' || cTrans == '7' || cTrans == '8' || cTrans == '9') && (m_iNumberStatus == NUMBER_INPUTZERO)) {
                 // Un numero entero - an integer
@@ -2301,6 +2308,9 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             }
         });
         m_jKeyFactory.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                m_jKeyFactoryKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 m_jKeyFactoryKeyTyped(evt);
             }
@@ -2354,8 +2364,9 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
     }//GEN-LAST:event_m_jNumberKeysKeyPerformed
 
     private void m_jKeyFactoryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_m_jKeyFactoryKeyTyped
-
-        stateTransition(evt.getKeyChar());
+ 
+        if(!evt.isControlDown())
+            stateTransition(evt.getKeyChar());
 
     }//GEN-LAST:event_m_jKeyFactoryKeyTyped
 
@@ -2539,6 +2550,25 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
     private void m_jKeyFactoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jKeyFactoryActionPerformed
         m_jKeyFactory.setText(null);
     }//GEN-LAST:event_m_jKeyFactoryActionPerformed
+
+    private void m_jKeyFactoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_m_jKeyFactoryKeyPressed
+        if(evt.isControlDown()){ //Hotkeys
+            switch(evt.getKeyCode()){
+                case KeyEvent.VK_E:
+                    m_jEditLineActionPerformed(null);
+                    break;
+                case KeyEvent.VK_D:
+                    m_jDeleteActionPerformed(null);
+                    break;
+                case KeyEvent.VK_N:
+                    jButton1ActionPerformed(null);
+                    break;
+                case KeyEvent.VK_S:
+                    btnCustomerActionPerformed(null);
+                    break;
+            }
+        }
+    }//GEN-LAST:event_m_jKeyFactoryKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

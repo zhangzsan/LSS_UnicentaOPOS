@@ -66,6 +66,6 @@ public class PaymentInfoMagcardRefund extends PaymentInfoMagcard {
      */
     @Override
     public String getName() {
-        return "magcardrefund";
+        return "cardrefund";
     }    
 }

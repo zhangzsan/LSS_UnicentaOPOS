@@ -27,6 +27,7 @@ import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.BeanFactoryException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  *
@@ -55,7 +56,6 @@ public class PanelReportBean extends JPanelReport {
      * @param app
      * @throws BeanFactoryException
      */
-    @Override
     public void init(AppView app) throws BeanFactoryException {        
         
         qbffilter.init(app);       

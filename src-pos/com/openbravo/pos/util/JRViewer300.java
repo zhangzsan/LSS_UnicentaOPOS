@@ -59,6 +59,10 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.List;
 import java.util.*;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.ResolutionSyntax;
+import javax.print.attribute.standard.PrinterResolution;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import net.sf.jasperreports.engine.*;
@@ -2088,15 +2092,23 @@ public final class JRViewer300 extends javax.swing.JPanel implements JRHyperlink
 				exporter.reset();
 			}
 
+                        PrintRequestAttributeSet printRequestAttrs = new HashPrintRequestAttributeSet();
+                        printRequestAttrs.add(new PrinterResolution(600,600,ResolutionSyntax.DPI));
+                        
+                        
+                        
+                        exporter.setParameter(net.sf.jasperreports.engine.export.JRPrintServiceExporterParameter.PRINT_REQUEST_ATTRIBUTE_SET, printRequestAttrs);
+                        
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 			exporter.setParameter(JRGraphics2DExporterParameter.GRAPHICS_2D, grx.create());
-			exporter.setParameter(JRExporterParameter.PAGE_INDEX, new Integer(pageIndex));
-			exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, new Float(realZoom));
-			exporter.setParameter(JRExporterParameter.OFFSET_X, new Integer(1)); //lblPage border
-			exporter.setParameter(JRExporterParameter.OFFSET_Y, new Integer(1));
+			exporter.setParameter(JRExporterParameter.PAGE_INDEX, pageIndex);
+			exporter.setParameter(JRGraphics2DExporterParameter.ZOOM_RATIO, realZoom);
+			exporter.setParameter(JRExporterParameter.OFFSET_X, 1); //lblPage border
+			exporter.setParameter(JRExporterParameter.OFFSET_Y, 1);
+                        
 			exporter.exportReport();
 		}
-		catch(Exception e)
+		catch(JRException e)
 		{
 			pageError = true;
 			

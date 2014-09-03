@@ -90,7 +90,7 @@ public class JPaymentCheque extends javax.swing.JPanel implements JPaymentInterf
      */
     @Override
     public PaymentInfo executePayment() {
-        return new PaymentInfoTicket(m_dPaid, "cheque");      
+        return new PaymentInfoTicket(m_dPaid, "check");      
     }
 
     /**

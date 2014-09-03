@@ -33,6 +33,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.EventListener;
+import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
 
 /**
