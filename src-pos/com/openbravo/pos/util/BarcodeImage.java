@@ -24,6 +24,7 @@ import org.krysalis.barcode4j.impl.upcean.EAN13Bean;
 import org.krysalis.barcode4j.impl.upcean.EAN8Bean;
 import org.krysalis.barcode4j.impl.upcean.UPCABean;
 import org.krysalis.barcode4j.impl.upcean.UPCEBean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.output.java2d.Java2DCanvasProvider;
 
 /**
@@ -176,25 +177,30 @@ public class BarcodeImage {
         barcode.doQuietZone(true);                
         BarcodeDimension dim = barcode.calcDimensions(value);
         int width = (int) dim.getWidth(0) + 20;
-        int height = (int) dim.getHeight(0);        
+        int height = (int) dim.getHeight(0);  
+        double scale = (120d / 72d);
         
         BufferedImage imgtext = new BufferedImage(width, height,  BufferedImage.TYPE_INT_RGB);
+        BitmapCanvasProvider provider =    new BitmapCanvasProvider(     601,     BufferedImage.TYPE_BYTE_BINARY,     true,     0);
         Graphics2D g2d = imgtext.createGraphics();
         
         g2d.setColor(Color.WHITE);
         g2d.fillRect(0, 0, width, height);
-        
         g2d.setColor(Color.BLACK);
-        
+       // g2d.scale(scale, scale);
+      //  g2d.drawRenderedImage(imgtext, null);
+       // g2d.setTransform(g2d.getTransform());
         try {
-            barcode.generateBarcode(new Java2DCanvasProvider(g2d, 0), value);
+            barcode.generateBarcode(provider, value);
         } catch (IllegalArgumentException e) {
             g2d.drawRect(0, 0, width - 1, height - 1);
             g2d.drawString(value, 2, height - 3);
         }
-        
+        //g2d.scale(scale, scale);
+       // g2d.drawRenderedImage(imgtext, null);
+       // g2d.setTransform(g2d.getTransform());
         g2d.dispose();
         
-        return imgtext;  
+        return provider.getBufferedImage();  
     }
 }

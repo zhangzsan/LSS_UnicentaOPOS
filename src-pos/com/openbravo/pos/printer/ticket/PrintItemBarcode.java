@@ -105,11 +105,11 @@ public class PrintItemBarcode implements PrintItem {
 
         if (m_barcode != null) {
             Graphics2D g2d = (Graphics2D) g;
-
+            
+            AffineTransform trans = g2d.getDeviceConfiguration().getNormalizingTransform();
             AffineTransform oldt = g2d.getTransform();
         
-            g2d.translate(x - 10 + (width - (int)(m_iWidth * scale)) / 2, y + 10);
-            g2d.scale(scale, scale);
+           // g2d.translate(x - 10 + (width - (int)(m_iWidth * scale)) / 2, y + 10);
 
             try {
                 m_barcode.generateBarcode(new Java2DCanvasProvider(g2d, 0), m_sCode);
@@ -118,8 +118,9 @@ public class PrintItemBarcode implements PrintItem {
                 g2d.drawLine(0, 0, m_iWidth, m_iHeight);
                 g2d.drawLine(m_iWidth, 0, 0, m_iHeight);
             }
-
+            g2d.scale(scale, scale);
             g2d.setTransform(oldt);
+            g2d.scale(scale, scale);
         }
     }
 

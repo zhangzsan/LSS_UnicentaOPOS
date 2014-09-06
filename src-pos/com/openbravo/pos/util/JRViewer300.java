@@ -1209,7 +1209,6 @@ public final class JRViewer300 extends javax.swing.JPanel implements JRHyperlink
 
 	void btnPrintActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnPrintActionPerformed
 	{//GEN-HEADEREND:event_btnPrintActionPerformed
-		// Add your handling code here:
 
                  SwingUtilities.invokeLater(
 				new Runnable()
