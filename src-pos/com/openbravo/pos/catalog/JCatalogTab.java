@@ -21,6 +21,7 @@ package com.openbravo.pos.catalog;
 
 import com.openbravo.beans.JFlowPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
@@ -61,11 +62,13 @@ public class JCatalogTab extends javax.swing.JPanel {
      * @param textTip
      */
         public void addButton(Icon ico, ActionListener al, String textTip) {
-        JButton btn = new JButton();
+        final JButton btn = new JButton();
         btn.applyComponentOrientation(getComponentOrientation());
         btn.setIcon(ico);
         btn.setFocusPainted(false);
         btn.setFocusable(false);
+        btn.setBackground(Color.WHITE);
+        btn.setText("<html><b>" + btn.getText() + "</b>");
         if (textTip != null){
         btn.setToolTipText(textTip);
         }
@@ -74,6 +77,19 @@ public class JCatalogTab extends javax.swing.JPanel {
         btn.setVerticalTextPosition(SwingConstants.BOTTOM);
         btn.setMargin(new Insets(2, 2, 2, 2));
         btn.addActionListener(al);
+                btn.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btn.setBackground(Color.DARK_GRAY);
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent evt) {
+//        btn.setBackground(UIManager.getColor("control"));
+        btn.setBackground(Color.WHITE);
+    }
+});
+        
         flowpanel.add(btn);        
     }
     

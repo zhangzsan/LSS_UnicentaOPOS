@@ -21,14 +21,15 @@ package com.openbravo.pos.catalog;
 
 import com.openbravo.beans.JFlowPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 /**
  *
@@ -57,11 +58,11 @@ public class JProductsSelector extends javax.swing.JPanel {
      * @param textTip
      */
         public void addProduct(Image img, String display, ActionListener al,String textTip) {        
-        JButton btn = new JButton();
+        final JButton btn = new JButton();
         btn.applyComponentOrientation(getComponentOrientation());
 // Added JG 13 Nov 12 - Render Display text
         
-        btn.setText("<html>" + "<p>" + display + "</p>");
+        btn.setText("<html><div style=\"width: 100%; word-break: break-word;white-space: normal;\">" + "<p><b>" + display + "</b></p></>");
 //        btn.setText(name);
         btn.setIcon(new ImageIcon(img));
         btn.setFocusPainted(false);
@@ -77,6 +78,19 @@ public class JProductsSelector extends javax.swing.JPanel {
         btn.setPreferredSize(new Dimension(80, 70));
         btn.setMinimumSize(new Dimension(80, 70));
         btn.addActionListener(al);
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent evt) {
+        btn.setBackground(Color.GREEN);
+        System.out.println("Mouse In");
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent evt) {
+        btn.setBackground(UIManager.getColor("control"));
+    }
+});
+        
         flowpanel.add(btn);        
     }
     
