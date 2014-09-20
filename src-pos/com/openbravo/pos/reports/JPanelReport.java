@@ -128,6 +128,10 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
         return this;
     }
     
+    public JRViewer300 getJRViewer300() {
+        return reportviewer;
+    }
+    
     /**
      *
      * @return

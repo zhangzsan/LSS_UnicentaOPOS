@@ -693,6 +693,35 @@ public final class JRViewer300 extends javax.swing.JPanel implements JRHyperlink
 		}
 		return listenerCount == 0;
 	}
+    
+    public void printReport(final boolean show) {
+                      SwingUtilities.invokeLater(
+				new Runnable()
+				{
+            @Override
+					public void run()
+					{
+						try
+						{
+							
+							btnPrint.setEnabled(false);
+							JRViewer300.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+							JasperPrintManager.printReport(jasperPrint, show);
+                                                        System.out.println("Report Printed!");
+						}
+						catch (JRException ex)
+						{
+							JOptionPane.showMessageDialog(JRViewer300.this, getBundleString("error.printing"));
+						}
+						finally
+						{
+							JRViewer300.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+							btnPrint.setEnabled(true);
+						}
+					}
+				}
+			);
+    }
 
 
 	/** This method is called from within the constructor to
@@ -1209,32 +1238,7 @@ public final class JRViewer300 extends javax.swing.JPanel implements JRHyperlink
 
 	void btnPrintActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnPrintActionPerformed
 	{//GEN-HEADEREND:event_btnPrintActionPerformed
-
-                 SwingUtilities.invokeLater(
-				new Runnable()
-				{
-            @Override
-					public void run()
-					{
-						try
-						{
-							
-							btnPrint.setEnabled(false);
-							JRViewer300.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-							JasperPrintManager.printReport(jasperPrint, true);
-						}
-						catch (Exception ex)
-						{
-							JOptionPane.showMessageDialog(JRViewer300.this, getBundleString("error.printing"));
-						}
-						finally
-						{
-							JRViewer300.this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-							btnPrint.setEnabled(true);
-						}
-					}
-				}
-			);
+            printReport(true);
 
 	}//GEN-LAST:event_btnPrintActionPerformed
 

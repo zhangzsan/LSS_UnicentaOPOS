@@ -27,12 +27,16 @@ import com.openbravo.data.loader.SerializerWriteBasic;
 import com.openbravo.data.loader.Session;
 import com.openbravo.data.loader.StaticSentence;
 import com.openbravo.format.Formats;
+import com.openbravo.pos.customers.CustomerInfo;
 import com.openbravo.pos.forms.*;
 import com.openbravo.pos.printer.TicketParser;
 import com.openbravo.pos.printer.TicketPrinterException;
+import com.openbravo.pos.reports.JParamsCustomer;
+import com.openbravo.pos.reports.PanelReportBean;
 import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
 import com.openbravo.pos.scripting.ScriptFactory;
+import com.openbravo.pos.util.JRViewer300;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -273,6 +277,22 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                 msg.show(this);
             }
         }
+    }
+    
+    private void printReports() {
+        
+        String[] reports = {"/com/openbravo/reports/extendedcashregisterlog.bs",
+                            "/com/openbravo/reports/taxcatsales.bs",
+                            "/com/openbravo/reports/saletaxes.bs",
+                            "/com/openbravo/reports/salebycustomer.bs"};
+        
+        for(String report : reports) {
+             PanelReportBean bean = (PanelReportBean)  m_App.getBean(report);
+             bean.launchreport();
+             JRViewer300 jr = bean.getJRViewer300();
+             jr.printReport(false);
+        }
+           
     }
 
     private class FormatsPayment extends Formats {
@@ -649,7 +669,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                 .addComponent(m_jPrintCash, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(m_jCloseCash, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanelBottomLayout.setVerticalGroup(
             jPanelBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -677,7 +697,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                             .addComponent(jPanelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(14, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -698,7 +718,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -800,7 +820,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
                 // print report
                 printPayments("Printer.CloseCash");
-
+                printReports();
                 // Mostramos el mensaje
                 JOptionPane.showMessageDialog(this, AppLocal.getIntString("message.closecashok"), AppLocal.getIntString("message.title"), JOptionPane.INFORMATION_MESSAGE);
             } catch (BasicException e) {
