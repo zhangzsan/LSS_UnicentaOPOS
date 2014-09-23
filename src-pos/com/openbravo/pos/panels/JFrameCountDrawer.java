@@ -1369,7 +1369,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             midnight.set(Calendar.SECOND, 0);
             midnight.set(Calendar.MILLISECOND, 0);
             java.sql.Timestamp currTime = new java.sql.Timestamp(midnight.getTimeInMillis());    
-            SQL = "SELECT * FROM DRAWERFLOAT WHERE TIME > '"+ currTime+"' AND STARTOFDAY=1";
+            SQL = "SELECT * FROM DRAWERFLOAT WHERE LOCATION = '"+jpcm.getApp().getInventoryLocation()+"' AND TIME > '"+ currTime+"' AND STARTOFDAY=1";
             stmt = (Statement) con.createStatement();      
             rs = stmt.executeQuery(SQL);
             
@@ -1421,7 +1421,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             midnight.set(Calendar.SECOND, 0);
             midnight.set(Calendar.MILLISECOND, 0);
             java.sql.Timestamp currTime = new java.sql.Timestamp(midnight.getTimeInMillis());    
-            SQL = "SELECT * FROM DRAWERFLOAT WHERE TIME > '"+ currTime+"' AND STARTOFDAY=0";
+            SQL = "SELECT * FROM DRAWERFLOAT WHERE LOCATION = '"+jpcm.getApp().getInventoryLocation()+"' AND TIME > '"+ currTime+"' AND STARTOFDAY=0";
             stmt = (Statement) con.createStatement();      
             rs = stmt.executeQuery(SQL);
             
@@ -1542,8 +1542,9 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
                }
            }
         double total = this.calcTotals();      
-               SQL="INSERT INTO DRAWERFLOAT (NAME,STARTOFDAY,ROLL1,ROLL5,ROLL10,ROLL25,C1,C5,C10,C25,BILL1,BILL5,BILL10,BILL20,BILL50,BILL100,BANKDEPOSIT, TOTAL)"
-                       + " VALUES ('"+username+"',"+
+               SQL="INSERT INTO DRAWERFLOAT (LOCATION,NAME,STARTOFDAY,ROLL1,ROLL5,ROLL10,ROLL25,C1,C5,C10,C25,BILL1,BILL5,BILL10,BILL20,BILL50,BILL100,BANKDEPOSIT, TOTAL)"
+                       + " VALUES ('"+jpcm.getApp().getInventoryLocation()+"'"+
+                       "'"+username+"',"+
                        (this.eodPanel.isShowing() ? 0 : 1) + "," + 
                        this.getRoll1()+ "," +
                        this.getRoll5()+ "," +
@@ -1678,7 +1679,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
             java.sql.Timestamp tomorrowTime = new java.sql.Timestamp(midnightT.getTimeInMillis()); 
             java.sql.Timestamp currTime = new java.sql.Timestamp(midnight.getTimeInMillis()); 
             System.out.println(tomorrowTime.toString() + "  |  "+currTime.toString());
-            SQL = "SELECT * FROM DRAWERFLOAT WHERE TIME > '"+ currTime+"' AND TIME < '"+ tomorrowTime+"'";
+            SQL = "SELECT * FROM DRAWERFLOAT WHERE LOCATION = '"+jpcm.getApp().getInventoryLocation()+"' AND (TIME > '"+ currTime+"' AND TIME < '"+ tomorrowTime+"')";
             stmt = (Statement) con.createStatement();      
             rs = stmt.executeQuery(SQL);
             
@@ -1760,7 +1761,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     }//GEN-LAST:event_tabbedPanelFocusGained
 
     private void lastSODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastSODActionPerformed
-        SQL = "SELECT * FROM DRAWERFLOAT WHERE ID = (SELECT MAX(ID) FROM DRAWERFLOAT WHERE STARTOFDAY = 0)";
+        SQL = "SELECT * FROM DRAWERFLOAT WHERE LOCATION = '"+jpcm.getApp().getInventoryLocation()+"' AND ID = (SELECT MAX(ID) FROM DRAWERFLOAT WHERE STARTOFDAY = 0)";
         try
         {
             stmt = (Statement) con.createStatement();      

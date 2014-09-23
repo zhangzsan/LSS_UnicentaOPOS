@@ -62,7 +62,6 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
     
     private AppView m_App;
     private DataLogicSystem m_dlSystem;
-    
     private PaymentsModel m_PaymentsToClose = null;   
     
     private TicketParser m_TTP;
@@ -90,7 +89,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
     @Override
     public void init(AppView app) throws BeanFactoryException {
         
-        m_App = app;        
+        m_App = app;    
         m_dlSystem = (DataLogicSystem) m_App.getBean("com.openbravo.pos.forms.DataLogicSystem");
         m_TTP = new TicketParser(m_App.getDeviceTicket(), m_dlSystem);
 
@@ -835,6 +834,10 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                 msg.show(this);
             }
         }
+    }
+    
+    public AppView getApp() {
+        return m_App;
     }
     
     private void m_jCloseCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCloseCashActionPerformed
