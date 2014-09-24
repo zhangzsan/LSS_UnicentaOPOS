@@ -27,8 +27,11 @@ import com.openbravo.data.loader.Session;
 import com.openbravo.data.user.EditorCreator;
 import com.openbravo.pos.forms.*;
 import com.openbravo.pos.sales.TaxesLogic;
+import com.openbravo.pos.ticket.ProductFilter;
 import com.openbravo.pos.util.JRViewer300;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -93,8 +96,22 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
         if (editor instanceof ReportEditorCreator) {
             jPanelFilter.add(((ReportEditorCreator) editor).getComponent(), BorderLayout.CENTER);
         }
+        
+        ReportEditorCreator rec = ((JParamsComposed)editor).getEditors().get(0);
+        
+        if(rec instanceof ProductFilter) {
+            System.out.println("Was an instance!");
+            ((ProductFilter)rec).getBarcodeField().addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   launchreport();
+                }
+            });
+        }
+        
                   
-        reportviewer = new JRViewer300(null);                        
+        reportviewer = new JRViewer300(null); 
         
         add(reportviewer, BorderLayout.CENTER);
         
@@ -104,7 +121,7 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
             if (in == null) {      
                 // read and compile the report
                 JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream(getReport() + ".jrxml"));            
-                jr = JasperCompileManager.compileReport(jd);    
+                jr = JasperCompileManager.compileReport(jd);  
             } else {
 // JG 16 May 12 use try-with-resources
                 try (ObjectInputStream oin = new ObjectInputStream(in)) {

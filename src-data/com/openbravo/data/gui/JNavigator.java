@@ -27,6 +27,8 @@ import com.openbravo.data.loader.Vectorer;
 import com.openbravo.data.user.BrowseListener;
 import com.openbravo.data.user.BrowsableEditableData;
 import com.openbravo.data.user.StateListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,7 +77,7 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
      * @param iButtons */
     public JNavigator(BrowsableEditableData bd, Vectorer vec, ComparatorCreator cc, int iButtons) {
 
-        initComponents();
+        initComponents();                                   
         
         if (iButtons == BUTTONS_ALL) {
             jbtnFirst = new javax.swing.JButton();
@@ -214,6 +216,7 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
      */
     public JNavigator(BrowsableEditableData bd) {
         this(bd, null, null, BUTTONS_ALL);
+        
     }
 
     /**

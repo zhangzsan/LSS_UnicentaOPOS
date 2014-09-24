@@ -199,6 +199,11 @@ public class JSort extends JDialog {
         
     }//GEN-LAST:event_jcmdCancelActionPerformed
     
+    public Comparator getNameComparator() {
+        m_Comparator = m_cc.createComparator(new int[]{0});
+        return m_Comparator;
+    }
+    
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
 
         int iSort1 = m_jSort1.getSelectedIndex()+1;

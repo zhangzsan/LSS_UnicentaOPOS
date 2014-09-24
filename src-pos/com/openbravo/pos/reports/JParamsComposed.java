@@ -115,6 +115,10 @@ public class JParamsComposed extends javax.swing.JPanel implements ReportEditorC
         add(c.getComponent());
     }
     
+    public List<ReportEditorCreator> getEditors() {
+        return editors;
+    }
+    
     /**
      *
      * @return
