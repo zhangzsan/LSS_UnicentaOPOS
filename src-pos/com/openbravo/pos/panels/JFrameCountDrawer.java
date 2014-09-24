@@ -1543,7 +1543,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
            }
         double total = this.calcTotals();      
                SQL="INSERT INTO DRAWERFLOAT (LOCATION,NAME,STARTOFDAY,ROLL1,ROLL5,ROLL10,ROLL25,C1,C5,C10,C25,BILL1,BILL5,BILL10,BILL20,BILL50,BILL100,BANKDEPOSIT, TOTAL)"
-                       + " VALUES ('"+jpcm.getApp().getInventoryLocation()+"'"+
+                       + " VALUES ('"+jpcm.getApp().getInventoryLocation()+"',"+
                        "'"+username+"',"+
                        (this.eodPanel.isShowing() ? 0 : 1) + "," + 
                        this.getRoll1()+ "," +
