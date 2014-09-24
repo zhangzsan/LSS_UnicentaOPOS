@@ -69,6 +69,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.JRGraphics2DExporter;
 import net.sf.jasperreports.engine.export.JRGraphics2DExporterParameter;
 import net.sf.jasperreports.engine.print.JRPrinterAWT;
+import net.sf.jasperreports.engine.type.OrientationEnum;
 import net.sf.jasperreports.engine.util.JRClassLoader;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRProperties;
@@ -706,6 +707,9 @@ public final class JRViewer300 extends javax.swing.JPanel implements JRHyperlink
 							
 							btnPrint.setEnabled(false);
 							JRViewer300.this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                                                        if(jasperPrint.getName().equals("productlabels"))  //Auto-flip report for DYMO printer
+                                                            jasperPrint.setOrientation(OrientationEnum.PORTRAIT);
+                                                        
 							JasperPrintManager.printReport(jasperPrint, show);
                                                         System.out.println("Report Printed!");
 						}
