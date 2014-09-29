@@ -39,7 +39,7 @@ public class JEditorPassword extends JEditorText {
      * @return
      */
     protected final int getMode() {
-        return EditorKeys.MODE_STRING;
+        return EditorKeys.MODE_INTEGER_POSITIVE;
     }
         
     /**
@@ -47,7 +47,7 @@ public class JEditorPassword extends JEditorText {
      * @return
      */
     protected int getStartMode() {
-        return MODE_Abc1;
+        return MODE_123;
     }
     
     /**
