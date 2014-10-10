@@ -31,11 +31,10 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.DataLogicSales;
-import com.openbravo.pos.reports.JPanelReport;
 import com.openbravo.pos.reports.ReportEditorCreator;
 import java.awt.Component;
 import java.util.List;
-import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -81,6 +80,10 @@ public class ProductFilter extends javax.swing.JPanel implements ReportEditorCre
         catlist.add(0, null);
         m_CategoryModel = new ComboBoxValModel(catlist);
         m_jCategory.setModel(m_CategoryModel);
+    }
+    
+    public JTextField getBarcodeField() {
+        return m_jBarcode;
     }
     
     /**

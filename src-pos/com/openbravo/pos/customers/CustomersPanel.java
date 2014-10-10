@@ -42,7 +42,7 @@ public class CustomersPanel extends JPanelTable {
     private CustomersView jeditor;
     
     /** Creates a new instance of CustomersPanel */
-    public CustomersPanel() {    
+    public CustomersPanel() {
         CustomerInfoGlobal.getInstance().setEditableData(bd);
     }
     
@@ -53,8 +53,7 @@ public class CustomersPanel extends JPanelTable {
     protected void init() {        
         DataLogicCustomers dlCustomers  = (DataLogicCustomers) app.getBean("com.openbravo.pos.customers.DataLogicCustomers");
         tcustomers = dlCustomers.getTableCustomers();        
-        jeditor = new CustomersView(app, dirty);    
-        
+        jeditor = new CustomersView(app, dirty);
     }
     
     /**
@@ -99,7 +98,7 @@ public class CustomersPanel extends JPanelTable {
      * @return
      */
     @Override
-    public ComparatorCreator getComparatorCreator() {
+    public final ComparatorCreator getComparatorCreator() {
         return tcustomers.getComparatorCreator(new int[] {1, 2, 3, 4});
     }
     

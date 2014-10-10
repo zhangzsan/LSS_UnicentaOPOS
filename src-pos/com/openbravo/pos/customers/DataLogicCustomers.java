@@ -221,7 +221,7 @@ public class DataLogicCustomers extends BeanFactoryDataSingle {
         return new PreparedSentence(s
             , "SELECT R.ID, R.CREATED, R.DATENEW, C.CUSTOMER, CUSTOMERS.TAXID, CUSTOMERS.SEARCHKEY, COALESCE(CUSTOMERS.NAME, R.TITLE),  R.CHAIRS, R.ISDONE, R.DESCRIPTION " +
               "FROM RESERVATIONS R LEFT OUTER JOIN RESERVATION_CUSTOMERS C ON R.ID = C.ID LEFT OUTER JOIN CUSTOMERS ON C.CUSTOMER = CUSTOMERS.ID " +
-              "WHERE R.DATENEW >= ? AND R.DATENEW < ?"
+              "WHERE R.DATENEW >= ? AND R.DATENEW < ? ORDER BY NAME"
             , new SerializerWriteBasic(new Datas[] {Datas.TIMESTAMP, Datas.TIMESTAMP})
             , new SerializerReadBasic(customerdatas));             
     }

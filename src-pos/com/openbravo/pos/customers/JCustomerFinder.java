@@ -28,8 +28,6 @@ import com.openbravo.pos.forms.AppLocal;
 import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.JFrame;
-import javax.swing.*;
-import java.awt.event.*;
 
 /**
  *

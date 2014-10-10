@@ -27,8 +27,6 @@ import com.openbravo.data.loader.Vectorer;
 import com.openbravo.data.user.BrowseListener;
 import com.openbravo.data.user.BrowsableEditableData;
 import com.openbravo.data.user.StateListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -266,18 +264,22 @@ public class JNavigator extends javax.swing.JPanel implements BrowseListener, St
             if (jbtnLast != null) jbtnLast.setEnabled(false);
             if (jbtnRefresh != null) jbtnRefresh.setEnabled(false);
         }
-    }   
+    }  
     
-    private void jbtnSortActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        try {
-            Comparator c = JSort.showMessage(this, m_cc);
+    public void performSortAction(boolean auto) {
+                try {
+            Comparator c = JSort.showMessage(this, m_cc, auto);
             if (c != null) {
                 m_bd.sort(c);
             }
         } catch (BasicException eD) {
             MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, LocalRes.getIntString("message.nolistdata"), eD);
             msg.show(this);
-        }  
+        }
+    }
+    
+    private void jbtnSortActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        performSortAction(false);
     }
     
     private void jbtnFindActionPerformed(java.awt.event.ActionEvent evt) {                                         

@@ -68,13 +68,13 @@ public class JCatalogTab extends javax.swing.JPanel {
         btn.setFocusPainted(false);
         btn.setFocusable(false);
         btn.setBackground(Color.WHITE);
-        btn.setText("<html><b>" + btn.getText() + "</b>");
+        btn.setText("<html><b>" + btn.getText() + "</b></html>");
         if (textTip != null){
         btn.setToolTipText(textTip);
         }
         btn.setRequestFocusEnabled(false);
         btn.setHorizontalTextPosition(SwingConstants.CENTER);
-        btn.setVerticalTextPosition(SwingConstants.BOTTOM);
+        btn.setVerticalTextPosition(SwingConstants.CENTER);
         btn.setMargin(new Insets(2, 2, 2, 2));
         btn.addActionListener(al);
                 btn.addMouseListener(new java.awt.event.MouseAdapter() {

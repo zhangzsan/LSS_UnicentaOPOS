@@ -28,6 +28,8 @@ import com.openbravo.pos.customers.CustomerInfoGlobal;
 import com.openbravo.pos.forms.*;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
@@ -52,6 +54,8 @@ public abstract class JPanelTable extends JPanel implements JPanelView, BeanFact
      *
      */
     protected AppView app;
+    
+    private JNavigator m_jnav;
     
     /** Creates new form JPanelTableEditor */
     public JPanelTable() {
@@ -92,7 +96,6 @@ public abstract class JPanelTable extends JPanel implements JPanelView, BeanFact
             
             // init browsable editable data
             bd = new BrowsableEditableData(getListProvider(), getSaveProvider(), getEditor(), dirty);
-
             // Add the filter panel
             Component c = getFilter();
             if (c != null) {
@@ -124,17 +127,16 @@ public abstract class JPanelTable extends JPanel implements JPanelView, BeanFact
                 c.applyComponentOrientation(getComponentOrientation());
                 toolbar.add(c);
             }
-
-            // La Toolbar
+           // La Toolbar
             c = new JLabelDirty(dirty);
             c.applyComponentOrientation(getComponentOrientation());
             toolbar.add(c);
             c = new JCounter(bd);
             c.applyComponentOrientation(getComponentOrientation());
             toolbar.add(c);
-            c = new JNavigator(bd, getVectorer(), getComparatorCreator());
-            c.applyComponentOrientation(getComponentOrientation());
-            toolbar.add(c);
+            m_jnav = new JNavigator(bd, getVectorer(), getComparatorCreator());
+            m_jnav.applyComponentOrientation(getComponentOrientation());
+            toolbar.add(m_jnav);
             c = new JSaver(bd);
             c.applyComponentOrientation(getComponentOrientation());
             toolbar.add(c);
@@ -147,6 +149,10 @@ public abstract class JPanelTable extends JPanel implements JPanelView, BeanFact
      */
     public Component getToolbarExtras() {
         return null;
+    }
+    
+    public JNavigator getNavigator() {
+        return m_jnav;
     }
 
     /**
@@ -221,10 +227,11 @@ public abstract class JPanelTable extends JPanel implements JPanelView, BeanFact
     public void activate() throws BasicException {
         startNavigation();
         bd.actionLoad();
-        
         //HS insert new customer 20.03.2014
         if (CustomerInfoGlobal.getInstance()!=null){
             bd.actionInsert();
+            
+                            getNavigator().performSortAction(true);
     }    
     
     }
