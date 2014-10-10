@@ -199,7 +199,7 @@ com.openbravo.format.Formats.CURRENCY.formatValue($F{MONEY})]]></textFieldExpres
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression><![CDATA[str("transpayment." + (String)field_PAYMENT.getValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PAYMENT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
