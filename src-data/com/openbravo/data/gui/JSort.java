@@ -43,7 +43,7 @@ public class JSort extends JDialog {
         super(parent, modal);
     }
     
-    private Comparator init(ComparatorCreator cc, boolean auto) throws BasicException {
+    private Comparator init(ComparatorCreator cc) throws BasicException {
         
         initComponents();
 
@@ -54,32 +54,28 @@ public class JSort extends JDialog {
         String[] sHeaders = m_cc.getHeaders();
         
         m_jSort1.removeAllItems();
-        for (String sHeader : sHeaders) {
-            m_jSort1.addItem(sHeader);
+        //m_jSort1.addItem("");
+        for (int i = 0; i < sHeaders.length; i++) {
+            m_jSort1.addItem(sHeaders[i]);
         }
-        m_jSort1.setSelectedItem(3);
+        m_jSort1.setSelectedItem(1);
         
         m_jSort2.removeAllItems();
         m_jSort2.addItem("");
-        for (String sHeader : sHeaders) {
-            m_jSort2.addItem(sHeader);
+        for (int i = 0; i < sHeaders.length; i++) {
+            m_jSort2.addItem(sHeaders[i]);
         }
         m_jSort2.setSelectedItem(0);
         
         m_jSort3.removeAllItems();
         m_jSort3.addItem("");
-        for (String sHeader : sHeaders) {
-            m_jSort3.addItem(sHeader);
+        for (int i = 0; i < sHeaders.length; i++) {
+            m_jSort3.addItem(sHeaders[i]);
         }
         m_jSort3.setSelectedItem(0);
+        
         m_Comparator = null;
-        
-        if(auto) {
-        jcmdOKActionPerformed(null);
-        } else {
-        setVisible(true); 
-        }
-        
+        setVisible(true);       
         return m_Comparator;
     }
     
@@ -97,11 +93,10 @@ public class JSort extends JDialog {
      *
      * @param parent
      * @param cc
-     * @param auto
      * @return
      * @throws BasicException
      */
-    public static Comparator showMessage(Component parent, ComparatorCreator cc, boolean auto) throws BasicException {
+    public static Comparator showMessage(Component parent, ComparatorCreator cc) throws BasicException {
          
         Window window = getWindow(parent);      
         
@@ -111,7 +106,7 @@ public class JSort extends JDialog {
         } else {
             myMsg = new JSort((Dialog) window, true);
         }
-        return myMsg.init(cc, auto);
+        return myMsg.init(cc);
     }
     
     /** This method is called from within the constructor to
@@ -203,6 +198,11 @@ public class JSort extends JDialog {
         dispose();
         
     }//GEN-LAST:event_jcmdCancelActionPerformed
+    
+    public Comparator getNameComparator() {
+        m_Comparator = m_cc.createComparator(new int[]{0});
+        return m_Comparator;
+    }
     
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
 

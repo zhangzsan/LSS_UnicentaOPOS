@@ -230,8 +230,6 @@ public abstract class JPanelTable extends JPanel implements JPanelView, BeanFact
         //HS insert new customer 20.03.2014
         if (CustomerInfoGlobal.getInstance()!=null){
             bd.actionInsert();
-            
-                            getNavigator().performSortAction(true);
     }    
     
     }
