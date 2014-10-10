@@ -37,7 +37,8 @@ import javax.swing.JPanel;
 public class JParamsLocation extends javax.swing.JPanel implements ReportEditorCreator {
     
     private SentenceList m_sentlocations;
-    private ComboBoxValModel m_LocationsModel;    
+    private ComboBoxValModel m_LocationsModel; 
+    private String location;
     
     /** Creates new form JParamsLocation */
     public JParamsLocation() {
@@ -52,7 +53,7 @@ public class JParamsLocation extends javax.swing.JPanel implements ReportEditorC
     public void init(AppView app) {
          
         DataLogicSales dlSales = (DataLogicSales) app.getBean("com.openbravo.pos.forms.DataLogicSales");
-        
+        location = app.getInventoryLocation();
         // El modelo de locales
         m_sentlocations = dlSales.getLocationsList();
         m_LocationsModel = new ComboBoxValModel();   
@@ -67,7 +68,8 @@ public class JParamsLocation extends javax.swing.JPanel implements ReportEditorC
         List a = m_sentlocations.list();
         addFirst(a);
         m_LocationsModel = new ComboBoxValModel(a);
-        m_LocationsModel.setSelectedFirst();
+       // m_LocationsModel.setSelectedFirst();
+        m_LocationsModel.setSelectedKey(location);
         m_jLocation.setModel(m_LocationsModel); // refresh model   
     }
     

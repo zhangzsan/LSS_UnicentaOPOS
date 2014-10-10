@@ -526,6 +526,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         refundticket.setTicketType(TicketInfo.RECEIPT_REFUND);
         refundticket.setCustomer(m_ticket.getCustomer());
         refundticket.setPayments(m_ticket.getPayments());    
+        refundticket.setLocationId(m_App.getInventoryLocation());
 // Indicate that this a ticket in edit mode      
         refundticket.setOldTicket(true);         
         m_panelticketedit.setActiveTicket(refundticket, null);          

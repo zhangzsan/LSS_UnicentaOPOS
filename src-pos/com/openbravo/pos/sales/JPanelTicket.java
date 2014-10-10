@@ -2437,6 +2437,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             
             TicketInfo ticket1 = m_oTicket.copyTicket();
             TicketInfo ticket2 = new TicketInfo();
+            ticket2.setLocationId(m_App.getInventoryLocation());
             ticket2.setCustomer(m_oTicket.getCustomer());
             
             if (splitdialog.showDialog(ticket1, ticket2, m_oTicketExt)) {

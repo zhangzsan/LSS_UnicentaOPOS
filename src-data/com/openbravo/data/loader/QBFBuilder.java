@@ -170,7 +170,10 @@ public class QBFBuilder implements ISQLBuilderStatic {
         public void setObject(int paramIndex, Object value) throws BasicException {
             if ((paramIndex - 1) % 2 == 0) {
                 if (value instanceof QBFCompareEnum) {
-                    m_aiCondFields[(paramIndex - 1) / 2] = (QBFCompareEnum) value;
+                    System.out.println(paramIndex + " | " + m_aiCondFields.length);
+                    if(((paramIndex - 1) / 2 ) < m_aiCondFields.length) {
+                     m_aiCondFields[(paramIndex - 1) / 2] = (QBFCompareEnum) value;
+                    }
                 } else {
                     throw new BasicException(LocalRes.getIntString("exception.nocompare"));
                 }

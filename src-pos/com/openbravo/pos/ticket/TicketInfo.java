@@ -79,6 +79,7 @@ public class TicketInfo implements SerializableRead, Externalizable {
     private final String m_sResponse;
     private String loyaltyCardNumber;
     private Boolean oldTicket;
+    private String location;
 
     
     /** Creates new TicketModel */
@@ -171,7 +172,7 @@ public class TicketInfo implements SerializableRead, Externalizable {
         t.attributes = (Properties) attributes.clone();
         t.m_User = m_User;
         t.m_Customer = m_Customer;
-
+        location = t.getLocationId();
         t.m_aLines = new ArrayList<>(); // JG June 2102 diamond inference
         for (TicketLineInfo l : m_aLines) {
             t.m_aLines.add(l.copyTicketLine());
@@ -210,6 +211,18 @@ public class TicketInfo implements SerializableRead, Externalizable {
      */
     public void setTicketType(int tickettype) {
         this.tickettype = tickettype;
+    }
+    
+        /**
+     *
+     * @return
+     */
+    public String getLocationId() {
+        return location;
+    }
+    
+    public void setLocationId(String id) {
+        this.location = id;
     }
 
     /**

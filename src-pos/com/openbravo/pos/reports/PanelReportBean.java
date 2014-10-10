@@ -41,6 +41,7 @@ public class PanelReportBean extends JPanelReport {
     private String resourcebundle = null;
     
     private String sentence;
+    private String location;
 
     
 // JG 16 May 12 use diamond inference
@@ -57,7 +58,8 @@ public class PanelReportBean extends JPanelReport {
      * @throws BeanFactoryException
      */
     public void init(AppView app) throws BeanFactoryException {        
-        
+        location = app.getInventoryLocation();
+        System.out.println(location);
         qbffilter.init(app);       
         super.init(app);
     }

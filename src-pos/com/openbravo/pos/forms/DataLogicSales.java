@@ -1114,7 +1114,7 @@ public Object transact() throws BasicException {
 
     // new ticket
     new PreparedSentence(s
-        , "INSERT INTO TICKETS (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER) VALUES (?, ?, ?, ?, ?)"
+        , "INSERT INTO TICKETS (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, LOCATION) VALUES (?, ?, ?, ?, ?, ?)"
         , SerializerWriteParams.INSTANCE
         ).exec(new DataParams() {
             @Override
@@ -1124,6 +1124,7 @@ public Object transact() throws BasicException {
             setInt(3, ticket.getTicketId());
             setString(4, ticket.getUser().getId());
             setString(5, ticket.getCustomerId());
+            setString(6, ticket.getLocationId());
         }
     }
             );
