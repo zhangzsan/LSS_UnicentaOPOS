@@ -35,6 +35,7 @@ import com.openbravo.pos.scale.DeviceScale;
 import com.openbravo.pos.scanpal2.DeviceScanner;
 import com.openbravo.pos.scanpal2.DeviceScannerFactory;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -50,6 +51,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import javax.swing.*;
         
@@ -130,10 +133,10 @@ public class JRootApp extends JPanel implements AppView {
 
 // JG 16 May 2013 use multicatch
         m_aBeanFactories = new HashMap<>();
-        
+
         // Inicializo los componentes visuales
         initComponents ();            
-        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(30, 30));        
+        jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(30, 30));          
     }
     
     /**
@@ -690,7 +693,7 @@ public class JRootApp extends JPanel implements AppView {
     
     private void showView(String view) {
         CardLayout cl = (CardLayout)(m_jPanelContainer.getLayout());
-        cl.show(m_jPanelContainer, view);  
+        cl.show(m_jPanelContainer, view);
     }
     
     private void openAppView(AppUser user) {
