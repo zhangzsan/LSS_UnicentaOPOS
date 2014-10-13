@@ -199,7 +199,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         m_jEnter1.setEnabled(true);
         m_jcodebar.setEnabled(true);
         m_jEnter.setEnabled(true);
-        m_jLocation.setEnabled(true);
+       // m_jLocation.setEnabled(true);
         jproduct.setEnabled(true);
         jEditProduct.setEnabled(true);
         jattributes.setEnabled(true);
@@ -491,7 +491,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(m_jbtndate);
-        m_jbtndate.setBounds(310, 3, 40, 33);
+        m_jbtndate.setBounds(310, 3, 40, 44);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.stockreason")); // NOI18N
@@ -526,7 +526,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(jEditProduct);
-        jEditProduct.setBounds(310, 38, 40, 33);
+        jEditProduct.setBounds(310, 38, 40, 44);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Location");
@@ -534,6 +534,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jLabel6.setBounds(370, 45, 70, 25);
 
         m_jLocation.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jLocation.setEnabled(false);
         jPanel1.add(m_jLocation);
         m_jLocation.setBounds(440, 45, 200, 25);
 
