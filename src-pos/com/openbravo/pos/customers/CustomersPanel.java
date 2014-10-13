@@ -52,7 +52,7 @@ public class CustomersPanel extends JPanelTable {
     @Override
     protected void init() {        
         DataLogicCustomers dlCustomers  = (DataLogicCustomers) app.getBean("com.openbravo.pos.customers.DataLogicCustomers");
-        tcustomers = dlCustomers.getTableCustomers();        
+        tcustomers = dlCustomers.getTableCustomers();   
         jeditor = new CustomersView(app, dirty);
     }
     
@@ -99,7 +99,7 @@ public class CustomersPanel extends JPanelTable {
      */
     @Override
     public final ComparatorCreator getComparatorCreator() {
-        return tcustomers.getComparatorCreator(new int[] {1, 2, 3, 4});
+        return tcustomers.getComparatorCreator(new int[] {3});
     }
     
     /**

@@ -158,7 +158,7 @@ public class DataLogicCustomers extends BeanFactoryDataSingle {
                 Formats.STRING,
                 Formats.STRING,
                 Formats.NULL }
-            , new int[] {0}
+            , new int[] {3}
         );   
         
     }
