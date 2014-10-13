@@ -129,7 +129,7 @@ public class JListData extends javax.swing.JDialog {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
-        m_jData.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jData.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         m_jData.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(m_jData);
 
@@ -145,8 +145,8 @@ public class JListData extends javax.swing.JDialog {
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.NORTH);
 
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-264)/2, (screenSize.height-337)/2, 264, 337);
+        setSize(new java.awt.Dimension(416, 337));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jCancelActionPerformed
