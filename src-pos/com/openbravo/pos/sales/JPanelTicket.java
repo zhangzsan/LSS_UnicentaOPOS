@@ -52,6 +52,7 @@ import com.openbravo.pos.util.JRPrinterAWT300;
 import com.openbravo.pos.util.ReportUtils;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -189,7 +190,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
     /** Creates new form JTicketView */
     public JPanelTicket() {
         
-        initComponents ();
+        initComponents();
     }
    
     /**
@@ -214,20 +215,14 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }
 //      JG 19 Feb 14 unnecessary parse - if (Boolean.valueOf(m_App.getProperties().getProperty("till.amountattop")).booleanValue()){
         if (Boolean.valueOf(m_App.getProperties().getProperty("till.amountattop"))){
-            m_jPanEntries.remove(jPanel9);
-            m_jPanEntries.remove(m_jNumberKeys);        
+            m_jPanEntries.remove(jPanel9);       
             m_jPanEntries.add(jPanel9);
-            m_jPanEntries.add(m_jNumberKeys);
         }        
  
 //      JG 19 Feb 14 unnecessary parse -  jbtnMooring.setVisible(Boolean.valueOf(m_App.getProperties().getProperty("till.marineoption")).booleanValue());
         jbtnMooring.setVisible(Boolean.valueOf(m_App.getProperties().getProperty("till.marineoption")));
 
         priceWith00 = ("true".equals(m_App.getProperties().getProperty("till.pricewith00")));
-        if (priceWith00) {
-            // use '00' instead of '.'
-            m_jNumberKeys.dotIs00(true);
-        }
            
         m_ticketsbag = getJTicketsBag();
         m_jPanelBag.add(m_ticketsbag.getBagComponent(), BorderLayout.LINE_START);
@@ -386,8 +381,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         // Authorization for buttons
         btnSplit.setEnabled(m_App.getAppUserView().getUser().hasPermission("sales.Total"));
         m_jDelete.setEnabled(m_App.getAppUserView().getUser().hasPermission("sales.EditLines"));
-        m_jNumberKeys.setMinusEnabled(m_App.getAppUserView().getUser().hasPermission("sales.EditLines"));
-        m_jNumberKeys.setEqualsEnabled(m_App.getAppUserView().getUser().hasPermission("sales.Total"));
         m_jbtnconfig.setPermissions(m_App.getAppUserView().getUser());  
                
         m_ticketsbag.activate();  
@@ -534,8 +527,9 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             }
             
             // Refresh ticket taxes
+            
             for (TicketLineInfo line : m_oTicket.getLines()) {
-                line.setTaxInfo(taxeslogic.getTaxInfo(line.getProductTaxCategoryID(), m_oTicket.getCustomer()));
+                    line.setTaxInfo(taxeslogic.getTaxInfo(line.getProductTaxCategoryID(), m_oTicket.getCustomer()));          
             }  
         
             // The ticket name
@@ -1017,8 +1011,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
             }
             else if (cTrans == '\u0008'){
-                m_sBarcode.setLength(m_sBarcode.length()-1);
-               m_sBarcode = new StringBuffer(m_sBarcode.substring(0, m_sBarcode.length()-1));
+                if(m_sBarcode.length() >= 1) {
+                    m_sBarcode.setLength(m_sBarcode.length()-1);
+                    m_sBarcode = new StringBuffer(m_sBarcode.substring(0, m_sBarcode.length()-1));
+                }
                 System.out.println(m_sBarcode);
             }
             else if ((cTrans == '0') && (m_iNumberStatus == NUMBER_INPUTZERO)) {
@@ -1330,7 +1326,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             try {
                 // reset the payment info
                 taxeslogic.calculateTaxes(ticket);
-                
+                ticket.setLocationId(m_App.getInventoryLocation());
                 if (ticket.getTotal() >= 0.0 && ticket.getTicketType() != TicketInfo.RECEIPT_NOSALE){
                     ticket.resetPayments(); //Only reset if is sale
                 }
@@ -1852,14 +1848,14 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jTotalEuros = new javax.swing.JLabel();
         m_jContEntries = new javax.swing.JPanel();
         m_jPanEntries = new javax.swing.JPanel();
-        m_jNumberKeys = new com.openbravo.beans.JNumberKeys();
         jPanel9 = new javax.swing.JPanel();
         m_jPrice = new javax.swing.JLabel();
         m_jPor = new javax.swing.JLabel();
-        m_jEnter = new javax.swing.JButton();
         m_jTax = new javax.swing.JComboBox();
         m_jaddtax = new javax.swing.JToggleButton();
+        jPanel3 = new javax.swing.JPanel();
         m_jKeyFactory = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         catcontainer = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 204, 153));
@@ -1937,6 +1933,9 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                     .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5))
         );
+
+        jButton1.getAccessibleContext().setAccessibleDescription("Add New Customer(Ctrl+N)");
+        btnCustomer.getAccessibleContext().setAccessibleDescription("Show Customers(Ctrl+S)");
 
         m_jOptions.add(m_jButtons, java.awt.BorderLayout.LINE_START);
 
@@ -2061,6 +2060,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             }
         });
         jPanel2.add(m_jDelete);
+        m_jDelete.getAccessibleContext().setAccessibleDescription("Remove Line(Ctrl+D)");
 
         m_jList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/search32.png"))); // NOI18N
         m_jList.setToolTipText("Product Search");
@@ -2093,6 +2093,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             }
         });
         jPanel2.add(m_jEditLine);
+        m_jEditLine.getAccessibleContext().setAccessibleDescription("Edit Line(Ctrl+E)");
 
         jEditAttributes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/attributes.png"))); // NOI18N
         jEditAttributes.setToolTipText("Choose Attributes");
@@ -2156,7 +2157,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jSubtotalEuros.setForeground(m_jEditLine.getForeground());
         m_jSubtotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jSubtotalEuros.setLabelFor(m_jSubtotalEuros);
-        m_jSubtotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        m_jSubtotalEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         m_jSubtotalEuros.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jSubtotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jSubtotalEuros.setOpaque(true);
@@ -2169,7 +2170,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jTaxesEuros.setForeground(m_jEditLine.getForeground());
         m_jTaxesEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTaxesEuros.setLabelFor(m_jTaxesEuros);
-        m_jTaxesEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        m_jTaxesEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         m_jTaxesEuros.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jTaxesEuros.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jTaxesEuros.setOpaque(true);
@@ -2182,7 +2183,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jTotalEuros.setForeground(m_jEditLine.getForeground());
         m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         m_jTotalEuros.setLabelFor(m_jTotalEuros);
-        m_jTotalEuros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        m_jTotalEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         m_jTotalEuros.setMaximumSize(new java.awt.Dimension(125, 25));
         m_jTotalEuros.setMinimumSize(new java.awt.Dimension(80, 25));
         m_jTotalEuros.setOpaque(true);
@@ -2202,15 +2203,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jContEntries.setLayout(new java.awt.BorderLayout());
 
         m_jPanEntries.setLayout(new javax.swing.BoxLayout(m_jPanEntries, javax.swing.BoxLayout.Y_AXIS));
-
-        m_jNumberKeys.setMinimumSize(new java.awt.Dimension(200, 200));
-        m_jNumberKeys.setPreferredSize(new java.awt.Dimension(250, 250));
-        m_jNumberKeys.addJNumberEventListener(new com.openbravo.beans.JNumberEventListener() {
-            public void keyPerformed(com.openbravo.beans.JNumberEvent evt) {
-                m_jNumberKeysKeyPerformed(evt);
-            }
-        });
-        m_jPanEntries.add(m_jNumberKeys);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         jPanel9.setLayout(new java.awt.GridBagLayout());
@@ -2245,26 +2237,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         jPanel9.add(m_jPor, gridBagConstraints);
 
-        m_jEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/barcode.png"))); // NOI18N
-        m_jEnter.setToolTipText("Get Barcode");
-        m_jEnter.setFocusPainted(false);
-        m_jEnter.setFocusable(false);
-        m_jEnter.setRequestFocusEnabled(false);
-        m_jEnter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                m_jEnterActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        jPanel9.add(m_jEnter, gridBagConstraints);
-
         m_jTax.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jTax.setFocusable(false);
         m_jTax.setPreferredSize(new java.awt.Dimension(28, 25));
@@ -2296,11 +2268,15 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
 
         m_jPanEntries.add(jPanel9);
 
+        m_jContEntries.add(m_jPanEntries, java.awt.BorderLayout.NORTH);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
         m_jKeyFactory.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        m_jKeyFactory.setForeground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
-        m_jKeyFactory.setBorder(null);
+        m_jKeyFactory.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         m_jKeyFactory.setCaretColor(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
         m_jKeyFactory.setMinimumSize(new java.awt.Dimension(100, 50));
+        m_jKeyFactory.setOpaque(false);
         m_jKeyFactory.setPreferredSize(new java.awt.Dimension(1, 20));
         m_jKeyFactory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2315,9 +2291,19 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                 m_jKeyFactoryKeyTyped(evt);
             }
         });
-        m_jPanEntries.add(m_jKeyFactory);
+        jPanel3.add(m_jKeyFactory, java.awt.BorderLayout.PAGE_END);
 
-        m_jContEntries.add(m_jPanEntries, java.awt.BorderLayout.NORTH);
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/wallet.png"))); // NOI18N
+        jButton2.setText("Close Sale");
+        jButton2.setToolTipText("Close the Current Sale");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton2, java.awt.BorderLayout.PAGE_START);
+
+        m_jContEntries.add(jPanel3, java.awt.BorderLayout.CENTER);
 
         m_jPanContainer.add(m_jContEntries, java.awt.BorderLayout.LINE_END);
 
@@ -2351,17 +2337,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         }
 
     }//GEN-LAST:event_m_jEditLineActionPerformed
-
-    private void m_jEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jEnterActionPerformed
-
-        stateTransition('\n');
-
-    }//GEN-LAST:event_m_jEnterActionPerformed
-
-    private void m_jNumberKeysKeyPerformed(com.openbravo.beans.JNumberEvent evt) {//GEN-FIRST:event_m_jNumberKeysKeyPerformed
-
-        stateTransition(evt.getKey());
-    }//GEN-LAST:event_m_jNumberKeysKeyPerformed
 
     private void m_jKeyFactoryKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_m_jKeyFactoryKeyTyped
  
@@ -2567,9 +2542,17 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
                 case KeyEvent.VK_S:
                     btnCustomerActionPerformed(null);
                     break;
+                case KeyEvent.VK_L:
+                    m_jListActionPerformed(null);
+                    break;
             }
         }
     }//GEN-LAST:event_m_jKeyFactoryKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        stateTransition(' ');
+        m_jKeyFactory.requestFocus();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2577,9 +2560,11 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
     private javax.swing.JButton btnSplit;
     private javax.swing.JPanel catcontainer;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jEditAttributes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel9;
@@ -2591,13 +2576,11 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
     private javax.swing.JButton m_jDelete;
     private javax.swing.JButton m_jDown;
     private javax.swing.JButton m_jEditLine;
-    private javax.swing.JButton m_jEnter;
     private javax.swing.JTextField m_jKeyFactory;
     private javax.swing.JLabel m_jLblTotalEuros1;
     private javax.swing.JLabel m_jLblTotalEuros2;
     private javax.swing.JLabel m_jLblTotalEuros3;
     private javax.swing.JButton m_jList;
-    private com.openbravo.beans.JNumberKeys m_jNumberKeys;
     private javax.swing.JPanel m_jOptions;
     private javax.swing.JPanel m_jPanContainer;
     private javax.swing.JPanel m_jPanEntries;
