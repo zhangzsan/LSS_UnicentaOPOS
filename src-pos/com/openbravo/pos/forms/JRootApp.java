@@ -51,8 +51,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import javax.swing.*;
         
@@ -92,7 +90,6 @@ public class JRootApp extends JPanel implements AppView {
 //JG Added 3.07.2011 - **Clock on title bar* - T.Sirwani/
     private String m_clock;
     private String m_date;
-
     
 // Added JDL 21.04.13    
     private Connection con;  
@@ -586,7 +583,7 @@ public class JRootApp extends JPanel implements AppView {
      */
     @Override
     public void waitCursorBegin() {
-        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        getRootPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
     }
     
     /**
@@ -594,7 +591,7 @@ public class JRootApp extends JPanel implements AppView {
      */
     @Override
     public void waitCursorEnd(){
-        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        getRootPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
     /**
@@ -691,9 +688,9 @@ public class JRootApp extends JPanel implements AppView {
         }
     }
     
-    private void showView(String view) {
-        CardLayout cl = (CardLayout)(m_jPanelContainer.getLayout());
-        cl.show(m_jPanelContainer, view);
+    private void showView(final String view) {
+                 CardLayout cl = (CardLayout)(m_jPanelContainer.getLayout());
+                 cl.show(m_jPanelContainer, view);
     }
     
     private void openAppView(AppUser user) {
@@ -707,6 +704,9 @@ public class JRootApp extends JPanel implements AppView {
             jPanel3.revalidate();
             
             // The main panel
+            final Color bg = m_principalapp.getBackground();
+            Color newColor = new Color(bg.getRed(), bg.getGreen(), bg.getBlue(),0);
+            m_principalapp.setBackground(newColor);
             m_jPanelContainer.add(m_principalapp, "_" + m_principalapp.getUser().getId());
             showView("_" + m_principalapp.getUser().getId());
 
