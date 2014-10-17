@@ -96,11 +96,9 @@ public abstract class JPanelReport extends JPanel implements JPanelView, BeanFac
         if (editor instanceof ReportEditorCreator) {
             jPanelFilter.add(((ReportEditorCreator) editor).getComponent(), BorderLayout.CENTER);
         }
-        
         ReportEditorCreator rec = ((JParamsComposed)editor).getEditors().get(0);
         
         if(rec instanceof ProductFilter) {
-            System.out.println("Was an instance!");
             ((ProductFilter)rec).getBarcodeField().addActionListener(new ActionListener() {
 
                 @Override

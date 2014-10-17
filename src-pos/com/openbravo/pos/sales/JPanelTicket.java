@@ -481,7 +481,6 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         }
 
         executeEvent(m_oTicket, m_oTicketExt, "ticket.show");
-        System.out.println(m_App.getProperties().getProperty("machine.ticketsbag"));
         if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))){
       //      j_btnKitchenPrt.setVisible(false); 
         }else{
