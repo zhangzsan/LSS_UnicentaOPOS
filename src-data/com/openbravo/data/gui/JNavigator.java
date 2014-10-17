@@ -27,8 +27,6 @@ import com.openbravo.data.loader.Vectorer;
 import com.openbravo.data.user.BrowseListener;
 import com.openbravo.data.user.BrowsableEditableData;
 import com.openbravo.data.user.StateListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -32,7 +32,7 @@
         <Component class="javax.swing.JList" name="m_jlist">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="c7" green="c7" red="c7" type="rgb"/>
+              <Color blue="ee" green="ee" red="f6" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
