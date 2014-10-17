@@ -363,7 +363,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
         m_jSequence.setEditable(false);
         m_jSequence.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jSequence.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jSequence.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -371,7 +371,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
         m_jMinDate.setEditable(false);
         m_jMinDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jMinDate.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jMinDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -379,7 +379,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
         m_jMaxDate.setEditable(false);
         m_jMaxDate.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jMaxDate.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jMaxDate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -447,28 +447,28 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
         m_jCount.setEditable(false);
         m_jCount.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jCount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText(AppLocal.getIntString("Label.Cash")); // NOI18N
 
         m_jCash.setEditable(false);
         m_jCash.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jCash.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jCash.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.sales")); // NOI18N
 
         m_jSales.setEditable(false);
         m_jSales.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jSales.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jSales.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText(AppLocal.getIntString("label.subtotalcash")); // NOI18N
 
         m_jSalesSubtotal.setEditable(false);
         m_jSalesSubtotal.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jSalesSubtotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jSalesSubtotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         m_jScrollSales.setBorder(null);
 
@@ -481,7 +481,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
 
         m_jSalesTaxes.setEditable(false);
         m_jSalesTaxes.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        m_jSalesTaxes.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jSalesTaxes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel12.setText(AppLocal.getIntString("label.taxcash")); // NOI18N
@@ -490,8 +490,8 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
         jLabel7.setText(AppLocal.getIntString("label.totalcash")); // NOI18N
 
         m_jSalesTotal.setEditable(false);
-        m_jSalesTotal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        m_jSalesTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        m_jSalesTotal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        m_jSalesTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         m_jSalesTotal.setPreferredSize(new java.awt.Dimension(6, 21));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
@@ -675,6 +675,8 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                 .addComponent(m_jPrintCash, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        cdButton.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cdButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/cash.png"))); // NOI18N
         cdButton.setText("Count Drawer");
         cdButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -698,7 +700,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanelBottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cdButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cdButton)
                         .addGap(44, 44, 44))))
         );
         jPanel1Layout.setVerticalGroup(
