@@ -51,7 +51,7 @@ import java.util.UUID;
  */
 public final class StockDiaryEditor extends javax.swing.JPanel implements EditorRecord {
     
-    private CatalogSelector m_cat;
+    private final CatalogSelector m_cat;
 
     private String m_sID;
 
@@ -64,13 +64,13 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
     private String attsetinstdesc;
     private String sAppUser;
     
-    private ComboBoxValModel m_ReasonModel;
+    private final ComboBoxValModel m_ReasonModel;
     
-    private SentenceList m_sentlocations;
+    private final SentenceList m_sentlocations;
     private ComboBoxValModel m_LocationsModel;    
 
-    private AppView m_App;
-    private DataLogicSales m_dlSales;
+    private final AppView m_App;
+    private final DataLogicSales m_dlSales;
     
     /** Creates new form StockDiaryEditor
      * @param app
@@ -108,7 +108,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jattributes.getDocument().addDocumentListener(dirty);
         m_junits.getDocument().addDocumentListener(dirty);
         m_jprice.getDocument().addDocumentListener(dirty);
-         
+        m_jcodebar.requestFocus();
         writeValueEOF();
     }
     
@@ -207,6 +207,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         m_junits.setEnabled(true);
         m_jprice.setEnabled(true);   
         m_cat.setComponentEnabled(true);
+        m_jcodebar.requestFocus();
     }
 
     /**
@@ -337,8 +338,8 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
     private Double signum(Double d, Integer i) {
         if (d == null || i == null) {
             return d;
-        } else if (i.intValue() < 0) {
-            return new Double(-d.doubleValue());
+        } else if (i < 0) {
+            return -d;
         } else {
             return d;
         } 
@@ -348,9 +349,9 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         
         if (d == null || i == null) {
             return d;
-        } else if ((i.intValue() > 0 && d.doubleValue() < 0.0) ||
-            (i.intValue() < 0 && d.doubleValue() > 0.0)) {
-            return new Double(-d.doubleValue());
+        } else if ((i > 0 && d < 0.0) ||
+            (i < 0 && d > 0.0)) {
+            return -d;
         } else {
             return d;
         }            
@@ -388,6 +389,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
                 MovementReason reason = (MovementReason)  m_ReasonModel.getSelectedItem();
                 Double dPrice = reason.getPrice(prod.getPriceBuy(), prod.getPriceSell());
                 m_jprice.setText(Formats.CURRENCY.formatValue(dPrice));
+                m_junits.requestFocus();
             }
         }
     }
@@ -511,12 +513,12 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jLabel8.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel8.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(10, 45, 80, 25);
+        jLabel8.setBounds(10, 60, 80, 25);
 
         jproduct.setEditable(false);
         jproduct.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel1.add(jproduct);
-        jproduct.setBounds(100, 45, 200, 25);
+        jproduct.setBounds(100, 60, 200, 25);
 
         jEditProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/search24.png"))); // NOI18N
         jEditProduct.setToolTipText("Search Product List");
@@ -526,7 +528,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(jEditProduct);
-        jEditProduct.setBounds(310, 38, 40, 44);
+        jEditProduct.setBounds(310, 50, 40, 44);
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Location");
@@ -544,7 +546,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jLabel7.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel7.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(10, 80, 80, 25);
+        jLabel7.setBounds(10, 100, 80, 25);
 
         m_jcodebar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jcodebar.addActionListener(new java.awt.event.ActionListener() {
@@ -553,7 +555,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(m_jcodebar);
-        m_jcodebar.setBounds(100, 80, 200, 25);
+        m_jcodebar.setBounds(100, 100, 200, 25);
 
         m_jEnter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/barcode.png"))); // NOI18N
         m_jEnter.setToolTipText("Get Barcode");
@@ -569,7 +571,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(m_jEnter);
-        m_jEnter.setBounds(310, 73, 40, 33);
+        m_jEnter.setBounds(310, 100, 40, 33);
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText(AppLocal.getIntString("label.stockproduct")); // NOI18N
@@ -577,7 +579,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jLabel3.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel3.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 120, 80, 25);
+        jLabel3.setBounds(10, 150, 80, 25);
 
         m_jreference.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jreference.addActionListener(new java.awt.event.ActionListener() {
@@ -586,7 +588,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(m_jreference);
-        m_jreference.setBounds(100, 115, 200, 25);
+        m_jreference.setBounds(100, 140, 200, 25);
 
         m_jEnter1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/products.png"))); // NOI18N
         m_jEnter1.setToolTipText("Enter Product ID");
@@ -602,7 +604,7 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
             }
         });
         jPanel1.add(m_jEnter1);
-        m_jEnter1.setBounds(310, 109, 40, 33);
+        m_jEnter1.setBounds(310, 140, 40, 33);
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText(AppLocal.getIntString("label.attributes")); // NOI18N
@@ -636,22 +638,22 @@ public final class StockDiaryEditor extends javax.swing.JPanel implements Editor
         jLabel4.setMinimumSize(new java.awt.Dimension(40, 20));
         jLabel4.setPreferredSize(new java.awt.Dimension(40, 20));
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 145, 80, 25);
+        jLabel4.setBounds(10, 180, 80, 25);
 
         m_junits.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_junits.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(m_junits);
-        m_junits.setBounds(100, 145, 70, 25);
+        m_junits.setBounds(100, 180, 70, 25);
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText(AppLocal.getIntString("label.price")); // NOI18N
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(190, 145, 40, 25);
+        jLabel5.setBounds(190, 180, 40, 25);
 
         m_jprice.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         m_jprice.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel1.add(m_jprice);
-        m_jprice.setBounds(230, 145, 70, 25);
+        m_jprice.setBounds(230, 180, 70, 25);
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents

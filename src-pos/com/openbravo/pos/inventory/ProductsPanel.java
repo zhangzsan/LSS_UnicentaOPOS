@@ -135,6 +135,7 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
         jproductfilter.activate();
         
         super.activate();
+        System.gc();
     }
 
     /**
