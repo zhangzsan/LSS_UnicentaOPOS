@@ -82,7 +82,6 @@ public class JProductsSelector extends javax.swing.JPanel {
     @Override
     public void mouseEntered(java.awt.event.MouseEvent evt) {
         btn.setBackground(Color.GREEN);
-        System.out.println("Mouse In");
     }
 
     @Override
