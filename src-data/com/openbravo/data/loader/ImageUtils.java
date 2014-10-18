@@ -40,7 +40,7 @@ public class ImageUtils {
     }
     
     private static byte[] readStream(InputStream in) throws IOException {
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[4096];
         byte[] resource = new byte[0];             
         int n;
         

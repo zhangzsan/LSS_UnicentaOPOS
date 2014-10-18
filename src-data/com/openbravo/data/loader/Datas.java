@@ -64,6 +64,7 @@ public abstract class Datas {
      */
     public final static Datas IMAGE = new DatasIMAGE();
     //public final static Datas INPUTSTREAM = new DatasINPUTSTREAM();
+    
 
     /**
      *
