@@ -45,7 +45,12 @@ paramdates.setStartDate(com.openbravo.beans.DateUtils.getToday());
 // JG - 8 Jan 14 paramdates.setEndDate(com.openbravo.beans.DateUtils.getToday());
 paramdates.setEndDate(com.openbravo.beans.DateUtils.getTodayMinutes());
 
+location = new com.openbravo.pos.reports.JParamsLocation();
+
 report.addQBFFilter(paramdates);
+
+report.addParameter("TICKETS.LOCATION");
+report.addQBFFilter(location);
 
 report.addParameter("CUSTOMERS.ID");
 report.addParameter("CUSTOMERS.NAME");
