@@ -158,7 +158,7 @@ public class DataLogicCustomers extends BeanFactoryDataSingle {
                 Formats.STRING,
                 Formats.STRING,
                 Formats.NULL }
-            , new int[] {3}
+            , new int[] {0}
         );   
         
     }
@@ -202,7 +202,6 @@ public class DataLogicCustomers extends BeanFactoryDataSingle {
      * @throws BasicException
      */
     public int updateCustomerExt(final CustomerInfoExt customer) throws BasicException {
-     
         return new PreparedSentence(s
                 , "UPDATE CUSTOMERS SET NOTES = ? WHERE ID = ?"
                 , SerializerWriteParams.INSTANCE      

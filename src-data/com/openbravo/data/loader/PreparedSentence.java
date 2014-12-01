@@ -191,10 +191,12 @@ public class PreparedSentence extends JDBCSentence {
                 if (iUC < 0) {
                     return null;
                 } else {
+                    System.out.println(""+iUC);
                     return new SentenceUpdateResultSet(iUC);
                 }
             }
         } catch (SQLException eSQL) {
+            eSQL.printStackTrace();
             throw new BasicException(eSQL);
         }
     }

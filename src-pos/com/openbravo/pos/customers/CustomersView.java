@@ -27,6 +27,7 @@ import com.openbravo.data.user.EditorRecord;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
+import com.openbravo.pos.forms.BeanFactoryException;
 import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.util.StringUtils;
 import java.awt.Component;
@@ -99,7 +100,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         txtCountry.getDocument().addDocumentListener(dirty);           
         
             init();
-        } catch (Exception ex) {
+        } catch (BeanFactoryException ex) {
             Logger.getLogger(CustomersView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -345,6 +346,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
      */
     @Override
     public void writeValueEdit(Object value) {
+        System.out.println("WVE");
         Object[] customer = (Object[]) value;
         m_oId = customer[0];
         m_jTaxID.setText((String) customer[1]);

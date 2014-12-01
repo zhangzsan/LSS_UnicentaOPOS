@@ -463,9 +463,11 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
          
         customerInfo = new CustomerInfo("1234");
         customerInfo.setName("Hugh Test ");
+         
         m_appview.waitCursorBegin();       
          
         if (m_appuser.hasPermission(sTaskClass)) {            
+            
             JPanelView m_jMyView = (JPanelView) m_aCreatedViews.get(sTaskClass);
 
             if (m_jLastView == null || (m_jMyView != m_jLastView && m_jLastView.deactivate())) {
@@ -483,11 +485,10 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
                             m_jMyView = new JPanelNull(m_appview, e);
                         }
                     }
+                    
                     m_jMyView.getComponent().applyComponentOrientation(getComponentOrientation());
                     m_jPanelContainer.add(m_jMyView.getComponent(), sTaskClass);
                     m_aCreatedViews.put(sTaskClass, m_jMyView);
-                } else {
-                    m_jPanelContainer.remove(m_jLastView.getComponent());
                 }
                 
                 try {
@@ -495,6 +496,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
                 } catch (BasicException e) {
                     JMessageDialog.showMessage(this, new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.notactive"), e));            
                 }
+
                 m_jLastView = m_jMyView;
 
                 setMenuVisible(getBounds().width > 800);
