@@ -473,8 +473,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
             if (m_jLastView == null || (m_jMyView != m_jLastView && m_jLastView.deactivate())) {
 
                 // Construct the new view
-                if (m_jMyView == null) {   
-                    
+                if (m_jMyView == null) {            
                     // Is the view prepared
                     m_jMyView = m_aPreparedViews.get(sTaskClass);
                     if (m_jMyView == null) {   
@@ -489,8 +488,7 @@ public class JPrincipalApp extends javax.swing.JPanel implements AppUserView {
                     m_jMyView.getComponent().applyComponentOrientation(getComponentOrientation());
                     m_jPanelContainer.add(m_jMyView.getComponent(), sTaskClass);
                     m_aCreatedViews.put(sTaskClass, m_jMyView);
-                }
-                
+                }           
                 try {
                     m_jMyView.activate();
                 } catch (BasicException e) {
