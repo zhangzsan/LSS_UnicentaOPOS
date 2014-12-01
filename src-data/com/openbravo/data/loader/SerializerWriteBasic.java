@@ -20,8 +20,6 @@
 package com.openbravo.data.loader;
 
 import com.openbravo.basic.BasicException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,31 +42,10 @@ public class SerializerWriteBasic implements SerializerWrite<Object[]> {
      * @throws BasicException
      */
     @Override
-    public void writeValues(final DataWrite dp, final Object[] obj) throws BasicException {
+    public void writeValues(DataWrite dp, Object[] obj) throws BasicException {
 
-        for (int i = 0; i < m_classes.length/2; i++) {
+        for (int i = 0; i < m_classes.length; i++) {
             m_classes[i].setValue(dp, i + 1, obj[i]);
-        }
-        Thread thread;
-        thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-            for (int i = (m_classes.length/2)+1; i < m_classes.length; i++) {
-                try {
-                    m_classes[i].setValue(dp, i + 1, obj[i]);
-                } catch (BasicException ex) {
-                    Logger.getLogger(SerializerWriteBasic.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        } 
-            }
-            
-        });
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(SerializerWriteBasic.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

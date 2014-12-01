@@ -20,8 +20,6 @@
 package com.openbravo.data.loader;
 
 import com.openbravo.basic.BasicException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -43,35 +41,12 @@ public class SerializerReadBasic implements SerializerRead {
      * @return
      * @throws BasicException
      */
-    public Object readValues(final DataRead dr) throws BasicException {
+    public Object readValues(DataRead dr) throws BasicException {
         
-        final Object[] m_values = new Object[m_classes.length];
+        Object[] m_values = new Object[m_classes.length];
         for (int i = 0; i < m_classes.length; i++) {
             m_values[i] = m_classes[i].getValue(dr, i + 1);
         }
-        
-                Thread thread;
-        thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-            for (int i = (m_classes.length/2)+1; i < m_classes.length; i++) {
-                try {
-                    m_values[i] = m_classes[i].getValue(dr, i + 1);
-                } catch (BasicException ex) {
-                    Logger.getLogger(SerializerReadBasic.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        } 
-            }
-            
-        });
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(SerializerWriteBasic.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         return m_values;
     }    
 }

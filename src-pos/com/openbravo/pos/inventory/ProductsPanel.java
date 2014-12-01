@@ -137,15 +137,6 @@ public class ProductsPanel extends JPanelTable2 implements EditorListener {
         super.activate();
         System.gc();
     }
-    
-    @Override
-    public boolean deactivate() {
-        System.out.println("deactivated");
-        jeditor = null;
-        jproductfilter = null;
-                System.gc();
-        return super.deactivate();
-    }
 
     /**
      *
