@@ -52,7 +52,6 @@ import com.openbravo.pos.util.JRPrinterAWT300;
 import com.openbravo.pos.util.ReportUtils;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -564,12 +563,12 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             m_jSubtotalEuros.setText(null);
             m_jTaxesEuros.setText(null);
             m_jTotalEuros.setText(null);
-            repaint();
         } else {
             m_jSubtotalEuros.setText(m_oTicket.printSubTotal());
             m_jTaxesEuros.setText(m_oTicket.printTax());
             m_jTotalEuros.setText(m_oTicket.printTotal());
         }
+        repaint();
     }
     
     private void paintTicketLine(int index, TicketLineInfo oLine){
@@ -1317,6 +1316,13 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             listener.stop();
         }
         boolean resultok = false;
+        
+        if (m_oTicket.getTicketType() == TicketInfo.RECEIPT_REFUND){
+            if(m_oTicket.getTotal() > 0){
+                JOptionPane.showMessageDialog(this, "Cannot process positive cash amount on a refund! Please create a new sale and add refunded items as a (-1) quantity!");
+                return false;
+            }
+        }
         
         if (m_App.getAppUserView().getUser().hasPermission("sales.Total")) {  
 // Check if we have a warranty to print                         
@@ -2389,6 +2395,9 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                m_oTicket.setCustomer(null);
            }else {
                m_oTicket.setCustomer(dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()));
+               m_oTicket.resetTaxes();
+               taxeslogic.calculateTaxes(m_oTicket);
+               printPartialTotals();
            if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))) { 
 // JG 30 Apr 14 Redundant String() to String() assignment
 //               restDB.setCustomerNameInTableByTicketId (dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()).toString(), m_oTicket.getId().toString());  
@@ -2399,6 +2408,8 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         } catch (BasicException e) {
             MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindcustomer"), e);
             msg.show(this);            
+        } catch (TaxesException ex) {
+            Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         refreshTicket();     

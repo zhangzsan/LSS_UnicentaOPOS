@@ -113,7 +113,6 @@ public class TaxesLogic {
   
         // JG June 2013 use diamond inference
         List<TicketTaxInfo> tickettaxes = new ArrayList<>(); 
-        
         for (TicketLineInfo line: ticket.getLines()) {
             tickettaxes = sumLineTaxes(tickettaxes, calculateTaxes(line));
         }

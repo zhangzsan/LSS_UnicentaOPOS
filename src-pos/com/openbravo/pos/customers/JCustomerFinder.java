@@ -26,6 +26,7 @@ import com.openbravo.data.user.ListProvider;
 import com.openbravo.data.user.ListProviderCreator;
 import com.openbravo.pos.forms.AppLocal;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -135,6 +136,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
             jListCustomers.setModel(new MyListData(lpr.loadData()));
             if (jListCustomers.getModel().getSize() > 0) {
                 jListCustomers.setSelectedIndex(0);
+                jListCustomers.requestFocus();
                 }
         } catch (BasicException e) {
         }
@@ -442,7 +444,6 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
     }//GEN-LAST:event_jcmdCancelActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
                     executeSearch();
         
     }//GEN-LAST:event_jButton3ActionPerformed
