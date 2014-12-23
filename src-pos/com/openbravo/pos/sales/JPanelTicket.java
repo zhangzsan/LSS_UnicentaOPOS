@@ -2395,7 +2395,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
                m_oTicket.setCustomer(null);
            }else {
                m_oTicket.setCustomer(dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()));
-               m_oTicket.resetTaxes();
                taxeslogic.calculateTaxes(m_oTicket);
                printPartialTotals();
            if ("restaurant".equals(m_App.getProperties().getProperty("machine.ticketsbag"))) { 
