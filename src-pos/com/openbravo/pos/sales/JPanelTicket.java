@@ -594,7 +594,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 // modified 02.05.13 read tax selected from the panel
 // modified 22.06.13 to allow mulitplier to be used with variable price           
 //        oProduct.setTaxCategoryID(((TaxCategoryInfo) taxcategoriesmodel.getSelectedItem()).getID()); 
-        
+        if(m_oTicket.getCustomer() == null){
+            JOptionPane.showMessageDialog(this, "You MUST select a customer before starting a sale!", "Error", JOptionPane.WARNING_MESSAGE);
+            stateToZero();
+            return;
+        }
         if (oProduct.isVprice()){
             TaxInfo tax = taxeslogic.getTaxInfo(oProduct.getTaxCategoryID(), m_oTicket.getCustomer());
             if (m_jaddtax.isSelected()) {
