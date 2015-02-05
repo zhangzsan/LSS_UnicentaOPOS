@@ -1761,7 +1761,7 @@ public class JFrameCountDrawer extends javax.swing.JFrame {
     }//GEN-LAST:event_tabbedPanelFocusGained
 
     private void lastSODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastSODActionPerformed
-        SQL = "SELECT * FROM DRAWERFLOAT WHERE LOCATION = '"+jpcm.getApp().getInventoryLocation()+"' AND ID = (SELECT MAX(ID) FROM DRAWERFLOAT WHERE STARTOFDAY = 0)";
+        SQL = "SELECT * FROM DRAWERFLOAT WHERE ID = (SELECT MAX(ID) FROM DRAWERFLOAT WHERE STARTOFDAY = 0 AND LOCATION = "+jpcm.getApp().getInventoryLocation()+")";
         try
         {
             stmt = (Statement) con.createStatement();      

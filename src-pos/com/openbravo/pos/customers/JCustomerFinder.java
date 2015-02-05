@@ -25,8 +25,8 @@ import com.openbravo.data.user.EditorCreator;
 import com.openbravo.data.user.ListProvider;
 import com.openbravo.data.user.ListProviderCreator;
 import com.openbravo.pos.forms.AppLocal;
+import com.openbravo.pos.forms.AppView;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -38,18 +38,21 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
 
     private CustomerInfo selectedCustomer;
     private ListProvider lpr;
+    private final AppView m_App;
     //  private JSplitButton splitButton;
 
     /** Creates new form JCustomerFinder */
-    private JCustomerFinder(java.awt.Frame parent, boolean modal) {
+    private JCustomerFinder(java.awt.Frame parent, boolean modal, AppView app) {
         super(parent, modal);
+        m_App = app;
     }
 
     /**
      * Creates new form JCustomerFinder
      */
-    private JCustomerFinder(java.awt.Dialog parent, boolean modal) {
+    private JCustomerFinder(java.awt.Dialog parent, boolean modal, AppView app) {
         super(parent, modal);
+        m_App = app;
     }
 
     /**
@@ -58,17 +61,23 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
      * @param dlCustomers
      * @return
      */
-    public static JCustomerFinder getCustomerFinder(Component parent, DataLogicCustomers dlCustomers) {
+    public static JCustomerFinder getCustomerFinder(Component parent, DataLogicCustomers dlCustomers, AppView app) {
         Window window = getWindow(parent);
 
         JCustomerFinder myMsg;
         if (window instanceof Frame) {
-            myMsg = new JCustomerFinder((Frame) window, true);
+            myMsg = new JCustomerFinder((Frame) window, true, app);
         } else {
-            myMsg = new JCustomerFinder((Dialog) window, true);
+            myMsg = new JCustomerFinder((Dialog) window, true, app);
         }
         myMsg.init(dlCustomers);
         myMsg.applyComponentOrientation(parent.getComponentOrientation());
+        if(null == app){
+            myMsg.jNewCustomer.setVisible(false);
+        }
+        else {
+            myMsg.jNewCustomer.setVisible(true);
+        }
         return myMsg;
     }
 
@@ -240,6 +249,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         m_jtxtName = new javax.swing.JTextField();
         m_jtxtPhone = new javax.swing.JTextField();
         m_jEmail = new javax.swing.JTextField();
+        jNewCustomer = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListCustomers = new javax.swing.JList();
@@ -254,7 +264,6 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("form.customertitle")); // NOI18N
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(650, 433));
 
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -295,6 +304,22 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
             }
         });
 
+        jNewCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/customer_add_sml.png"))); // NOI18N
+        jNewCustomer.setToolTipText("Add New Customer");
+        jNewCustomer.setEnabled(false);
+        jNewCustomer.setFocusPainted(false);
+        jNewCustomer.setFocusable(false);
+        jNewCustomer.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        jNewCustomer.setMaximumSize(new java.awt.Dimension(50, 40));
+        jNewCustomer.setMinimumSize(new java.awt.Dimension(50, 40));
+        jNewCustomer.setPreferredSize(new java.awt.Dimension(50, 40));
+        jNewCustomer.setRequestFocusEnabled(false);
+        jNewCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNewCustomerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -310,20 +335,25 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
                     .addComponent(m_jtxtPhone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addComponent(m_jtxtName, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(m_jEmail))
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
+                .addComponent(jNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jtxtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLblPhone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(m_jtxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jNewCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jtxtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLblPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(m_jtxtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -445,12 +475,14 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
                     executeSearch();
-        
+                    jNewCustomer.setEnabled(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jListCustomersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListCustomersValueChanged
 
         jcmdOK.setEnabled(jListCustomers.getSelectedValue() != null);
+        CustomerInfo cust = (CustomerInfo) jListCustomers.getSelectedValue();
+        m_jtxtPhone.setText(cust.getPhone());
 
     }//GEN-LAST:event_jListCustomersValueChanged
 
@@ -481,6 +513,14 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         executeSearch();
     }//GEN-LAST:event_m_jEmailActionPerformed
 
+    private void jNewCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNewCustomerActionPerformed
+
+        // Show the custmer panel - this does deactivate
+        m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
+        dispose();
+            
+    }//GEN-LAST:event_jNewCustomerActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -488,6 +528,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLblName;
     private javax.swing.JLabel jLblPhone;
     private javax.swing.JList jListCustomers;
+    public javax.swing.JButton jNewCustomer;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

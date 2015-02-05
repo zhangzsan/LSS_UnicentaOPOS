@@ -661,7 +661,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             visorTicketLine(oLine);
             printPartialTotals();   
             stateToZero();  
-
+            listener.stop(); //If the current sale is active, do not log off.
             // event receipt
 //            executeEventAndRefresh("ticket.change");
 //  sunnytang change added by JG 3 July 2013 forum post
@@ -1826,7 +1826,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
         m_jPanContainer = new javax.swing.JPanel();
         m_jOptions = new javax.swing.JPanel();
         m_jButtons = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         btnCustomer = new javax.swing.JButton();
         btnSplit = new javax.swing.JButton();
         m_jPanelScripts = new javax.swing.JPanel();
@@ -1874,21 +1873,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
 
         m_jOptions.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/customer_add_sml.png"))); // NOI18N
-        jButton1.setToolTipText("Add New Customer");
-        jButton1.setFocusPainted(false);
-        jButton1.setFocusable(false);
-        jButton1.setMargin(new java.awt.Insets(0, 4, 0, 4));
-        jButton1.setMaximumSize(new java.awt.Dimension(50, 40));
-        jButton1.setMinimumSize(new java.awt.Dimension(50, 40));
-        jButton1.setPreferredSize(new java.awt.Dimension(50, 40));
-        jButton1.setRequestFocusEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/customer_sml.png"))); // NOI18N
         btnCustomer.setToolTipText("Show Customers");
         btnCustomer.setFocusPainted(false);
@@ -1925,8 +1909,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             m_jButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(m_jButtonsLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1937,13 +1919,11 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
             .addGroup(m_jButtonsLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(m_jButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5))
         );
 
-        jButton1.getAccessibleContext().setAccessibleDescription("Add New Customer(Ctrl+N)");
         btnCustomer.getAccessibleContext().setAccessibleDescription("Show Customers(Ctrl+S)");
 
         m_jOptions.add(m_jButtons, java.awt.BorderLayout.LINE_START);
@@ -2390,7 +2370,7 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
        if (listener  != null) {
             listener.stop();
         }
-       JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
+       JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers, m_App);
                 finder.search(m_oTicket.getCustomer());
                 finder.setVisible(true);
         
@@ -2469,17 +2449,6 @@ if (pickupSize!=null && (Integer.parseInt(pickupSize) >= tmpPickupId.length())){
        }
 }//GEN-LAST:event_jEditAttributesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-// Show the custmer panel - this does deactivate
-        {                                        
-m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
-
-
-
-}
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jbtnMooringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMooringActionPerformed
 // Display vessel selection box on screen if reply is good add to the ticket
        if (listener  != null) {
@@ -2549,9 +2518,6 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
                 case KeyEvent.VK_D:
                     m_jDeleteActionPerformed(null);
                     break;
-                case KeyEvent.VK_N:
-                    jButton1ActionPerformed(null);
-                    break;
                 case KeyEvent.VK_S:
                     btnCustomerActionPerformed(null);
                     break;
@@ -2572,7 +2538,6 @@ m_App.getAppUserView().showTask("com.openbravo.pos.customers.CustomersPanel");
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnSplit;
     private javax.swing.JPanel catcontainer;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jEditAttributes;
     private javax.swing.JPanel jPanel1;

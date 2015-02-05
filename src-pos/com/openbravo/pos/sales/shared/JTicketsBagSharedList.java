@@ -48,12 +48,17 @@ public class JTicketsBagSharedList extends javax.swing.JDialog {
     /**
      *
      * @param atickets
+     * @param location
      * @return
      */
-    public String showTicketsList(java.util.List<SharedTicketInfo> atickets) {
+    public String showTicketsList(java.util.List<SharedTicketInfo> atickets, String location) {
         
         for (SharedTicketInfo aticket : atickets) {
-            m_jtickets.add(new JButtonTicket(aticket));
+            System.out.println(aticket.getName() + " - " + aticket.getLocation());
+            if(location.equals(aticket.getLocation())){
+                System.out.println("\tMatched!  "+aticket.getName());
+                m_jtickets.add(new JButtonTicket(aticket));
+            }
         }  
      
         m_sDialogTicket = null;

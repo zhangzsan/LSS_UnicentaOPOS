@@ -405,7 +405,7 @@ public class SimpleReceipt extends javax.swing.JPanel {
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         
-        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
+        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers, null);
         finder.search(ticket.getCustomer());
         finder.setVisible(true);
         

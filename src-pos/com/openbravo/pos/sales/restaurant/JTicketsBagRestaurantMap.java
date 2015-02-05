@@ -581,7 +581,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
                         ticket = new TicketInfo();
                         try {
 //Create a new pickup code because this is a new ticket                            
-                        dlReceipts.insertSharedTicket(m_place.getId(), ticket, ticket.getPickupId());               
+                        dlReceipts.insertSharedTicket(m_place.getId(), ticket, ticket.getPickupId(), m_App.getInventoryLocation());               
                         } catch (BasicException e) {
                             new MessageInf(e).show(JTicketsBagRestaurantMap.this); // Glup. But It was empty.
                         }                     
@@ -623,7 +623,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
                         }                     
                         
                         try {      
-                            dlReceipts.insertSharedTicket(m_place.getId(), ticket, ticket.getPickupId());    
+                            dlReceipts.insertSharedTicket(m_place.getId(), ticket, ticket.getPickupId(), m_App.getInventoryLocation());    
                         } catch (BasicException e) {
                             new MessageInf(e).show(JTicketsBagRestaurantMap.this); // Glup. But It was empty.
                         }                     
@@ -664,7 +664,7 @@ public class JTicketsBagRestaurantMap extends JTicketsBag {
 ////
                         if (ticket == null) {
                             try {
-                                dlReceipts.insertSharedTicket(m_place.getId(), ticketclip, ticketclip.getPickupId());//dlSales.getNextPickupIndex());
+                                dlReceipts.insertSharedTicket(m_place.getId(), ticketclip, ticketclip.getPickupId(), m_App.getInventoryLocation());//dlSales.getNextPickupIndex());
                                 m_place.setPeople(true);                              
                                 dlReceipts.deleteSharedTicket(m_PlaceClipboard.getId());
                                 m_PlaceClipboard.setPeople(false);

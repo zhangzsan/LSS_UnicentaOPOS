@@ -30,7 +30,6 @@ import com.openbravo.pos.customers.JCustomerFinder;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import java.awt.Component;
-import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -159,7 +158,7 @@ public class JParamsCustomer extends javax.swing.JPanel implements ReportEditorC
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
 
-        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
+        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers, null);
         finder.search(currentcustomer);
         finder.setVisible(true);
         currentcustomer = finder.getSelectedCustomer();

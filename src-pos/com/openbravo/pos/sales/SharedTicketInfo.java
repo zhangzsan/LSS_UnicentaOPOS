@@ -35,6 +35,7 @@ public class SharedTicketInfo implements SerializableRead, SerializableWrite {
     private String id;
     private String name;
     private String UserName;
+    private String location;
     
     /** Creates a new instance of SharedTicketInfo */
     public SharedTicketInfo() {
@@ -50,6 +51,7 @@ public class SharedTicketInfo implements SerializableRead, SerializableWrite {
         id = dr.getString(1);
         name = dr.getString(2);
         UserName = dr.getString(3);
+        location = dr.getString(5);
     }   
 
     /**
@@ -62,6 +64,7 @@ public class SharedTicketInfo implements SerializableRead, SerializableWrite {
         dp.setString(1, id);
         dp.setString(2, name);
         dp.setString(3, UserName);
+        dp.setString(4, location);
     }
     
     /**
@@ -88,5 +91,9 @@ public class SharedTicketInfo implements SerializableRead, SerializableWrite {
      */
         public String getAppUser() {
         return UserName;
+    }
+        
+    public String getLocation(){
+        return location;
     }
 }

@@ -27,7 +27,6 @@ import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.BeanFactoryException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JPanel;
 
 /**
  *
@@ -85,7 +84,7 @@ public class PanelReportBean extends JPanelReport {
      * @return
      */
     @Override
-    protected EditorCreator getEditorCreator() {
+    public EditorCreator getEditorCreator() {
         
         return qbffilter;
     }
@@ -178,7 +177,7 @@ public class PanelReportBean extends JPanelReport {
      *
      * @return
      */
-    protected BaseSentence getSentence() {
+    public BaseSentence getSentence() {
         return new StaticSentence(m_App.getSession()
             , new QBFBuilder(sentence, paramnames.toArray(new String[paramnames.size()]))
             , qbffilter.getSerializerWrite()

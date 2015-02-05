@@ -517,7 +517,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
 
-        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlcustomers);
+        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlcustomers, null);
         finder.search(null);
         finder.setVisible(true);
         CustomerInfo customer = finder.getSelectedCustomer();

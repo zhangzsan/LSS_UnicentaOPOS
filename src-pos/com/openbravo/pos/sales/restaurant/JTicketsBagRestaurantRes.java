@@ -44,7 +44,7 @@ import com.openbravo.pos.customers.CustomerInfo;
 public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements EditorRecord {
 
     private JTicketsBagRestaurantMap m_restaurantmap;
-    
+    private AppView m_App;
     private DataLogicCustomers dlCustomers = null;
     
     private DirtyManager m_Dirty;
@@ -67,7 +67,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
      * @param oApp
      * @param restaurantmap */
     public JTicketsBagRestaurantRes(AppView oApp, JTicketsBagRestaurantMap restaurantmap) {
-        
+        m_App = oApp;
         m_restaurantmap = restaurantmap;
         
         dlCustomers = (DataLogicCustomers) oApp.getBean("com.openbravo.pos.customers.DataLogicCustomers");
@@ -546,7 +546,7 @@ public class JTicketsBagRestaurantRes extends javax.swing.JPanel implements Edit
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
+        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers, m_App);
         finder.search(customer);
         finder.setVisible(true);
         

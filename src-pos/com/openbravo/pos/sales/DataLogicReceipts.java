@@ -82,7 +82,7 @@ public class DataLogicReceipts extends BeanFactoryDataSingle {
         return (List<SharedTicketInfo>) new StaticSentence(s
 // JG 20 Aug 13 Bug Fix: invalid SQL string
 //                , "SELECT ID, NAME, CONTENT PICKUPID FROM SHAREDTICKETS ORDER BY ID"                
-                , "SELECT ID, NAME, CONTENT, PICKUPID FROM SHAREDTICKETS ORDER BY ID"
+                , "SELECT ID, NAME, CONTENT, PICKUPID, LOCATION FROM SHAREDTICKETS ORDER BY ID"
                 , null
                 , new SerializerReadClass(SharedTicketInfo.class)).list();
     }
@@ -124,29 +124,35 @@ public class DataLogicReceipts extends BeanFactoryDataSingle {
      * @param pickupid
      * @throws BasicException
      */
-    public final void insertSharedTicket(final String id, final TicketInfo ticket, int pickupid) throws BasicException {
+    public final void insertSharedTicket(final String id, final TicketInfo ticket, int pickupid, String location) throws BasicException {
         
         Object[] values = new Object[] {
             id, 
             ticket.getName(), 
-            ticket, pickupid, 
-            ticket.getUser()
+            ticket,
+            ticket.getUser().getName(),
+            pickupid, 
+            location,
         };
         Datas[] datas;
         datas = new Datas[] {
             Datas.STRING, 
             Datas.STRING, 
             Datas.SERIALIZABLE, 
-            Datas.INT
+            Datas.STRING,
+            Datas.INT,
+            Datas.STRING    
         };
         new PreparedSentence(s
             , "INSERT INTO SHAREDTICKETS ("
                 + "ID, "
                 + "NAME, "
                 + "CONTENT, "
-                + "PICKUPID) "
-                + "VALUES (?, ?, ?, ?)"
-            , new SerializerWriteBasicExt(datas, new int[] {0, 1, 2, 3})).exec(values);
+                + "APPUSER,"
+                + "PICKUPID, "
+                + "LOCATION)"    
+                + "VALUES (?, ?, ?, ?, ?, ?)"
+            , new SerializerWriteBasicExt(datas, new int[] {0, 1, 2, 3, 4, 5})).exec(values);
     }
     
     /**

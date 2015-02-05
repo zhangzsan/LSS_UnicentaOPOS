@@ -125,8 +125,9 @@ public class TicketLineInfo implements SerializableWrite, SerializableRead, Seri
         } else {
             pid = product.getID();
 // JDL 20.12.20 set product name to a default rather than blank    TO DO        
-            attributes.setProperty("product.name", product.getName());
-               attributes.setProperty("product.com", product.isCom() ? "true" : "false");
+        attributes.setProperty("product.name", product.getName());
+        attributes.setProperty("product.reference", product.getReference());
+        attributes.setProperty("product.com", product.isCom() ? "true" : "false");
 // ADDED JG 20.12.10 - Kitchen Print
 	attributes.setProperty("product.kitchen", product.isKitchen() ? "true" : "false");
 // ***

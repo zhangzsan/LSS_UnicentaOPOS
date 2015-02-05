@@ -30,6 +30,7 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.*;
 import com.openbravo.pos.printer.TicketParser;
 import com.openbravo.pos.printer.TicketPrinterException;
+import com.openbravo.pos.reports.JParamsComposed;
 import com.openbravo.pos.reports.PanelReportBean;
 import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
@@ -45,6 +46,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -76,7 +79,7 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
     /** Creates new form JPanelCloseMoney */
     public JPanelCloseMoney() {
         
-        initComponents();                   
+        initComponents();
     }
     
     /**
@@ -117,7 +120,6 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                    jPanelTop.setVisible(false);
                    jPanelBottom.setVisible(true);
         }        
-
     }}
     
     /**
@@ -284,10 +286,16 @@ public class JPanelCloseMoney extends JPanel implements JPanelView, BeanFactoryA
                             "/com/openbravo/reports/salebycustomer.bs"};
         
         for(String report : reports) {
-             PanelReportBean bean = (PanelReportBean)  m_App.getBean(report);
-             bean.launchreport();
-             JRViewer300 jr = bean.getJRViewer300();
-             jr.printReport(false);
+            try {
+                PanelReportBean bean = (PanelReportBean)  m_App.getBean(report);
+                bean.init(m_App);
+                bean.activate();
+                bean.launchreport();
+                JRViewer300 jr = bean.getJRViewer300();
+                jr.printReport(false);
+            } catch (BasicException ex) {
+                Logger.getLogger(JPanelCloseMoney.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
            
     }

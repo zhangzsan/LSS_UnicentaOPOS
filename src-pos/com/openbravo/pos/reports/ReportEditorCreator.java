@@ -23,7 +23,6 @@ import com.openbravo.basic.BasicException;
 import com.openbravo.data.user.FilterEditorCreator;
 import com.openbravo.pos.forms.AppView;
 import java.awt.Component;
-import javax.swing.JPanel;
 
 /**
  *
@@ -34,7 +33,6 @@ public interface ReportEditorCreator extends FilterEditorCreator {
     /**
      *
      * @param app
-     * @param panel
      */
     public void init(AppView app);
 

@@ -43,6 +43,7 @@ public class JTicketsBagShared extends JTicketsBag {
     
     private String m_sCurrentTicket = null;
     private DataLogicReceipts dlReceipts = null;
+    private final AppView m_App;
     
     
     /** Creates new form JTicketsBagShared
@@ -51,7 +52,7 @@ public class JTicketsBagShared extends JTicketsBag {
     public JTicketsBagShared(AppView app, TicketsEditor panelticket) {
         
         super(app, panelticket);
-        
+        m_App = app;
         dlReceipts = (DataLogicReceipts) app.getBean("com.openbravo.pos.sales.DataLogicReceipts");
         
         initComponents();
@@ -80,7 +81,7 @@ public class JTicketsBagShared extends JTicketsBag {
     public boolean deactivate() {
         
         // precondicion es que tenemos ticket activado aqui y ticket en el panel 
-        saveCurrentTicket();
+        //saveCurrentTicket();
         
         m_sCurrentTicket = null;
         m_panelticket.setActiveTicket(null, null);       
@@ -123,7 +124,7 @@ public class JTicketsBagShared extends JTicketsBag {
 // save current ticket, if exists,
         if (m_sCurrentTicket != null) {
             try {
-                dlReceipts.insertSharedTicket(m_sCurrentTicket, m_panelticket.getActiveTicket(),m_panelticket.getActiveTicket().getPickupId());
+                dlReceipts.insertSharedTicket(m_sCurrentTicket, m_panelticket.getActiveTicket(),m_panelticket.getActiveTicket().getPickupId(),m_App.getInventoryLocation());
                 
                 TicketInfo l = dlReceipts.getSharedTicket(m_sCurrentTicket);
                     if(l.getLinesCount() == 0) {
@@ -174,7 +175,7 @@ public class JTicketsBagShared extends JTicketsBag {
     
     private void newTicket() {      
         
-        saveCurrentTicket();
+        //saveCurrentTicket();
 
         TicketInfo ticket = new TicketInfo();    
         m_sCurrentTicket = UUID.randomUUID().toString(); // m_fmtid.format(ticket.getId());
@@ -193,6 +194,7 @@ public class JTicketsBagShared extends JTicketsBag {
         m_jNewTicket = new javax.swing.JButton();
         m_jDelTicket = new javax.swing.JButton();
         m_jListTickets = new javax.swing.JButton();
+        m_jSaveTicket = new javax.swing.JButton();
 
         setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         setLayout(new java.awt.BorderLayout());
@@ -245,6 +247,22 @@ public class JTicketsBagShared extends JTicketsBag {
         });
         jPanel1.add(m_jListTickets);
 
+        m_jSaveTicket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/savetab.png"))); // NOI18N
+        m_jSaveTicket.setToolTipText("Layaways");
+        m_jSaveTicket.setFocusPainted(false);
+        m_jSaveTicket.setFocusable(false);
+        m_jSaveTicket.setMargin(new java.awt.Insets(0, 4, 0, 4));
+        m_jSaveTicket.setMaximumSize(new java.awt.Dimension(50, 40));
+        m_jSaveTicket.setMinimumSize(new java.awt.Dimension(50, 40));
+        m_jSaveTicket.setPreferredSize(new java.awt.Dimension(50, 40));
+        m_jSaveTicket.setRequestFocusEnabled(false);
+        m_jSaveTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jSaveTicketActionPerformed(evt);
+            }
+        });
+        jPanel1.add(m_jSaveTicket);
+
         add(jPanel1, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -259,7 +277,7 @@ public class JTicketsBagShared extends JTicketsBag {
                     List<SharedTicketInfo> l = dlReceipts.getSharedTicketList();
 
                     JTicketsBagSharedList listDialog = JTicketsBagSharedList.newJDialog(JTicketsBagShared.this);
-                    String id = listDialog.showTicketsList(l); 
+                    String id = listDialog.showTicketsList(l, m_App.getInventoryLocation()); 
 
                     if (id != null) {
                         saveCurrentTicket();
@@ -289,6 +307,11 @@ public class JTicketsBagShared extends JTicketsBag {
         newTicket();
         
     }//GEN-LAST:event_m_jNewTicketActionPerformed
+
+    private void m_jSaveTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jSaveTicketActionPerformed
+        saveCurrentTicket();
+        newTicket();
+    }//GEN-LAST:event_m_jSaveTicketActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -296,6 +319,7 @@ public class JTicketsBagShared extends JTicketsBag {
     private javax.swing.JButton m_jDelTicket;
     private javax.swing.JButton m_jListTickets;
     private javax.swing.JButton m_jNewTicket;
+    private javax.swing.JButton m_jSaveTicket;
     // End of variables declaration//GEN-END:variables
     
 }

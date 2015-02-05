@@ -33,7 +33,7 @@ public class StaticSentence extends JDBCSentence {
     private static final Logger logger = Logger.getLogger("com.openbravo.data.loader.StaticSentence");
     
     private ISQLBuilderStatic m_sentence;
-
+    private String sentence;
     /**
      *
      */
@@ -110,7 +110,7 @@ public class StaticSentence extends JDBCSentence {
         try {
             m_Stmt = m_s.getConnection().createStatement();
 
-            String sentence = m_sentence.getSQL(m_SerWrite, params);
+             sentence = m_sentence.getSQL(m_SerWrite, params);
             
            logger.log(Level.INFO, "Executing static SQL: {0}", sentence);
 
@@ -172,5 +172,9 @@ public class StaticSentence extends JDBCSentence {
             throw new BasicException(eSQL);
         }
     }    
+    
+    public String printSentence(){
+        return sentence;
+    }
     
 }

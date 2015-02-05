@@ -28,7 +28,6 @@ import com.openbravo.pos.forms.DataLogicSales;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JPanel;
 
 /**
  *
@@ -57,6 +56,7 @@ public class JParamsLocation extends javax.swing.JPanel implements ReportEditorC
         // El modelo de locales
         m_sentlocations = dlSales.getLocationsList();
         m_LocationsModel = new ComboBoxValModel();   
+        m_LocationsModel.setSelectedKey(location);
     }
         
     /**
@@ -69,8 +69,8 @@ public class JParamsLocation extends javax.swing.JPanel implements ReportEditorC
         addFirst(a);
         m_LocationsModel = new ComboBoxValModel(a);
        // m_LocationsModel.setSelectedFirst();
-        m_LocationsModel.setSelectedKey(location);
         m_jLocation.setModel(m_LocationsModel); // refresh model   
+        m_LocationsModel.setSelectedKey(location);
     }
     
     /**
@@ -164,7 +164,7 @@ public class JParamsLocation extends javax.swing.JPanel implements ReportEditorC
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     
