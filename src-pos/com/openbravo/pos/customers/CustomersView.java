@@ -414,8 +414,12 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         jTable1.setEnabled(true);
     }
     
-        private String formatName(String name)
+    private String formatName(String name)
     {
+        if(name.startsWith("//")){
+            return name.substring(2, name.length());
+        }
+        
         char[] nameArr = name.toCharArray();
         
         boolean newName = true;
